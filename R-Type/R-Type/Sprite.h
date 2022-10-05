@@ -18,6 +18,7 @@ class Sprite
 
 protected:
 	Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Texture *spritesheet, ShaderProgram *program);
+	void continueAnimation(int deltaTime, bool ascending);
 
 public:
 	// Textured quads can only be created inside an OpenGL context

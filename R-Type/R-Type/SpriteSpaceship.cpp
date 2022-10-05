@@ -21,41 +21,23 @@ void SpriteSpaceship::update(int deltaTime) {
 				changeAnimation(STAND);
 			}
 			else if (currentKeyframe > 2) {
-				timeAnimation += deltaTime;
-				while (timeAnimation > animations[currentAnimation].millisecsPerKeyframe)
-				{
-					timeAnimation -= animations[currentAnimation].millisecsPerKeyframe;
-					currentKeyframe = (currentKeyframe - 1) % animations[currentAnimation].keyframeDispl.size();
-				}
-				texCoordDispl = animations[currentAnimation].keyframeDispl[currentKeyframe];
+				continueAnimation(deltaTime, false);
 			}
 			else /*if (currentKeyframe < 2)*/ {
-				timeAnimation += deltaTime;
-				while (timeAnimation > animations[currentAnimation].millisecsPerKeyframe)
-				{
-					timeAnimation -= animations[currentAnimation].millisecsPerKeyframe;
-					currentKeyframe = (currentKeyframe + 1) % animations[currentAnimation].keyframeDispl.size();
-				}
-				texCoordDispl = animations[currentAnimation].keyframeDispl[currentKeyframe];
+				continueAnimation(deltaTime, true);
 			}
 		}
-		else /*currentAnimation in {MOVE_UP, MOVE_DOWN}*/ {
-			if (currentAnimation == MOVE_UP && currentKeyframe == animations[currentAnimation].keyframeDispl.size() - 1) {
+		else if (currentAnimation == MOVE_UP) {
+			if (currentKeyframe == animations[currentAnimation].keyframeDispl.size() - 1)
 				changeAnimation(STAND_UP);
-			}
-			if (currentAnimation == MOVE_DOWN && currentKeyframe == animations[currentAnimation].keyframeDispl.size() - 1) {
+			else
+				continueAnimation(deltaTime, true);
+		}
+		else if (currentAnimation == MOVE_DOWN) {
+			if (currentKeyframe == animations[currentAnimation].keyframeDispl.size() - 1)
 				changeAnimation(STAND_DOWN);
-			}
-			else {
-				timeAnimation += deltaTime;
-				while (timeAnimation > animations[currentAnimation].millisecsPerKeyframe)
-				{
-					timeAnimation -= animations[currentAnimation].millisecsPerKeyframe;
-					currentKeyframe = (currentKeyframe + 1) % animations[currentAnimation].keyframeDispl.size();
-				}
-				texCoordDispl = animations[currentAnimation].keyframeDispl[currentKeyframe];
-			}
-
+			else
+				continueAnimation(deltaTime, false);
 		}
 	}
 }
@@ -63,7 +45,7 @@ void SpriteSpaceship::update(int deltaTime) {
 void SpriteSpaceship::changeAnimation(int animId) {
 	if (animId < int(animations.size()))
 	{
-		// TODO: Definir las transiciones entre animaciones. De STAND* a otras se resetea el keyframe al 0.
+		int prevAnimation = currentAnimation;
 		currentAnimation = animId;
 		timeAnimation = 0.f;
 		if (currentAnimation == STAND || currentAnimation == STAND_DOWN || currentAnimation == STAND_UP) {

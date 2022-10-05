@@ -66,7 +66,10 @@ static void drawCallback()
 
 static void idleCallback()
 {
+	// Total time elapsed since the start of the execution
 	int currentTime = glutGet(GLUT_ELAPSED_TIME);
+	// Time used by this frame
+	// prevTime is the elapsed time since the start of the execution until the previous frame
 	int deltaTime = currentTime - prevTime;
 	
 	if(deltaTime > TIME_PER_FRAME)

@@ -28,7 +28,7 @@ private:
 	Texture spritesheet;
 	Sprite *sprite;
 	TileMap *map;
-
+	glm::ivec2 playerSize;
 };
 
 

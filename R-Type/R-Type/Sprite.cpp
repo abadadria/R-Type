@@ -34,15 +34,23 @@ Sprite::Sprite(const glm::vec2& quadSize, const glm::vec2& sizeInSpritesheet, Te
 	position = glm::vec2(0.f);
 }
 
-void Sprite::continueAnimation(int deltaTime, bool ascending) {
+void Sprite::continueAnimation(int deltaTime, bool ascending, bool loop) {
 	timeAnimation += deltaTime;
 	while (timeAnimation > animations[currentAnimation].millisecsPerKeyframe)
 	{
 		timeAnimation -= animations[currentAnimation].millisecsPerKeyframe;
-		if (ascending && (currentKeyframe + 1) < animations[currentAnimation].keyframeDispl.size())
-			currentKeyframe++;
-		else if (!ascending && (currentKeyframe - 1) >= 0)
-			currentKeyframe--;
+		if (loop) {
+			if (ascending)
+				currentKeyframe = (currentKeyframe + 1) % animations[currentAnimation].keyframeDispl.size();
+			else if (!ascending)
+				currentKeyframe = (currentKeyframe - 1) % animations[currentAnimation].keyframeDispl.size();
+		}
+		else {
+			if (ascending && (currentKeyframe + 1) < animations[currentAnimation].keyframeDispl.size())
+				currentKeyframe++;
+			else if (!ascending && (currentKeyframe - 1) >= 0)
+				currentKeyframe--;
+		}		
 	}
 	texCoordDispl = animations[currentAnimation].keyframeDispl[currentKeyframe];
 }

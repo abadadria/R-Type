@@ -2,7 +2,7 @@
 
 enum PlayerAnims
 {
-	STAND, STAND_UP, STAND_DOWN, MOVE_UP, MOVE_DOWN, GO_BACK
+	STAND, MOVE_UP, MOVE_DOWN, GO_BACK
 };
 
 SpriteSpaceship::SpriteSpaceship(const glm::vec2& quadSize, const glm::vec2& sizeInSpritesheet, Texture* spritesheet, ShaderProgram* program) : Sprite(quadSize, sizeInSpritesheet, spritesheet, program) {};
@@ -14,31 +14,24 @@ SpriteSpaceship* SpriteSpaceship::createSpriteSpaceship(const glm::vec2& quadSiz
 }
 
 void SpriteSpaceship::update(int deltaTime) {
-	if (currentAnimation != STAND && currentAnimation != STAND_DOWN && currentAnimation != STAND_UP)
-	{
-		if (currentAnimation == GO_BACK) {
-			if (currentKeyframe == 2) {
-				changeAnimation(STAND);
-			}
-			else if (currentKeyframe > 2) {
-				continueAnimation(deltaTime, false);
-			}
-			else /*if (currentKeyframe < 2)*/ {
-				continueAnimation(deltaTime, true);
-			}
+	if (currentAnimation == STAND) return;
+
+	if (currentAnimation == GO_BACK) {
+		if (currentKeyframe == 2) {
+			changeAnimation(STAND);
 		}
-		else if (currentAnimation == MOVE_UP) {
-			if (currentKeyframe == animations[currentAnimation].keyframeDispl.size() - 1)
-				changeAnimation(STAND_UP);
-			else
-				continueAnimation(deltaTime, true);
+		else if (currentKeyframe > 2) {
+			continueAnimation(deltaTime, false, false);
 		}
-		else if (currentAnimation == MOVE_DOWN) {
-			if (currentKeyframe == animations[currentAnimation].keyframeDispl.size() - 1)
-				changeAnimation(STAND_DOWN);
-			else
-				continueAnimation(deltaTime, false);
+		else /*if (currentKeyframe < 2)*/ {
+			continueAnimation(deltaTime, true, false);
 		}
+	}
+	else if (currentAnimation == MOVE_UP) {
+		continueAnimation(deltaTime, true, false);
+	}
+	else if (currentAnimation == MOVE_DOWN) {
+		continueAnimation(deltaTime, false, false);
 	}
 }
 
@@ -48,9 +41,13 @@ void SpriteSpaceship::changeAnimation(int animId) {
 		int prevAnimation = currentAnimation;
 		currentAnimation = animId;
 		timeAnimation = 0.f;
-		if (currentAnimation == STAND || currentAnimation == STAND_DOWN || currentAnimation == STAND_UP) {
+		if (currentAnimation == STAND) {
 			currentKeyframe = 0;
 			texCoordDispl = animations[animId].keyframeDispl[0];
+		}
+		else if (prevAnimation == STAND && (currentAnimation == MOVE_UP || currentAnimation == MOVE_DOWN)) {
+			currentKeyframe = 2;
+			texCoordDispl = animations[animId].keyframeDispl[2];
 		}
 	}
 }

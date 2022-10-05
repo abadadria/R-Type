@@ -14,7 +14,7 @@
 
 enum PlayerAnims
 {
-	STAND, STAND_UP, STAND_DOWN, MOVE_UP, MOVE_DOWN, GO_BACK
+	STAND, MOVE_UP, MOVE_DOWN, GO_BACK
 };
 
 
@@ -23,32 +23,28 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	bJumping = false;
 	spritesheet.loadFromFile("images/spaceship.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = SpriteSpaceship::createSpriteSpaceship(glm::ivec2(32, 16), glm::vec2(0.25, 0.5), &spritesheet, &shaderProgram);
-	sprite->setNumberAnimations(6);
-	
-		sprite->setAnimationSpeed(STAND, 4);
+	sprite->setNumberAnimations(4);
+		
+		int keyframesPerSec = 12;
+
+		sprite->setAnimationSpeed(STAND, keyframesPerSec);
 		sprite->addKeyframe(STAND, glm::vec2(0.f, 0.f));
 
-		sprite->setAnimationSpeed(STAND_UP, 4);
-		sprite->addKeyframe(STAND_UP, glm::vec2(0.5f, 0.f));
-
-		sprite->setAnimationSpeed(STAND_DOWN, 4);
-		sprite->addKeyframe(STAND_DOWN, glm::vec2(0.5f, 0.5f));
-
-		sprite->setAnimationSpeed(MOVE_UP, 4);
+		sprite->setAnimationSpeed(MOVE_UP, keyframesPerSec);
 		sprite->addKeyframe(MOVE_UP, glm::vec2(0.5f, 0.5f));
 		sprite->addKeyframe(MOVE_UP, glm::vec2(0.25f, 0.5f));
 		sprite->addKeyframe(MOVE_UP, glm::vec2(0.f, 0.f));
 		sprite->addKeyframe(MOVE_UP, glm::vec2(0.25f, 0.0f));
 		sprite->addKeyframe(MOVE_UP, glm::vec2(0.5f, 0.0f));
 
-		sprite->setAnimationSpeed(MOVE_DOWN, 4);
+		sprite->setAnimationSpeed(MOVE_DOWN, keyframesPerSec);
 		sprite->addKeyframe(MOVE_DOWN, glm::vec2(0.5f, 0.5f));
 		sprite->addKeyframe(MOVE_DOWN, glm::vec2(0.25f, 0.5f));
 		sprite->addKeyframe(MOVE_DOWN, glm::vec2(0.f, 0.f));
 		sprite->addKeyframe(MOVE_DOWN, glm::vec2(0.25f, 0.0f));
 		sprite->addKeyframe(MOVE_DOWN, glm::vec2(0.5f, 0.0f));
 
-		sprite->setAnimationSpeed(GO_BACK, 4);
+		sprite->setAnimationSpeed(GO_BACK, keyframesPerSec);
 		sprite->addKeyframe(GO_BACK, glm::vec2(0.5f, 0.5f));
 		sprite->addKeyframe(GO_BACK, glm::vec2(0.25f, 0.5f));
 		sprite->addKeyframe(GO_BACK, glm::vec2(0.f, 0.f));
@@ -72,14 +68,14 @@ void Player::update(int deltaTime)
 	arrow["LEFT"] = Game::instance().getSpecialKey(GLUT_KEY_LEFT);
 	if (arrow["UP"] && !arrow["DOWN"]) {
 		posPlayer.y -= 2;
-		if (sprite->animation() != MOVE_UP && sprite->animation() != STAND_UP)
+		if (sprite->animation() != MOVE_UP)
 			sprite->changeAnimation(MOVE_UP);
 		//if (map->collisionMoveRight(posPlayer, playerSize))
 		//	posPlayer.y += 2;
 	}
 	if (arrow["DOWN"] && !arrow["UP"]) {
 		posPlayer.y += 2;
-		if (sprite->animation() != MOVE_DOWN && sprite->animation() != STAND_DOWN)
+		if (sprite->animation() != MOVE_DOWN)
 			sprite->changeAnimation(MOVE_DOWN);
 		//if (map->collisionMoveRight(posPlayer, playerSize))
 		//	posPlayer.y -= 2;

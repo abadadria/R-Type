@@ -2,11 +2,11 @@
 #define _PLAYER_INCLUDE
 
 
-#include "Sprite.h"
+#include "SpriteSpaceship.h"
 #include "TileMap.h"
 
 
-// Player is basically a Sprite that represents the player. As such it has
+// Player is basically a SpriteSpaceship that represents the player. As such it has
 // all properties it needs to track its movement, jumping, and collisions.
 
 
@@ -26,7 +26,7 @@ private:
 	glm::ivec2 tileMapDispl, posPlayer;
 	int jumpAngle, startY;
 	Texture spritesheet;
-	Sprite *sprite;
+	SpriteSpaceship *sprite;
 	TileMap *map;
 	glm::ivec2 playerSize;
 };

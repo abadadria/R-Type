@@ -13,34 +13,40 @@ void Game::init()
 
 bool Game::update(int deltaTime)
 {
-	scene.update(deltaTime);
-	switch (state) {
-	case MAIN_MENU:
-		glClearColor(1.f, 0.3f, 0.3f, 1.0f);
-		break;
-
-	case PLAYING:
-		scene.render();
-		break;
-
-	case INSTRUCTIONS:
-		glClearColor(0.3f, 1.f, 0.3f, 1.0f);
-		break;
-
-	case CREDITS:
-		glClearColor(0.3f, 0.3f, 1.f, 1.0f);
-		break;
-	}
+	if (state == PLAYING) 
+		scene.update(deltaTime, true);
+	else 
+		scene.update(deltaTime, false);
 	return exit_game;
 }
 
 void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-	// aqui va main_menu.render()
-	glClearColor(1.f, 0.3f, 0.3f, 1.0f);
-	// scene.render()
+	switch (state) {
+		case MAIN_MENU:
+			//render lo que toca
+			glClearColor(1.f, 0.3f, 0.3f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			break;
+
+		case PLAYING:
+			glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+			scene.render();
+			break;
+
+		case INSTRUCTIONS:
+			// render lo que toca
+			glClearColor(0.3f, 1.f, 0.3f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			break;
+
+		case CREDITS:
+			//render lo que toca
+			glClearColor(0.3f, 0.3f, 1.f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			break;
+	}
 }
 
 void Game::keyPressed(int key)
@@ -48,7 +54,7 @@ void Game::keyPressed(int key)
 	switch (key) {
 		case 27: // Escape code
 			if (state == PLAYING || state == INSTRUCTIONS || state == CREDITS)
-				state == MAIN_MENU;
+				state = MAIN_MENU;
 			else
 				exit_game = true;
 			break;
@@ -58,11 +64,11 @@ void Game::keyPressed(int key)
 			break;
 		case 'i':
 			if (state == MAIN_MENU)
-				state == INSTRUCTIONS;
+				state = INSTRUCTIONS;
 			break;
 		case 'c':
 			if (state == MAIN_MENU)
-				state == CREDITS;
+				state = CREDITS;
 			break;
 	}
 	keys[key] = true;

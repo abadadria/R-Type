@@ -39,10 +39,10 @@ void Scene::init()
 	currentTime = 0.0f;
 }
 
-void Scene::update(int deltaTime)
+void Scene::update(int deltaTime, bool playing)
 {
 	currentTime += deltaTime;
-	player->update(deltaTime);
+	if (playing) player->update(deltaTime);
 }
 
 void Scene::render()

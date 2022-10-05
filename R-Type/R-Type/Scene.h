@@ -20,7 +20,7 @@ public:
 	~Scene();
 
 	void init();
-	void update(int deltaTime);
+	void update(int deltaTime, bool playing);
 	void render();
 
 private:

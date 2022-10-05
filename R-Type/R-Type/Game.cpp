@@ -5,7 +5,8 @@
 
 void Game::init()
 {
-	bPlay = true;
+	exit_game = false;
+	state = MAIN_MENU;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	scene.init();
 }
@@ -13,20 +14,57 @@ void Game::init()
 bool Game::update(int deltaTime)
 {
 	scene.update(deltaTime);
-	
-	return bPlay;
+	switch (state) {
+	case MAIN_MENU:
+		glClearColor(1.f, 0.3f, 0.3f, 1.0f);
+		break;
+
+	case PLAYING:
+		scene.render();
+		break;
+
+	case INSTRUCTIONS:
+		glClearColor(0.3f, 1.f, 0.3f, 1.0f);
+		break;
+
+	case CREDITS:
+		glClearColor(0.3f, 0.3f, 1.f, 1.0f);
+		break;
+	}
+	return exit_game;
 }
 
 void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene.render();
+	
+	// aqui va main_menu.render()
+	glClearColor(1.f, 0.3f, 0.3f, 1.0f);
+	// scene.render()
 }
 
 void Game::keyPressed(int key)
 {
-	if(key == 27) // Escape code
-		bPlay = false;
+	switch (key) {
+		case 27: // Escape code
+			if (state == PLAYING || state == INSTRUCTIONS || state == CREDITS)
+				state == MAIN_MENU;
+			else
+				exit_game = true;
+			break;
+		case 13: // Enter code
+			if (state == MAIN_MENU)
+				state = PLAYING;
+			break;
+		case 'i':
+			if (state == MAIN_MENU)
+				state == INSTRUCTIONS;
+			break;
+		case 'c':
+			if (state == MAIN_MENU)
+				state == CREDITS;
+			break;
+	}
 	keys[key] = true;
 }
 

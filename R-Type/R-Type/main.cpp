@@ -75,7 +75,8 @@ static void idleCallback()
 	if(deltaTime > TIME_PER_FRAME)
 	{
 		// Every time we enter here is equivalent to a game loop execution
-		if(!Game::instance().update(deltaTime))
+		// .update(...) returns if the game has to exit
+		if(Game::instance().update(deltaTime))
 			exit(0);
 		prevTime = currentTime;
 		glutPostRedisplay();

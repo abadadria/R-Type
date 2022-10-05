@@ -8,6 +8,11 @@
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 
+#define MAIN_MENU 0
+#define PLAYING 1
+#define INSTRUCTIONS 2
+#define CREDITS 3
+
 
 // Game is a singleton (a class with a single instance) that represents our whole application
 
@@ -43,8 +48,18 @@ public:
 	bool getSpecialKey(int key) const;
 
 private:
-	bool bPlay;                       // Continue to play game?
+	/*
+		state = 0 -> Main Menu
+		state = 1 -> Playing status
+		state = 2 -> Instructions
+		state = 3 -> Credits
+	*/
+	bool exit_game;
+	int state;						  // State of the game
 	Scene scene;                      // Scene to render
+	// MainMenu main_menu;
+	// Instructions instructions;
+	// Credits credits;
 	bool keys[256], specialKeys[256]; // Store key states so that 
 	                                  // we can have access at any time
 

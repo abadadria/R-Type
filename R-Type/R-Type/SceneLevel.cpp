@@ -1,31 +1,51 @@
 #include <iostream>
 #include <cmath>
 #include <glm/gtc/matrix_transform.hpp>
-#include "Scene.h"
+#include "SceneLevel.h"
 #include "Game.h"
 
 
 #define SCREEN_X 32
 #define SCREEN_Y 16
 
-Scene::Scene() {}
+#define INIT_PLAYER_X_TILES 4
+#define INIT_PLAYER_Y_TILES 25
 
-Scene::~Scene() {}
+
+SceneLevel::SceneLevel()
+{
+	map = NULL;
+	player = NULL;
+}
+
+SceneLevel::~SceneLevel()
+{
+	if (map != NULL)
+		delete map;
+	if (player != NULL)
+		delete player;
+}
 
 
-void Scene::init()
+void SceneLevel::init()
 {
 	initShaders();
+	map = TileMap::createTileMap("levels/level01.txt", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+	player = new Player();
+	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
+	player->setTileMap(map);
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 }
 
-void Scene::update(int deltaTime, bool playing)
+void SceneLevel::update(int deltaTime, bool playing)
 {
 	currentTime += deltaTime;
+	if (playing) player->update(deltaTime);
 }
 
-void Scene::render()
+void SceneLevel::render()
 {
 	glm::mat4 modelview;
 
@@ -35,10 +55,11 @@ void Scene::render()
 	modelview = glm::mat4(1.0f);
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
-
+	map->render();
+	player->render();
 }
 
-void Scene::initShaders()
+void SceneLevel::initShaders()
 {
 	Shader vShader, fShader;
 
@@ -67,6 +88,4 @@ void Scene::initShaders()
 	vShader.free();
 	fShader.free();
 }
-
-
 

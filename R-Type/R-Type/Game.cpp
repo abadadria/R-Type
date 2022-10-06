@@ -8,15 +8,15 @@ void Game::init()
 	exit_game = false;
 	state = MAIN_MENU;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-	scene.init();
+	sceneLevel.init();
 }
 
 bool Game::update(int deltaTime)
 {
 	if (state == PLAYING) 
-		scene.update(deltaTime, true);
+		sceneLevel.update(deltaTime, true);
 	else 
-		scene.update(deltaTime, false);
+		sceneLevel.update(deltaTime, false);
 	return exit_game;
 }
 
@@ -32,7 +32,7 @@ void Game::render()
 
 		case PLAYING:
 			glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-			scene.render();
+			sceneLevel.render();
 			break;
 
 		case INSTRUCTIONS:

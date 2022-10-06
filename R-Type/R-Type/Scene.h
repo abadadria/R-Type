@@ -17,14 +17,14 @@ public:
 	Scene();
 	~Scene();
 
-	void init();
-	void update(int deltaTime, bool playing);
-	void render();
+	virtual void init();
+	virtual void update(int deltaTime, bool playing);
+	virtual void render();
 
-private:
+protected:
 	void initShaders();
 
-private:
+protected:
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;

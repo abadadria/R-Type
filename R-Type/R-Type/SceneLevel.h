@@ -2,8 +2,7 @@
 #define _SCENELEVEL_INCLUDE
 
 
-#include <glm/glm.hpp>
-#include "ShaderProgram.h"
+#include "Scene.h"
 #include "TileMap.h"
 #include "Player.h"
 
@@ -12,26 +11,20 @@
 // It is responsible for updating and render them.
 
 
-class SceneLevel
+class SceneLevel : public Scene
 {
 
 public:
 	SceneLevel();
 	~SceneLevel();
 
-	void init();
-	void update(int deltaTime, bool playing);
-	void render();
-
-private:
-	void initShaders();
+	void init() override;
+	void update(int deltaTime, bool playing) override;
+	void render() override;
 
 private:
 	TileMap* map;
 	Player* player;
-	ShaderProgram texProgram;
-	float currentTime;
-	glm::mat4 projection;
 
 };
 

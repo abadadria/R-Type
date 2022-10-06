@@ -5,8 +5,6 @@
 #include "Game.h"
 
 
-#define SCREEN_X 32
-#define SCREEN_Y 16
 
 Scene::Scene() {}
 

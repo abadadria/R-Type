@@ -118,3 +118,6 @@ ipch/
 
 # TFS 2012 Local Workspace
 $tf/
+
+# VS Debug build
+/R-Type/R-Type/Debug

@@ -18,7 +18,7 @@ public:
 	~Scene();
 
 	virtual void init();
-	virtual void update(int deltaTime, bool playing);
+	virtual void update(int deltaTime);
 	virtual void render();
 
 protected:

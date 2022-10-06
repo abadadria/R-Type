@@ -38,10 +38,10 @@ void SceneLevel::init()
 
 }
 
-void SceneLevel::update(int deltaTime, bool playing)
+void SceneLevel::update(int deltaTime)
 {
-	Scene::update(deltaTime, playing);
-	if (playing) player->update(deltaTime);
+	Scene::update(deltaTime);
+	player->update(deltaTime);
 }
 
 void SceneLevel::render()

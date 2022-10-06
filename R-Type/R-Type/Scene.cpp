@@ -18,7 +18,7 @@ void Scene::init()
 	currentTime = 0.0f;
 }
 
-void Scene::update(int deltaTime, bool playing)
+void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 }

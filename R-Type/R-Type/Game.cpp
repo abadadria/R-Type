@@ -13,11 +13,25 @@ void Game::init()
 
 bool Game::update(int deltaTime)
 {
-	if (state == PLAYING) 
-		sceneLevel.update(deltaTime, true);
-	else 
-		sceneLevel.update(deltaTime, false);
+	switch (state) {
+	case MAIN_MENU:
+		
+		break;
+
+	case PLAYING:
+		sceneLevel.update(deltaTime);
+		break;
+
+	case INSTRUCTIONS:
+		
+		break;
+
+	case CREDITS:
+		
+		break;
+	}
 	return exit_game;
+
 }
 
 void Game::render()

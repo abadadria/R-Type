@@ -19,7 +19,7 @@ public:
 	~SceneLevel();
 
 	void init() override;
-	void update(int deltaTime, bool playing) override;
+	void update(int deltaTime) override;
 	void render() override;
 
 private:

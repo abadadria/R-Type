@@ -1,29 +1,36 @@
+#include "MainMenu.h"
+
 #include <iostream>
 #include <cmath>
 #include <glm/gtc/matrix_transform.hpp>
-#include "Scene.h"
+#include "ScenePlaying.h"
 #include "Game.h"
 
 
+#define SCREEN_X 32
+#define SCREEN_Y 16
 
-Scene::Scene() {}
+#define INIT_PLAYER_X_TILES 4
+#define INIT_PLAYER_Y_TILES 25
 
-Scene::~Scene() {}
 
+MainMenu::MainMenu() {}
 
-void Scene::init()
+MainMenu::~MainMenu() {}
+
+void MainMenu::init()
 {
 	initShaders();
-	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
+	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 }
 
-void Scene::update(int deltaTime)
+void MainMenu::update(int deltaTime)
 {
 	currentTime += deltaTime;
 }
 
-void Scene::render()
+void MainMenu::render()
 {
 	glm::mat4 modelview;
 
@@ -33,10 +40,9 @@ void Scene::render()
 	modelview = glm::mat4(1.0f);
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
-
 }
 
-void Scene::initShaders()
+void MainMenu::initShaders()
 {
 	Shader vShader, fShader;
 

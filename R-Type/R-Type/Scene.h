@@ -4,11 +4,9 @@
 
 #include <glm/glm.hpp>
 #include "ShaderProgram.h"
-#include "TileMap.h"
-#include "Player.h"
 
 
-// Scene contains all the entities of our game.
+// SceneLevel contains all the entities of our game.
 // It is responsible for updating and render them.
 
 
@@ -19,16 +17,14 @@ public:
 	Scene();
 	~Scene();
 
-	void init();
-	void update(int deltaTime);
-	void render();
+	virtual void init();
+	virtual void update(int deltaTime);
+	virtual void render();
 
-private:
+protected:
 	void initShaders();
 
-private:
-	TileMap *map;
-	Player *player;
+protected:
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;

@@ -5,7 +5,8 @@ enum PlayerAnims
 	STAND, MOVE_UP, MOVE_DOWN, GO_BACK
 };
 
-SpriteSpaceship::SpriteSpaceship(const glm::vec2& quadSize, const glm::vec2& sizeInSpritesheet, Texture* spritesheet, ShaderProgram* program) : Sprite(quadSize, sizeInSpritesheet, spritesheet, program) {};
+SpriteSpaceship::SpriteSpaceship(const glm::vec2& quadSize, const glm::vec2& sizeInSpritesheet, Texture* spritesheet, ShaderProgram* program):
+	Sprite(quadSize, sizeInSpritesheet, spritesheet, program) {};
 
 SpriteSpaceship* SpriteSpaceship::createSpriteSpaceship(const glm::vec2& quadSize, const glm::vec2& sizeInSpritesheet, Texture* spritesheet, ShaderProgram* program) {
 	SpriteSpaceship* quad = new SpriteSpaceship(quadSize, sizeInSpritesheet, spritesheet, program);

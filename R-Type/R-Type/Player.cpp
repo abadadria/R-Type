@@ -67,25 +67,25 @@ void Player::update(int deltaTime)
 		posEntity.y -= 2;
 		if (sprite->animation() != MOVE_UP)
 			sprite->changeAnimation(MOVE_UP);
-		//if (map->collisionMoveRight(posEntity, entitySize))
-		//	posEntity.y += 2;
+		if (map->collisionMoveUp(posEntity, entitySize, posEntity.y))
+			posEntity.y += 2;
 	}
 	if (arrow["DOWN"] && !arrow["UP"]) {
 		posEntity.y += 2;
 		if (sprite->animation() != MOVE_DOWN)
 			sprite->changeAnimation(MOVE_DOWN);
-		//if (map->collisionMoveRight(posEntity, entitySize))
-		//	posEntity.y -= 2;
+		if (map->collisionMoveDown(posEntity, entitySize, posEntity.y))
+			posEntity.y -= 2;
 	}
 	if (arrow["RIGHT"] && !arrow["LEFT"]) {
 		posEntity.x += 2;
-		//if (map->collisionMoveRight(posEntity, entitySize))
-		//	posEntity.x -= 2;
+		if (map->collisionMoveRight(posEntity, entitySize))
+			posEntity.x -= 2;
 	}
 	if (arrow["LEFT"] && !arrow["RIGHT"]) {
 		posEntity.x -= 2;
-		//if (map->collisionMoveRight(posEntity, entitySize))
-		//	posEntity.x += 2;
+		if (map->collisionMoveLeft(posEntity, entitySize))
+			posEntity.x += 2;
 	}
 	if (!arrow["UP"] && !arrow["DOWN"] && !arrow["RIGHT"] && !arrow["LEFT"]) {
 		if (sprite->animation() != GO_BACK && sprite->animation() != STAND)

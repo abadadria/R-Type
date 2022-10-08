@@ -1,4 +1,7 @@
-#pragma once
+#ifndef _SPRITE_SPACESHIP_INCLUDE
+#define _SPRITE_SPACESHIP_INCLUDE
+
+
 #include "Sprite.h"
 
 class SpriteSpaceship : public Sprite
@@ -14,3 +17,5 @@ class SpriteSpaceship : public Sprite
 		void changeAnimation(int animId) override;
 };
 
+
+#endif

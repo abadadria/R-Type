@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "TileMap.h"
 #include "Player.h"
+#include "PassiveEntity.h"
 
 
 // SceneLevel contains all the entities of our game.
@@ -25,6 +26,7 @@ public:
 private:
 	TileMap* map;
 	Player* player;
+	PassiveEntity passiveEntities;
 
 };
 

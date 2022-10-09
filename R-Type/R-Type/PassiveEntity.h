@@ -10,9 +10,9 @@ class PassiveEntity : Entity
 
 public:;
 
-	  virtual void init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram) override; // Abstract method
-	  virtual void update(int deltaTime) override;
-	  virtual void render() override;
+	  void init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram) override; // Abstract method
+	  void update(int deltaTime) override;
+	  void render() override;
 
 };
 

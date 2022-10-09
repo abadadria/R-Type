@@ -27,7 +27,6 @@ private:
 	TileMap* map;
 	Player* player;
 	PassiveEntity passiveEntities;
-	Entity* player;
 
 };
 

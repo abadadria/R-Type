@@ -20,6 +20,7 @@
     <ClInclude Include="SceneLevel.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="ShootingEntity.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteSpaceship.h" />
     <ClInclude Include="Texture.h" />
@@ -35,6 +36,7 @@
     <ClCompile Include="SceneLevel.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="ShootingEntity.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteSpaceship.cpp" />
     <ClCompile Include="Texture.cpp" />

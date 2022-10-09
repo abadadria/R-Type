@@ -56,7 +56,7 @@ private:
 	*/
 	bool exit_game;
 	int state;						  // State of the game
-	SceneLevel sceneLevel;            // SceneLevel to render
+	SceneLevel sceneLevel;           // SceneLevel to render
 	// MainMenu main_menu;
 	// Instructions instructions;
 	// Credits credits;

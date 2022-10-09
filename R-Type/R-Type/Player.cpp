@@ -57,7 +57,6 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 void Player::update(int deltaTime)
 {
 	Entity::update(deltaTime);
-
 	std::map<string, bool> arrow;
 	arrow["UP"] = Game::instance().getSpecialKey(GLUT_KEY_UP);
 	arrow["DOWN"] = Game::instance().getSpecialKey(GLUT_KEY_DOWN);
@@ -92,6 +91,11 @@ void Player::update(int deltaTime)
 			sprite->changeAnimation(GO_BACK);
 	}
 
+	bool shoot = Game::instance().getSpecialKey(' ');
+	if (shoot) {
+		//create passive entity of type playerAmo with a direction
+	}
+
 	sprite->setPosition(glm::vec2(float(posTileMap.x + posEntity.x), float(posTileMap.y + posEntity.y)));
 }
 
@@ -99,7 +103,4 @@ void Player::render()
 {
 	Entity::render();
 }
-
-
-
 

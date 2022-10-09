@@ -19,9 +19,9 @@ void ShootingEntity::render()
 
 void ShootingEntity::addPassiveEntity(glm::ivec2 movVec, glm::ivec2 pos) {
 	PassiveEntity newPassiveEntity;
+	newPassiveEntity.init(posTileMap, texProgram);
 	newPassiveEntity.setInitialPosition(pos);
 	newPassiveEntity.setMovementVector(movVec);
-	newPassiveEntity.init(posTileMap, texProgram);
 	passiveEntities.push_back(newPassiveEntity);
 }
 

@@ -57,6 +57,12 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 
 void Player::update(int deltaTime)
 {
+	bool shoot = Game::instance().getKey(' ');
+	if (shoot) {
+		glm::ivec2 movVec(1, 0);
+		ShootingEntity::addPassiveEntity(movVec, posEntity);
+	}
+	Game::instance().keyReleased(' ');
 	ShootingEntity::update(deltaTime);
 	std::map<string, bool> arrow;
 	arrow["UP"] = Game::instance().getSpecialKey(GLUT_KEY_UP);
@@ -90,13 +96,6 @@ void Player::update(int deltaTime)
 	if (!arrow["UP"] && !arrow["DOWN"] && !arrow["RIGHT"] && !arrow["LEFT"]) {
 		if (sprite->animation() != GO_BACK && sprite->animation() != STAND)
 			sprite->changeAnimation(GO_BACK);
-	}
-
-	bool shoot = Game::instance().getKey(' ');
-	if (shoot) {
-		glm::ivec2 movVec(1, 0);
-		glm::ivec2 pos = posEntity;
-		ShootingEntity::addPassiveEntity(movVec, pos);
 	}
 
 	sprite->setPosition(glm::vec2(float(posTileMap.x + posEntity.x), float(posTileMap.y + posEntity.y)));

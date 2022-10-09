@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Game.h"
 #include "SpriteSpaceship.h"
+#include "PassiveEntity.h"
 
 
 enum PlayerAnims
@@ -51,12 +52,12 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	entitySize = glm::ivec2(32, 16);
 	posTileMap = tileMapPos;
 	sprite->setPosition(glm::vec2(float(posTileMap.x + posEntity.x), float(posTileMap.y + posEntity.y)));
-	
+	ShootingEntity::setShader(shaderProgram);
 }
 
 void Player::update(int deltaTime)
 {
-	Entity::update(deltaTime);
+	ShootingEntity::update(deltaTime);
 	std::map<string, bool> arrow;
 	arrow["UP"] = Game::instance().getSpecialKey(GLUT_KEY_UP);
 	arrow["DOWN"] = Game::instance().getSpecialKey(GLUT_KEY_DOWN);
@@ -91,9 +92,11 @@ void Player::update(int deltaTime)
 			sprite->changeAnimation(GO_BACK);
 	}
 
-	bool shoot = Game::instance().getSpecialKey(' ');
+	bool shoot = Game::instance().getKey(' ');
 	if (shoot) {
-		//create passive entity of type playerAmo with a direction
+		glm::ivec2 movVec(1, 0);
+		glm::ivec2 pos = posEntity;
+		ShootingEntity::addPassiveEntity(movVec, pos);
 	}
 
 	sprite->setPosition(glm::vec2(float(posTileMap.x + posEntity.x), float(posTileMap.y + posEntity.y)));
@@ -101,6 +104,6 @@ void Player::update(int deltaTime)
 
 void Player::render()
 {
-	Entity::render();
+	ShootingEntity::render();
 }
 

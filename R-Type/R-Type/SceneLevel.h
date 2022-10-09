@@ -26,7 +26,6 @@ public:
 private:
 	TileMap* map;
 	Player* player;
-	PassiveEntity passiveEntities;
 
 };
 

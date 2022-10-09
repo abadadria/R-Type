@@ -2,10 +2,10 @@
 #define _PLAYER_INCLUDE
 
 
-#include "Entity.h"
+#include "ShootingEntity.h"
 
 
-class Player : public Entity
+class Player : public ShootingEntity
 {
 	
 public:;

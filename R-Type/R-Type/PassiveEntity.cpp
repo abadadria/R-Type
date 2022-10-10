@@ -18,9 +18,9 @@ void PassiveEntity::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProg
 void PassiveEntity::update(int deltaTime)
 {
 	Entity::update(deltaTime);
-	this->posEntity.x += movementVector.x;
-	this->posEntity.y += movementVector.y;
-	sprite->setPosition(glm::vec2(float(posTileMap.x + posEntity.x), float(posTileMap.y + posEntity.y)));
+	posEntity.x += movementVector.x;
+	posEntity.y += movementVector.y;
+	Entity::setPosition(posEntity);
 }
 
 void PassiveEntity::render()

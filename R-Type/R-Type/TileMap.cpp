@@ -50,6 +50,45 @@ bool TileMap::loadLevel(const string &levelFile)
 	ifstream fin;
 	string line, tilesheetFile;
 	stringstream sstream;
+
+	fin.open(levelFile.c_str());
+	if (!fin.is_open())
+		return false;
+	getline(fin, line);
+	if (line.compare(0, 7, "TILEMAP") != 0)
+		return false;
+	getline(fin, line);
+	sstream.str(line);
+	sstream >> mapSize.x >> mapSize.y;
+	getline(fin, line);
+	sstream.str(line);
+	sstream >> tileSize >> blockSize;
+	getline(fin, line);
+	sstream.str(line);
+	sstream >> tilesheetFile;
+	tilesheet.loadFromFile(tilesheetFile, TEXTURE_PIXEL_FORMAT_RGBA);
+	tilesheet.setWrapS(GL_CLAMP_TO_EDGE);
+	tilesheet.setWrapT(GL_CLAMP_TO_EDGE);
+	tilesheet.setMinFilter(GL_NEAREST);
+	tilesheet.setMagFilter(GL_NEAREST);
+	tilesheetSize = mapSize;
+	tileTexSize = glm::vec2(1.f / tilesheetSize.x, 1.f / tilesheetSize.y);
+
+	map = new int[mapSize.x * mapSize.y];
+	for (int j = 0; j < mapSize.y; j++) {
+		for (int i = 0; i < mapSize.x; i++) {
+			map[j * mapSize.x + i] = 1;
+		}
+	}
+
+	fin.close();
+
+	return true;
+
+	/*
+	ifstream fin;
+	string line, tilesheetFile;
+	stringstream sstream;
 	char tile;
 	
 	fin.open(levelFile.c_str());
@@ -96,10 +135,50 @@ bool TileMap::loadLevel(const string &levelFile)
 	fin.close();
 	
 	return true;
+
+	*/
 }
 
 void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 {
+	int tile;
+	glm::vec2 posTile, texCoordTile[2], halfTexel;
+	vector<float> vertices;
+
+	nTiles = 0;
+	halfTexel = glm::vec2(0.5f / tilesheet.width(), 0.5f / tilesheet.height());
+
+	for (int j = 0; j < mapSize.y; j++) {
+		for (int i = 0; i < mapSize.x; i++) {
+			tile = map[j * mapSize.x + i];
+			if (tile != 0) {
+				// Non-empty tile
+				nTiles++;
+				posTile = glm::vec2(minCoords.x + i * tileSize, minCoords.y + j * tileSize);
+				// TODO Change this line
+				texCoordTile[0] = glm::vec2(float(i) * tileTexSize.x, float(j) * tileTexSize.y);
+				texCoordTile[1] = texCoordTile[0] + tileTexSize;
+				//texCoordTile[0] += halfTexel;
+				//texCoordTile[1] -= halfTexel;
+				// First triangle
+				vertices.push_back(posTile.x); vertices.push_back(posTile.y);
+				vertices.push_back(texCoordTile[0].x); vertices.push_back(texCoordTile[0].y);
+				vertices.push_back(posTile.x + blockSize); vertices.push_back(posTile.y);
+				vertices.push_back(texCoordTile[1].x); vertices.push_back(texCoordTile[0].y);
+				vertices.push_back(posTile.x + blockSize); vertices.push_back(posTile.y + blockSize);
+				vertices.push_back(texCoordTile[1].x); vertices.push_back(texCoordTile[1].y);
+				// Second triangle
+				vertices.push_back(posTile.x); vertices.push_back(posTile.y);
+				vertices.push_back(texCoordTile[0].x); vertices.push_back(texCoordTile[0].y);
+				vertices.push_back(posTile.x + blockSize); vertices.push_back(posTile.y + blockSize);
+				vertices.push_back(texCoordTile[1].x); vertices.push_back(texCoordTile[1].y);
+				vertices.push_back(posTile.x); vertices.push_back(posTile.y + blockSize);
+				vertices.push_back(texCoordTile[0].x); vertices.push_back(texCoordTile[1].y);
+			}
+		}
+	}
+
+	/*
 	int tile;
 	glm::vec2 posTile, texCoordTile[2], halfTexel;
 	vector<float> vertices;
@@ -137,7 +216,7 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 			}
 		}
 	}
-
+	*/
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 	glGenBuffers(1, &vbo);

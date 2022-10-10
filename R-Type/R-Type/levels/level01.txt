@@ -1,38 +1,4 @@
 TILEMAP
-40 32 							-- Size of tile map in tiles
+60 32 							-- Size of tile map in tiles
 8 8 							-- Tile size & block size
-images/blocks.png 	-- Tilesheet
-2 2 								-- Number of tiles in tilesheet
-1111111111111111111111111111111111111111
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1                                      1
-1111111111111111111111111111111111111111
-
+images/ruins_scenario_s1.png 	-- Tilesheet

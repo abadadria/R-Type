@@ -18,7 +18,7 @@ public:;
 	  void setShader(ShaderProgram texProgram);
 
 private:
-	std::list<PassiveEntity> passiveEntities;
+	std::list<PassiveEntity*> passiveEntities;
 	ShaderProgram texProgram;
 };
 

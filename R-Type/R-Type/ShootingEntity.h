@@ -14,7 +14,7 @@ public:;
 
 	  void update(int deltaTime) override;
 	  void render() override;
-	  void addPassiveEntity(glm::ivec2 movVec, glm::ivec2 pos);
+	  void addPassiveEntity(glm::ivec2 movVec, glm::ivec2 pos, string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite);
 	  void setShader(ShaderProgram texProgram);
 
 private:

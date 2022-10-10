@@ -10,13 +10,12 @@
 
 void PassiveEntity::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 {
-	spritesheet.loadFromFile("images/shootingShip.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(glm::ivec2(16, 8), glm::vec2(0.25, 0.5), &spritesheet, &shaderProgram);
 	posTileMap = tileMapPos;
 }
 
 void PassiveEntity::update(int deltaTime)
 {
+	//control the module of the movement vector
 	Entity::update(deltaTime);
 	posEntity.x += movementVector.x;
 	posEntity.y += movementVector.y;
@@ -36,4 +35,7 @@ void PassiveEntity::setMovementVector(glm::ivec2 movVec) {
 	this->movementVector = movVec;
 }
 
-//void PassivaEntity::setSprite()
+void PassiveEntity::setSprite(string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, ShaderProgram& texProgram) {
+	spritesheet.loadFromFile(spriteFolder, TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite = Sprite::createSprite(sizeSprite, posInSprite, &spritesheet, &texProgram);
+}

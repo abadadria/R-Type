@@ -59,8 +59,9 @@ void Player::update(int deltaTime)
 {
 	bool shoot = Game::instance().getKey(' ');
 	if (shoot) {
-		glm::ivec2 movVec(1, 0);
-		ShootingEntity::addPassiveEntity(movVec, posEntity);
+		glm::ivec2 movVec(2, 0);
+		glm::vec2 posShoot(posEntity.x + entitySize.x, posEntity.y + entitySize.y/3);
+		ShootingEntity::addPassiveEntity(movVec, posShoot);
 	}
 	Game::instance().keyReleased(' ');
 	ShootingEntity::update(deltaTime);

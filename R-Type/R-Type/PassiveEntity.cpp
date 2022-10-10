@@ -10,8 +10,8 @@
 
 void PassiveEntity::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 {
-	spritesheet.loadFromFile("images/spaceship.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(0.25, 0.25), &spritesheet, &shaderProgram);
+	spritesheet.loadFromFile("images/shootingShip.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite = Sprite::createSprite(glm::ivec2(16, 8), glm::vec2(0.25, 0.5), &spritesheet, &shaderProgram);
 	posTileMap = tileMapPos;
 }
 
@@ -35,3 +35,5 @@ void PassiveEntity::setInitialPosition(glm::ivec2 pos) {
 void PassiveEntity::setMovementVector(glm::ivec2 movVec) {
 	this->movementVector = movVec;
 }
+
+//void PassivaEntity::setSprite()

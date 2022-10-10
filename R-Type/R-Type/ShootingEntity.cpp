@@ -4,8 +4,8 @@
 void ShootingEntity::update(int deltaTime)
 {
 	Entity::update(deltaTime);
-	for (PassiveEntity passiveEntity : passiveEntities) {
-		passiveEntity.update(deltaTime);
+	for (std::list<PassiveEntity>::iterator it = passiveEntities.begin(); it != passiveEntities.end(); ++it) {
+		it->update(deltaTime);
 	}
 }
 

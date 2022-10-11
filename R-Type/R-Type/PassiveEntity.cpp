@@ -39,3 +39,7 @@ void PassiveEntity::setSprite(string spriteFolder, glm::ivec2 sizeSprite, glm::v
 	spritesheet.loadFromFile(spriteFolder, TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(sizeSprite, posInSprite, &spritesheet, &texProgram);
 }
+
+glm::ivec2 PassiveEntity::getPosition() {
+	return posEntity;
+}

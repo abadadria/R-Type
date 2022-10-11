@@ -59,11 +59,8 @@ void Player::update(int deltaTime)
 {
 	bool shoot = Game::instance().getKey(' ');
 	if (shoot) {
-		glm::ivec2 movVec(7, 0);
 		glm::ivec2 posShoot(posEntity.x + entitySize.x, posEntity.y + entitySize.y/3);
-		glm::ivec2 sizeSprite(16, 8);
-		glm::vec2 posInSprite(0.25, 0.5);
-		ShootingEntity::addPassiveEntity(movVec, posShoot, "images/shootingShip.png", sizeSprite, posInSprite);
+		ShootingEntity::addPassiveEntity(movVecShooting, posShoot, shootingSpriteFile, sizeSpriteShooting, posShootingInSprite);
 	}
 	Game::instance().keyReleased(' ');
 	ShootingEntity::update(deltaTime);

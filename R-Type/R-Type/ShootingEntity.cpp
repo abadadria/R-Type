@@ -3,9 +3,20 @@
 
 void ShootingEntity::update(int deltaTime)
 {
+	//implementar colisiones en un futuro
 	Entity::update(deltaTime);
-	for (std::list<PassiveEntity*>::iterator it = passiveEntities.begin(); it != passiveEntities.end(); ++it) {
+	for (std::list<PassiveEntity*>::iterator it = passiveEntities.begin(); it != passiveEntities.end();) {
 		(*it)->update(deltaTime);
+		glm::ivec2 posShoot = (*it)->getPosition();
+		// no hardcodear el tamaño de la pantalla
+		if (posShoot.x > 640 || posShoot.x < 0 ||
+			posShoot.y > 480 || posShoot.y < 0) {
+			delete* it;
+			passiveEntities.erase(it++);
+		}
+		else {
+			++it;
+		}
 	}
 }
 

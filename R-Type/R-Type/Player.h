@@ -20,6 +20,7 @@ private:
 	const glm::ivec2 sizeSpriteShooting = glm::ivec2(16, 8);
 	const glm::vec2 posShootingInSprite = glm::vec2(0.25, 0.5);
 	const string shootingSpriteFile = "images/shootingShip.png";
+	int beamCharger = 0;
 };
 
 

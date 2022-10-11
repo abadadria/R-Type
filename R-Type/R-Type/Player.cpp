@@ -58,9 +58,25 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 void Player::update(int deltaTime)
 {
 	bool shoot = Game::instance().getKey(' ');
-	if (shoot) {
-		glm::ivec2 posShoot(posEntity.x + entitySize.x, posEntity.y + entitySize.y/3);
-		ShootingEntity::addPassiveEntity(movVecShooting, posShoot, shootingSpriteFile, sizeSpriteShooting, posShootingInSprite);
+	if (shoot) beamCharger += 1;
+	else {
+		if (beamCharger != 0) {
+			// shoot beam according to its charge
+			if (beamCharger > 300) {
+
+			}
+			else if (beamCharger > 200) {
+
+			}
+			else if (beamCharger > 100) {
+
+			}
+			else { //default case, basic shoot
+				glm::ivec2 posShoot(posEntity.x + entitySize.x, posEntity.y + entitySize.y / 3);
+				ShootingEntity::addPassiveEntity(movVecShooting, posShoot, shootingSpriteFile, sizeSpriteShooting, posShootingInSprite);
+			}
+			beamCharger = 0;
+		}
 	}
 	Game::instance().keyReleased(' ');
 	ShootingEntity::update(deltaTime);

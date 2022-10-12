@@ -61,23 +61,34 @@ void Player::update(int deltaTime)
 	if (Game::instance().getKey(' '))  beamCharger += 1;
 	else {
 		if (beamCharger != 0) {
-			// shoot beam according to its charge
-			if (beamCharger > 50) {
-				glm::ivec2 posShoot(posEntity.x, posEntity.y);
-				ShootingEntity::addPassiveEntity(movVecShooting, posShoot, beamSpriteFile, sizeSpriteBeam, posBeamInSprite, glm::vec2(0.0, 0.5));
+			string spriteFile;
+			glm::ivec2 sizeSprite;
+			glm::vec2 posInSprite;
+			glm::vec2 offset;
+			glm::ivec2 posShoot(posEntity.x, posEntity.y);
+			if (beamCharger < 20) { // basic shoot
+				posShoot.x = posEntity.x + entitySize.x;
+				posShoot.y = posEntity.y + entitySize.y / 3;
+				spriteFile = shootingSpriteFile;
+				sizeSprite = sizeSpriteShooting;
+				posInSprite = posShootingInSprite;
+				offset = glm::vec2(0.0, 0.0);
 			}
-			else if (beamCharger > 35) {
-				glm::ivec2 posShoot(posEntity.x, posEntity.y);
-				ShootingEntity::addPassiveEntity(movVecShooting, posShoot, beamSpriteFile, sizeSpriteBeam, posBeamInSprite, glm::vec2(0.5, 0.0));
+			else {
+				spriteFile = beamSpriteFile;
+				sizeSprite = sizeSpriteBeam;
+				posInSprite = posBeamInSprite;
+				if (beamCharger > 50) {
+					posShoot.x = posEntity.x + entitySize.x - 8;
+					offset = glm::vec2(0.0, 0.5);
+				}
+				else if (beamCharger > 35) {
+					posShoot.x = posEntity.x + entitySize.x - 12;
+					offset = glm::vec2(0.5, 0.0);
+				}
+				else offset = glm::vec2(0.0, 0.0);
 			}
-			else if (beamCharger > 20) {
-				glm::ivec2 posShoot(posEntity.x, posEntity.y);
-				ShootingEntity::addPassiveEntity(movVecShooting, posShoot, beamSpriteFile, sizeSpriteBeam, posBeamInSprite, glm::vec2(0.0, 0.0));
-			}
-			else { //default case, basic shoot
-				glm::ivec2 posShoot(posEntity.x + entitySize.x, posEntity.y + entitySize.y / 3);
-				ShootingEntity::addPassiveEntity(movVecShooting, posShoot, shootingSpriteFile, sizeSpriteShooting, posShootingInSprite, glm::vec2(0.0, 0.0));
-			}
+			ShootingEntity::addPassiveEntity(movVecShooting, posShoot, spriteFile, sizeSprite, posInSprite, offset);
 			beamCharger = 0;
 		}
 	}

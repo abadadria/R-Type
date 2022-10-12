@@ -14,11 +14,13 @@
     <ClInclude Include="AnimKeyframes.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="PassiveEntity.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneLevel.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="ShootingEntity.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteSpaceship.h" />
     <ClInclude Include="Texture.h" />
@@ -28,11 +30,13 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PassiveEntity.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneLevel.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="ShootingEntity.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteSpaceship.cpp" />
     <ClCompile Include="Texture.cpp" />

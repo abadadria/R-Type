@@ -127,4 +127,8 @@ void Sprite::setPosition(const glm::vec2& pos)
 	position = pos;
 }
 
+void Sprite::setDisplayOffset(glm::vec2 offset) {
+	texCoordDispl += offset;
+}
+
 

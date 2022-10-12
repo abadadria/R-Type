@@ -57,28 +57,30 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 
 void Player::update(int deltaTime)
 {
-	bool shoot = Game::instance().getKey(' ');
-	if (shoot) beamCharger += 1;
+	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
+	if (Game::instance().getKey(' '))  beamCharger += 1;
 	else {
 		if (beamCharger != 0) {
 			// shoot beam according to its charge
-			if (beamCharger > 300) {
-
+			if (beamCharger > 50) {
+				glm::ivec2 posShoot(posEntity.x, posEntity.y);
+				ShootingEntity::addPassiveEntity(movVecShooting, posShoot, beamSpriteFile, sizeSpriteBeam, posBeamInSprite, glm::vec2(0.0, 0.5));
 			}
-			else if (beamCharger > 200) {
-
+			else if (beamCharger > 35) {
+				glm::ivec2 posShoot(posEntity.x, posEntity.y);
+				ShootingEntity::addPassiveEntity(movVecShooting, posShoot, beamSpriteFile, sizeSpriteBeam, posBeamInSprite, glm::vec2(0.5, 0.0));
 			}
-			else if (beamCharger > 100) {
-
+			else if (beamCharger > 20) {
+				glm::ivec2 posShoot(posEntity.x, posEntity.y);
+				ShootingEntity::addPassiveEntity(movVecShooting, posShoot, beamSpriteFile, sizeSpriteBeam, posBeamInSprite, glm::vec2(0.0, 0.0));
 			}
 			else { //default case, basic shoot
 				glm::ivec2 posShoot(posEntity.x + entitySize.x, posEntity.y + entitySize.y / 3);
-				ShootingEntity::addPassiveEntity(movVecShooting, posShoot, shootingSpriteFile, sizeSpriteShooting, posShootingInSprite);
+				ShootingEntity::addPassiveEntity(movVecShooting, posShoot, shootingSpriteFile, sizeSpriteShooting, posShootingInSprite, glm::vec2(0.0, 0.0));
 			}
 			beamCharger = 0;
 		}
 	}
-	Game::instance().keyReleased(' ');
 	ShootingEntity::update(deltaTime);
 	std::map<string, bool> arrow;
 	arrow["UP"] = Game::instance().getSpecialKey(GLUT_KEY_UP);

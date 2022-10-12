@@ -3,7 +3,6 @@
 
 void ShootingEntity::update(int deltaTime)
 {
-	//implementar colisiones en un futuro
 	Entity::update(deltaTime);
 	for (std::list<PassiveEntity*>::iterator it = passiveEntities.begin(); it != passiveEntities.end();) {
 		(*it)->update(deltaTime);
@@ -28,10 +27,10 @@ void ShootingEntity::render()
 	}
 }
 
-void ShootingEntity::addPassiveEntity(glm::ivec2 movVec, glm::ivec2 pos, string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite) {
+void ShootingEntity::addPassiveEntity(glm::ivec2 movVec, glm::ivec2 pos, string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, glm::vec2 offset) {
 	PassiveEntity* newPassiveEntity = new PassiveEntity{};
 	newPassiveEntity->init(posTileMap, texProgram);
-	newPassiveEntity->setSprite(spriteFolder, sizeSprite, posInSprite, texProgram);
+	newPassiveEntity->setSprite(spriteFolder, sizeSprite, posInSprite, texProgram, offset);
 	newPassiveEntity->setInitialPosition(pos);
 	newPassiveEntity->setMovementVector(movVec);
 	passiveEntities.push_back(newPassiveEntity);

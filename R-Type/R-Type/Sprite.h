@@ -34,6 +34,7 @@ public:
 	void addKeyframe(int animId, const glm::vec2 &frame);
 	virtual void changeAnimation(int animId);
 	int animation() const;
+	void setDisplayOffset(glm::vec2 offset);
 	
 	void setPosition(const glm::vec2 &pos);
 

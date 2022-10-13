@@ -8,23 +8,23 @@ void ShootingEntity::update(int deltaTime)
 		(*it)->update(deltaTime);
 		glm::ivec2 posShoot = (*it)->getPosition();
 		// TODO no hardcodear el tamaño de la pantalla
-		if (posShoot.x > 640 || posShoot.x < 0 ||
+		/*if (posShoot.x > 640 || posShoot.x < 0 ||
 			posShoot.y > 480 || posShoot.y < 0) {
 			delete *it;
 			passiveEntities.erase(it++);
 		}
-		else {
+		else {*/
 			++it;
-		}
+		//}
 	}
 }
 
 void ShootingEntity::render()
 {
-	Entity::render();
 	for (PassiveEntity* ps : passiveEntities) {
 		ps->render();
 	}
+	Entity::render();
 }
 
 void ShootingEntity::addPassiveEntity(glm::ivec2 movVec, glm::ivec2 pos, string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, glm::vec2 offset) {

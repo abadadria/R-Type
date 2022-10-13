@@ -14,7 +14,7 @@ void Scene::init()
 {
 	initShaders();
 	cameraPos = glm::vec2(0.f, 0.f);
-	cameraSize = glm::vec2(float(SCREEN_WIDTH / 2.0f - 1), float(SCREEN_HEIGHT / 2.0f - 1));
+	cameraSize = glm::vec2(float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1));
 	projection = glm::ortho(cameraPos.x, cameraPos.x + cameraSize.x, cameraPos.y + cameraSize.y, cameraPos.y);
 	currentTime = 0.0f;
 }

@@ -18,8 +18,9 @@ enum PlayerAnims
 
 void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
+	entitySize = glm::ivec2(64, 32);
 	spritesheet.loadFromFile("images/spaceship.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = SpriteSpaceship::createSpriteSpaceship(glm::ivec2(32, 16), glm::vec2(0.25, 0.5), &spritesheet, &shaderProgram);
+	sprite = SpriteSpaceship::createSpriteSpaceship(entitySize, glm::vec2(0.25, 0.5), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(4);
 		
 		int keyframesPerSec = 12;
@@ -49,7 +50,6 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 		sprite->addKeyframe(GO_BACK, glm::vec2(0.5f, 0.0f));
 	
 	sprite->changeAnimation(0);
-	entitySize = glm::ivec2(32, 16);
 	posTileMap = tileMapPos;
 	sprite->setPosition(glm::vec2(float(posTileMap.x + posEntity.x), float(posTileMap.y + posEntity.y)));
 	ShootingEntity::setShader(shaderProgram);
@@ -64,7 +64,7 @@ void Player::update(int deltaTime)
 			string spriteFile;
 			glm::ivec2 sizeSprite;
 			glm::vec2 posInSprite;
-			glm::vec2 offset;
+			glm::vec2 texCoordOffset;
 			glm::ivec2 posShoot(posEntity.x, posEntity.y);
 			if (beamCharger < 20) { // basic shoot
 				posShoot.x = posEntity.x + entitySize.x;
@@ -72,23 +72,27 @@ void Player::update(int deltaTime)
 				spriteFile = shootingSpriteFile;
 				sizeSprite = sizeSpriteShooting;
 				posInSprite = posShootingInSprite;
-				offset = glm::vec2(0.0, 0.0);
+				texCoordOffset = glm::vec2(0.0, 0.0);
 			}
 			else {
 				spriteFile = beamSpriteFile;
 				sizeSprite = sizeSpriteBeam;
 				posInSprite = posBeamInSprite;
-				if (beamCharger > 50) {
+				if (beamCharger > 60) {
 					posShoot.x = posEntity.x + entitySize.x - 8;
-					offset = glm::vec2(0.0, 0.5);
+					texCoordOffset = glm::vec2(0.5, 0.5);
+				}
+				else if (beamCharger > 50) {
+					posShoot.x = posEntity.x + entitySize.x - 8;
+					texCoordOffset = glm::vec2(0.0, 0.5);
 				}
 				else if (beamCharger > 35) {
 					posShoot.x = posEntity.x + entitySize.x - 12;
-					offset = glm::vec2(0.5, 0.0);
+					texCoordOffset = glm::vec2(0.5, 0.0);
 				}
-				else offset = glm::vec2(0.0, 0.0);
+				else texCoordOffset = glm::vec2(0.0, 0.0);
 			}
-			ShootingEntity::addPassiveEntity(movVecShooting, posShoot, spriteFile, sizeSprite, posInSprite, offset);
+			ShootingEntity::addPassiveEntity(movVecShooting, posShoot, spriteFile, sizeSprite, posInSprite, texCoordOffset);
 			beamCharger = 0;
 		}
 	}

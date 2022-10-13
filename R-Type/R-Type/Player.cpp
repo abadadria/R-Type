@@ -92,7 +92,9 @@ void Player::update(int deltaTime)
 			beamCharger = 0;
 		}
 	}
+
 	ShootingEntity::update(deltaTime);
+
 	std::map<string, bool> arrow;
 	arrow["UP"] = Game::instance().getSpecialKey(GLUT_KEY_UP);
 	arrow["DOWN"] = Game::instance().getSpecialKey(GLUT_KEY_DOWN);

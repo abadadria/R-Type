@@ -39,6 +39,8 @@ void SceneLevel::init()
 void SceneLevel::update(int deltaTime)
 {
 	Scene::update(deltaTime);
+	cameraPos.x += 0.5f;
+	projection = glm::ortho(cameraPos.x, cameraPos.x + cameraSize.x, cameraPos.y + cameraSize.y, cameraPos.y);
 	player->update(deltaTime);
 }
 

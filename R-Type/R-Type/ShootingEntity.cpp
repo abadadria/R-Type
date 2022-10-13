@@ -7,10 +7,10 @@ void ShootingEntity::update(int deltaTime)
 	for (std::list<PassiveEntity*>::iterator it = passiveEntities.begin(); it != passiveEntities.end();) {
 		(*it)->update(deltaTime);
 		glm::ivec2 posShoot = (*it)->getPosition();
-		// no hardcodear el tamaño de la pantalla
+		// TODO no hardcodear el tamaño de la pantalla
 		if (posShoot.x > 640 || posShoot.x < 0 ||
 			posShoot.y > 480 || posShoot.y < 0) {
-			delete* it;
+			delete *it;
 			passiveEntities.erase(it++);
 		}
 		else {
@@ -22,8 +22,8 @@ void ShootingEntity::update(int deltaTime)
 void ShootingEntity::render()
 {
 	Entity::render();
-	for (std::list<PassiveEntity*>::iterator it = passiveEntities.begin(); it != passiveEntities.end(); ++it) {
-		(*it)->render();
+	for (PassiveEntity* ps : passiveEntities) {
+		ps->render();
 	}
 }
 

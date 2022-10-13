@@ -12,7 +12,6 @@ public:;
 
 	  void init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram) override; // Abstract method
 	  void update(int deltaTime) override;
-	  void render() override;
 
 
 private:

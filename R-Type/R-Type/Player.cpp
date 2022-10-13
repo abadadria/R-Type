@@ -129,9 +129,3 @@ void Player::update(int deltaTime)
 
 	sprite->setPosition(glm::vec2(float(posTileMap.x + posEntity.x), float(posTileMap.y + posEntity.y)));
 }
-
-void Player::render()
-{
-	ShootingEntity::render();
-}
-

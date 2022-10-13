@@ -38,7 +38,6 @@ def parse_pixels(pixels_3d, width, height, map_size, ts):
             map[int(y/ts)][int(x/ts)] = parse_tile(pixels_3d, y, x, ts)
     return map
 
-__name__=='__main__'
 args = parse_args()
 r = Reader(filename=os.path.normpath(os.path.join(args.wd, args.collision_png)))
 width, height, pixels, info = r.asDirect()
@@ -61,9 +60,9 @@ map = parse_pixels(pixels_3d, width, height, map_size, ts)
 
 with open(os.path.normpath(os.path.join(args.wd, args.output)), 'w') as f:
     f.write("TILEMAP\n")
-    f.write(f"{map_size['x']} {map_size['y']}\n")
-    f.write(f"{ts} {ts}\n")
-    f.write(f"images/{os.path.basename(os.path.normpath(args.scenario_png))}\n")
+    f.write(f"{map_size['x']} {map_size['y']}\t-- Size of map in tiles\n")
+    f.write(f"{ts}\t-- Size of tiles in pixels\n")
+    f.write(f"images/{os.path.basename(os.path.normpath(args.scenario_png))}\t-- Scenario file\n")
     for row in map:
         for v in row:
             f.write('1' if v else ' ')

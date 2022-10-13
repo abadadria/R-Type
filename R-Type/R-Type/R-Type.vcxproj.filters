@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Archivos de código fuente\Entities">
+      <UniqueIdentifier>{fd21ac7b-fec6-4766-bf86-dc5a726f67e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Scenes">
+      <UniqueIdentifier>{ce44aa94-e22c-4f2f-a56e-6a08d48de950}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Sprites">
+      <UniqueIdentifier>{f0dd9bea-33d7-446e-b16a-0a012af2a60e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimKeyframes.h">
@@ -65,19 +74,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneLevel.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="ShaderProgram.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
@@ -86,14 +86,23 @@
     <ClCompile Include="TileMap.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteSpaceship.cpp">
-      <Filter>Archivos de código fuente</Filter>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Archivos de código fuente\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Archivos de código fuente\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Archivos de código fuente</Filter>
+      <Filter>Archivos de código fuente\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Archivos de código fuente</Filter>
+    <ClCompile Include="SceneLevel.cpp">
+      <Filter>Archivos de código fuente\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Archivos de código fuente\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteSpaceship.cpp">
+      <Filter>Archivos de código fuente\Sprites</Filter>
     </ClCompile>
     <ClCompile Include="PassiveEntity.cpp">
       <Filter>Archivos de código fuente</Filter>

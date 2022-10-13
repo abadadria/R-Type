@@ -1,0 +1,1 @@
+python collision_generation.py ..\sprites\scenarios_backgrounds\00_level1_collisions.png ..\sprites\scenarios_backgrounds\00_level1_scenario.png -ts 8 -o level01.txt

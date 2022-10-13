@@ -32,119 +32,147 @@ TileMap::~TileMap()
 void TileMap::render() const
 {
 	glEnable(GL_TEXTURE_2D);
-	tilesheet.use();
-	glBindVertexArray(vao);
-	glEnableVertexAttribArray(posLocation);
-	glEnableVertexAttribArray(texCoordLocation);
+
+	//Render scenario
+	scenario.use();
+	glBindVertexArray(vaoScenario);
+	glEnableVertexAttribArray(posLocationScenario);
+	glEnableVertexAttribArray(texCoordLocationScenario);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	// Render collision blocks
+	collisionBlock.use();
+	glBindVertexArray(vaoCollisionBlocks);
+	glEnableVertexAttribArray(posLocationCollisionBlocks);
+	glEnableVertexAttribArray(texCoordLocationCollisionBlocks);
 	glDrawArrays(GL_TRIANGLES, 0, 6 * nTiles);
+
 	glDisable(GL_TEXTURE_2D);
 }
 
 void TileMap::free()
 {
-	glDeleteBuffers(1, &vbo);
+	glDeleteBuffers(1, &vboCollisionBlocks);
 }
 
 bool TileMap::loadLevel(const string &levelFile)
 {
 	ifstream fin;
-	string line, tilesheetFile;
+	string line, scenarioFile;
 	stringstream sstream;
 	char tile;
 	
 	fin.open(levelFile.c_str());
-	if(!fin.is_open())
+	if (!fin.is_open())
 		return false;
 	getline(fin, line);
-	if(line.compare(0, 7, "TILEMAP") != 0)
+	if (line.compare(0, 7, "TILEMAP") != 0)
 		return false;
 	getline(fin, line);
 	sstream.str(line);
 	sstream >> mapSize.x >> mapSize.y;
 	getline(fin, line);
 	sstream.str(line);
-	sstream >> tileSize >> blockSize;
+	sstream >> tileSize;
 	getline(fin, line);
 	sstream.str(line);
-	sstream >> tilesheetFile;
-	tilesheet.loadFromFile(tilesheetFile, TEXTURE_PIXEL_FORMAT_RGBA);
-	tilesheet.setWrapS(GL_CLAMP_TO_EDGE);
-	tilesheet.setWrapT(GL_CLAMP_TO_EDGE);
-	tilesheet.setMinFilter(GL_NEAREST);
-	tilesheet.setMagFilter(GL_NEAREST);
-	getline(fin, line);
-	sstream.str(line);
-	sstream >> tilesheetSize.x >> tilesheetSize.y;
-	tileTexSize = glm::vec2(1.f / tilesheetSize.x, 1.f / tilesheetSize.y);
-	
+	sstream >> scenarioFile;
+
+	// Load scenario texture
+	scenario.loadFromFile(scenarioFile, TEXTURE_PIXEL_FORMAT_RGBA);
+	scenario.setWrapS(GL_CLAMP_TO_EDGE);
+	scenario.setWrapT(GL_CLAMP_TO_EDGE);
+	scenario.setMinFilter(GL_NEAREST);
+	scenario.setMagFilter(GL_NEAREST);
+
+	// Load level map
 	map = new int[mapSize.x * mapSize.y];
-	for(int j=0; j<mapSize.y; j++)
-	{
-		for(int i=0; i<mapSize.x; i++)
-		{
+	for (int j = 0; j < mapSize.y; j++) {
+		for (int i = 0; i < mapSize.x; i++) {
 			fin.get(tile);
-			if(tile == ' ')
-				map[j*mapSize.x+i] = 0;
+			if (tile == ' ')
+				map[j * mapSize.x + i] = 0;
 			else
-				map[j*mapSize.x+i] = tile - int('0');
+				map[j * mapSize.x + i] = tile - int('0');
 		}
 		fin.get(tile);
 #ifndef _WIN32
 		fin.get(tile);
 #endif
 	}
+
 	fin.close();
-	
-	return true;
 }
 
 void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 {
+	
+	
+	// Prepare scenario arrays
+	glm::vec2 quadSize = mapSize * tileSize;
+	//							   geomCoords				texCoords
+	float verticesScenario[24] = { 0.f, 0.f,				0.f, 0.f,
+								   quadSize.x, 0.f,			1.f, 0.f,
+								   quadSize.x, quadSize.y,	1.f, 1.f,
+
+								   0.f, 0.f,				0.f, 0.f,
+								   quadSize.x, quadSize.y,	1.f, 1.f,
+								   0.f, quadSize.y,			0.f, 1.f };
+
+	glGenVertexArrays(1, &vaoScenario);
+	glBindVertexArray(vaoScenario);
+	glGenBuffers(1, &vboScenario);
+	glBindBuffer(GL_ARRAY_BUFFER, vboScenario);
+	glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(float), verticesScenario, GL_STATIC_DRAW);
+	posLocationScenario = program.bindVertexAttribute("position", 2, 4 * sizeof(float), 0);
+	texCoordLocationScenario = program.bindVertexAttribute("texCoord", 2, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+
+	// Load collision block texture
+	collisionBlock.loadFromFile("images/collision_block.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	collisionBlock.setWrapS(GL_CLAMP_TO_EDGE);
+	collisionBlock.setWrapT(GL_CLAMP_TO_EDGE);
+	collisionBlock.setMinFilter(GL_NEAREST);
+	collisionBlock.setMagFilter(GL_NEAREST);
+
 	int tile;
 	glm::vec2 posTile, texCoordTile[2], halfTexel;
-	vector<float> vertices;
-	
+	vector<float> verticesCollisionBlock;
+
 	nTiles = 0;
-	halfTexel = glm::vec2(0.5f / tilesheet.width(), 0.5f / tilesheet.height());
-	for(int j=0; j<mapSize.y; j++)
-	{
-		for(int i=0; i<mapSize.x; i++)
-		{
+	texCoordTile[0] = glm::vec2(0.0f, 0.0f);
+	texCoordTile[1] = glm::vec2(1.0f, 1.0f);
+	for (int j = 0; j < mapSize.y; j++) {
+		for (int i = 0; i < mapSize.x; i++) {
 			tile = map[j * mapSize.x + i];
-			if(tile != 0)
-			{
-				// Non-empty tile
+			if (tile == 1) {
+				// Collision tile
 				nTiles++;
 				posTile = glm::vec2(minCoords.x + i * tileSize, minCoords.y + j * tileSize);
-				texCoordTile[0] = glm::vec2(float((tile-1)%tilesheetSize.x) / tilesheetSize.x, float((tile-1)/tilesheetSize.x) / tilesheetSize.y);
-				texCoordTile[1] = texCoordTile[0] + tileTexSize;
-				//texCoordTile[0] += halfTexel;
-				texCoordTile[1] -= halfTexel;
 				// First triangle
-				vertices.push_back(posTile.x); vertices.push_back(posTile.y);
-				vertices.push_back(texCoordTile[0].x); vertices.push_back(texCoordTile[0].y);
-				vertices.push_back(posTile.x + blockSize); vertices.push_back(posTile.y);
-				vertices.push_back(texCoordTile[1].x); vertices.push_back(texCoordTile[0].y);
-				vertices.push_back(posTile.x + blockSize); vertices.push_back(posTile.y + blockSize);
-				vertices.push_back(texCoordTile[1].x); vertices.push_back(texCoordTile[1].y);
+				verticesCollisionBlock.push_back(posTile.x); verticesCollisionBlock.push_back(posTile.y);
+				verticesCollisionBlock.push_back(texCoordTile[0].x); verticesCollisionBlock.push_back(texCoordTile[0].y);
+				verticesCollisionBlock.push_back(posTile.x + tileSize); verticesCollisionBlock.push_back(posTile.y);
+				verticesCollisionBlock.push_back(texCoordTile[1].x); verticesCollisionBlock.push_back(texCoordTile[0].y);
+				verticesCollisionBlock.push_back(posTile.x + tileSize); verticesCollisionBlock.push_back(posTile.y + tileSize);
+				verticesCollisionBlock.push_back(texCoordTile[1].x); verticesCollisionBlock.push_back(texCoordTile[1].y);
 				// Second triangle
-				vertices.push_back(posTile.x); vertices.push_back(posTile.y);
-				vertices.push_back(texCoordTile[0].x); vertices.push_back(texCoordTile[0].y);
-				vertices.push_back(posTile.x + blockSize); vertices.push_back(posTile.y + blockSize);
-				vertices.push_back(texCoordTile[1].x); vertices.push_back(texCoordTile[1].y);
-				vertices.push_back(posTile.x); vertices.push_back(posTile.y + blockSize);
-				vertices.push_back(texCoordTile[0].x); vertices.push_back(texCoordTile[1].y);
+				verticesCollisionBlock.push_back(posTile.x); verticesCollisionBlock.push_back(posTile.y);
+				verticesCollisionBlock.push_back(texCoordTile[0].x); verticesCollisionBlock.push_back(texCoordTile[0].y);
+				verticesCollisionBlock.push_back(posTile.x + tileSize); verticesCollisionBlock.push_back(posTile.y + tileSize);
+				verticesCollisionBlock.push_back(texCoordTile[1].x); verticesCollisionBlock.push_back(texCoordTile[1].y);
+				verticesCollisionBlock.push_back(posTile.x); verticesCollisionBlock.push_back(posTile.y + tileSize);
+				verticesCollisionBlock.push_back(texCoordTile[0].x); verticesCollisionBlock.push_back(texCoordTile[1].y);
 			}
 		}
 	}
 
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, 24 * nTiles * sizeof(float), &vertices[0], GL_STATIC_DRAW);
-	posLocation = program.bindVertexAttribute("position", 2, 4*sizeof(float), 0);
-	texCoordLocation = program.bindVertexAttribute("texCoord", 2, 4*sizeof(float), (void *)(2*sizeof(float)));
+	glGenVertexArrays(1, &vaoCollisionBlocks);
+	glBindVertexArray(vaoCollisionBlocks);
+	glGenBuffers(1, &vboCollisionBlocks);
+	glBindBuffer(GL_ARRAY_BUFFER, vboCollisionBlocks);
+	glBufferData(GL_ARRAY_BUFFER, 24 * nTiles * sizeof(float), &verticesCollisionBlock[0], GL_STATIC_DRAW);
+	posLocationCollisionBlocks = program.bindVertexAttribute("position", 2, 4 * sizeof(float), 0);
+	texCoordLocationCollisionBlocks = program.bindVertexAttribute("texCoord", 2, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 }
 
 // Collision tests for axis aligned bounding boxes.

@@ -122,7 +122,7 @@ void Player::update(int deltaTime)
 		if (map->collisionMoveLeft(posEntity, entitySize))
 			posEntity.x += 2;
 	}
-	if (!arrow["UP"] && !arrow["DOWN"] && !arrow["RIGHT"] && !arrow["LEFT"]) {
+	if (!arrow["UP"] && !arrow["DOWN"]) {
 		if (sprite->animation() != GO_BACK && sprite->animation() != STAND)
 			sprite->changeAnimation(GO_BACK);
 	}

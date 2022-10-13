@@ -40,16 +40,14 @@ private:
 	void prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program);
 
 private:
-	GLuint vao;
-	GLuint vbo;
-	GLint posLocation, texCoordLocation;
+	GLuint vaoCollisionBlocks, vaoScenario;
+	GLuint vboCollisionBlocks, vboScenario;
+	GLint posLocationCollisionBlocks, texCoordLocationCollisionBlocks, posLocationScenario, texCoordLocationScenario;
 	int nTiles;
-	glm::ivec2 position, mapSize, tilesheetSize;
-	int tileSize, blockSize;
-	Texture tilesheet;
-	glm::vec2 tileTexSize;
-	int *map;
-
+	glm::ivec2 mapSize;
+	int tileSize;
+	Texture background, scenario, collisionBlock;
+	int* map;
 };
 
 

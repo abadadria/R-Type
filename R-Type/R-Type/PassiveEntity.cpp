@@ -17,8 +17,7 @@ void PassiveEntity::update(int deltaTime)
 {
 	//control the module of the movement vector
 	Entity::update(deltaTime);
-	posEntity.x += movementVector.x;
-	posEntity.y += movementVector.y;
+	posEntity += movementVector;
 	Entity::setPosition(posEntity);
 }
 

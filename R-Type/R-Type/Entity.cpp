@@ -29,3 +29,7 @@ void Entity::setPosition(const glm::vec2& pos)
 	posEntity = pos;
 	sprite->setPosition(glm::vec2(float(posTileMap.x + posEntity.x), float(posTileMap.y + posEntity.y)));
 }
+
+Entity::~Entity() {
+	delete sprite;
+}

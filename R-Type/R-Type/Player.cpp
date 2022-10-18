@@ -55,7 +55,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	ShootingEntity::setShader(shaderProgram);
 }
 
-void Player::update(int deltaTime)
+void Player::update(int deltaTime, glm::vec2 cameraPos, glm::vec2 cameraSize)
 {
 	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
 	if (Game::instance().getKey(' '))  beamCharger += 1;
@@ -97,7 +97,7 @@ void Player::update(int deltaTime)
 		}
 	}
 
-	ShootingEntity::update(deltaTime);
+	ShootingEntity::update(deltaTime, cameraPos, cameraSize);
 
 	std::map<string, bool> arrow;
 	arrow["UP"] = Game::instance().getSpecialKey(GLUT_KEY_UP);

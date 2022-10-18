@@ -105,26 +105,26 @@ void Player::update(int deltaTime)
 	arrow["RIGHT"] = Game::instance().getSpecialKey(GLUT_KEY_RIGHT);
 	arrow["LEFT"] = Game::instance().getSpecialKey(GLUT_KEY_LEFT);
 	if (arrow["UP"] && !arrow["DOWN"]) {
-		posEntity.y -= 2;
+		posEntity.y -= 3;
 		if (sprite->animation() != MOVE_UP)
 			sprite->changeAnimation(MOVE_UP);
 		//if (map->collisionMoveUp(posEntity, entitySize, posEntity.y))
 		//	posEntity.y += 2;
 	}
 	if (arrow["DOWN"] && !arrow["UP"]) {
-		posEntity.y += 2;
+		posEntity.y += 3;
 		if (sprite->animation() != MOVE_DOWN)
 			sprite->changeAnimation(MOVE_DOWN);
 		//if (map->collisionMoveDown(posEntity, entitySize, posEntity.y))
 		//	posEntity.y -= 2;
 	}
 	if (arrow["RIGHT"] && !arrow["LEFT"]) {
-		posEntity.x += 2;
+		posEntity.x += 3;
 		//if (map->collisionMoveRight(posEntity, entitySize))
 		//	posEntity.x -= 2;
 	}
 	if (arrow["LEFT"] && !arrow["RIGHT"]) {
-		posEntity.x -= 2;
+		posEntity.x -= 3;
 		//if (map->collisionMoveLeft(posEntity, entitySize))
 		//	posEntity.x += 2;
 	}
@@ -132,6 +132,6 @@ void Player::update(int deltaTime)
 		if (sprite->animation() != GO_BACK && sprite->animation() != STAND)
 			sprite->changeAnimation(GO_BACK);
 	}
-
+	posEntity.x += 1;
 	sprite->setPosition(glm::vec2(float(posTileMap.x + posEntity.x), float(posTileMap.y + posEntity.y)));
 }

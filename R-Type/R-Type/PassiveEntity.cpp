@@ -8,17 +8,15 @@
 #include "Sprite.h"
 
 
-void PassiveEntity::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
+void PassiveEntity::init(ShaderProgram& shaderProgram)
 {
-	posTileMap = tileMapPos;
 }
 
 void PassiveEntity::update(int deltaTime)
 {
 	//control the module of the movement vector
 	Entity::update(deltaTime);
-	posEntity.x += movementVector.x;
-	posEntity.y += movementVector.y;
+	posEntity += movementVector;
 	Entity::setPosition(posEntity);
 }
 

@@ -8,9 +8,9 @@
 class PassiveEntity : Entity
 {
 
-public:;
+public:
 
-	  void init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram) override; // Abstract method
+	  void init(ShaderProgram& shaderProgram) override; // Abstract method implementation
 	  void update(int deltaTime) override;
 	  void render() override;
 	  void setMovementVector(glm::ivec2 movVec);

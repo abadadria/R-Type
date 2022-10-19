@@ -74,6 +74,7 @@ bool TileMap::loadLevel(const string &levelFile)
 	getline(fin, line);
 	sstream.str(line);
 	sstream >> tileSize;
+	tileSize *= 2;
 	getline(fin, line);
 	sstream.str(line);
 	sstream >> scenarioFile;

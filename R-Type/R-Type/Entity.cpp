@@ -27,7 +27,7 @@ void Entity::setTileMap(TileMap* tileMap)
 void Entity::setPosition(const glm::vec2& pos)
 {
 	posEntity = pos;
-	sprite->setPosition(glm::vec2(float(posTileMap.x + posEntity.x), float(posTileMap.y + posEntity.y)));
+	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 }
 
 Entity::~Entity() {

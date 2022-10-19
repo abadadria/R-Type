@@ -4,11 +4,8 @@
 #include "SceneLevel.h"
 #include "Game.h"
 
-#define SCREEN_X 32
-#define SCREEN_Y 16
-
-#define INIT_PLAYER_X_TILES 4
-#define INIT_PLAYER_Y_TILES 1
+#define INIT_PLAYER_X 16
+#define INIT_PLAYER_Y 240
 
 
 SceneLevel::SceneLevel()
@@ -31,8 +28,8 @@ void SceneLevel::init()
 	Scene::init();
 	map = TileMap::createTileMap("levels/level01.txt", glm::vec2(0, 0), texProgram);
 	player = new Player();
-	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
+	player->init(texProgram);
+	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
 	player->setTileMap(map);
 }
 

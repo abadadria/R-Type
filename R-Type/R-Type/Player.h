@@ -10,7 +10,7 @@ class Player : public ShootingEntity
 	
 public:;
 
-	  void init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram) override; // Abstract method
+	  void init(ShaderProgram& shaderProgram) override; // Abstract method
 	  void update(int deltaTime, glm::vec2 cameraPos, glm::vec2 cameraSize) override;
 
 

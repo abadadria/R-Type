@@ -16,7 +16,7 @@ enum PlayerAnims
 };
 
 
-void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
+void Player::init(ShaderProgram &shaderProgram)
 {
 	entitySize = glm::ivec2(64, 32);
 	spritesheet.loadFromFile("images/spaceship.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -50,8 +50,7 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 		sprite->addKeyframe(GO_BACK, glm::vec2(0.5f, 0.0f));
 	
 	sprite->changeAnimation(0);
-	posTileMap = tileMapPos;
-	sprite->setPosition(glm::vec2(float(posTileMap.x + posEntity.x), float(posTileMap.y + posEntity.y)));
+	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 	ShootingEntity::setShader(shaderProgram);
 }
 
@@ -69,7 +68,7 @@ void Player::update(int deltaTime, glm::vec2 cameraPos, glm::vec2 cameraSize)
 			if (beamCharger < 20) { // basic shoot
 				posShoot.x = posEntity.x + entitySize.x;
 				posShoot.y = posEntity.y + entitySize.y / 3;
-				spriteFile = shootingSpriteFile;
+ 				spriteFile = shootingSpriteFile;
 				sizeSprite = sizeSpriteShooting;
 				posInSprite = posShootingInSprite;
 				texCoordOffset = glm::vec2(0.0, 0.0);
@@ -133,5 +132,5 @@ void Player::update(int deltaTime, glm::vec2 cameraPos, glm::vec2 cameraSize)
 			sprite->changeAnimation(GO_BACK);
 	}
 	posEntity.x += 1;
-	sprite->setPosition(glm::vec2(float(posTileMap.x + posEntity.x), float(posTileMap.y + posEntity.y)));
+	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 }

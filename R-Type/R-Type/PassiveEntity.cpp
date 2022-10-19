@@ -8,9 +8,8 @@
 #include "Sprite.h"
 
 
-void PassiveEntity::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
+void PassiveEntity::init(ShaderProgram& shaderProgram)
 {
-	posTileMap = tileMapPos;
 }
 
 void PassiveEntity::update(int deltaTime)

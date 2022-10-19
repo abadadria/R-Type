@@ -7,7 +7,7 @@ void ShootingEntity::update(int deltaTime, glm::vec2 cameraPos, glm::vec2 camera
 	Entity::update(deltaTime);
 	for (std::list<PassiveEntity*>::iterator it = passiveEntities.begin(); it != passiveEntities.end();) {
 		(*it)->update(deltaTime);
-		float margin = -100.f;
+		float margin = 50.f;
 		glm::ivec2 posShoot = (*it)->getPosition();
 		std::cout << cameraPos.x << ", " << cameraPos.y;
 		if (posShoot.x > (cameraPos.x + cameraSize.x + margin) || posShoot.x < (cameraPos.x - margin) ||
@@ -31,7 +31,6 @@ void ShootingEntity::render()
 
 void ShootingEntity::addPassiveEntity(glm::ivec2 movVec, glm::ivec2 pos, string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, glm::vec2 offset) {
 	PassiveEntity* newPassiveEntity = new PassiveEntity{};
-	newPassiveEntity->init(posTileMap, texProgram);
 	newPassiveEntity->setSprite(spriteFolder, sizeSprite, posInSprite, texProgram, offset);
 	newPassiveEntity->setInitialPosition(pos);
 	newPassiveEntity->setMovementVector(movVec);

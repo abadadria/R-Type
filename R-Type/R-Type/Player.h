@@ -11,7 +11,7 @@ class Player : public ShootingEntity
 public:;
 
 	  void init(ShaderProgram& shaderProgram) override; // Abstract method
-	  void update(int deltaTime, glm::vec2 cameraPos, glm::vec2 cameraSize) override;
+	  void update(int deltaTime) override;
 
 
 private:

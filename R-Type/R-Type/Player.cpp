@@ -54,7 +54,7 @@ void Player::init(ShaderProgram &shaderProgram)
 	ShootingEntity::setShader(shaderProgram);
 }
 
-void Player::update(int deltaTime, glm::vec2 cameraPos, glm::vec2 cameraSize)
+void Player::update(int deltaTime)
 {
 	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
 	if (Game::instance().getKey(' '))  beamCharger += 1;
@@ -96,7 +96,7 @@ void Player::update(int deltaTime, glm::vec2 cameraPos, glm::vec2 cameraSize)
 		}
 	}
 
-	ShootingEntity::update(deltaTime, cameraPos, cameraSize);
+	ShootingEntity::update(deltaTime);
 
 	std::map<string, bool> arrow;
 	arrow["UP"] = Game::instance().getSpecialKey(GLUT_KEY_UP);
@@ -132,6 +132,7 @@ void Player::update(int deltaTime, glm::vec2 cameraPos, glm::vec2 cameraSize)
 			sprite->changeAnimation(GO_BACK);
 	}
 	// Adapt to camera movement
-	posEntity.x += 1;
+	Camera* cam = Camera::getInstance();
+	posEntity += cam->getSpeed();
 	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 }

@@ -103,6 +103,7 @@ bool TileMap::loadLevel(const string &levelFile)
 	}
 
 	fin.close();
+	return true;
 }
 
 void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)

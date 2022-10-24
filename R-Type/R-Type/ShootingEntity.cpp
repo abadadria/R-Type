@@ -2,16 +2,14 @@
 #include <iostream>
 
 
-void ShootingEntity::update(int deltaTime, glm::vec2 cameraPos, glm::vec2 cameraSize)
+void ShootingEntity::update(int deltaTime)
 {
 	Entity::update(deltaTime);
 	for (std::list<PassiveEntity*>::iterator it = passiveEntities.begin(); it != passiveEntities.end();) {
 		(*it)->update(deltaTime);
-		float margin = 50.f;
 		glm::ivec2 posShoot = (*it)->getPosition();
-		std::cout << cameraPos.x << ", " << cameraPos.y;
-		if (posShoot.x > (cameraPos.x + cameraSize.x + margin) || posShoot.x < (cameraPos.x - margin) ||
-			posShoot.y > (cameraPos.y + cameraSize.y + margin) || posShoot.y < (cameraPos.y - margin)) {
+		Camera* cam = Camera::getInstance();
+		if (cam->collision(posShoot, glm::vec2(0.f, 0.f), 50.f)) {
         		delete (*it);
 			passiveEntities.erase(it++);
 		}

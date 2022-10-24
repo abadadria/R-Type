@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cmath>
-#include <glm/gtc/matrix_transform.hpp>
 #include "SceneLevel.h"
 #include "Game.h"
 
@@ -36,9 +35,8 @@ void SceneLevel::init()
 void SceneLevel::update(int deltaTime)
 {
 	Scene::update(deltaTime);
-	cameraPos.x += 1.f;
-	projection = glm::ortho(cameraPos.x, cameraPos.x + cameraSize.x, cameraPos.y + cameraSize.y, cameraPos.y);
-	player->update(deltaTime, cameraPos, cameraSize);
+	projection = camera->update();
+	player->update(deltaTime);
 }
 
 void SceneLevel::render()

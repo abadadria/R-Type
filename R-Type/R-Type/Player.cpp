@@ -131,6 +131,7 @@ void Player::update(int deltaTime, glm::vec2 cameraPos, glm::vec2 cameraSize)
 		if (sprite->animation() != GO_BACK && sprite->animation() != STAND)
 			sprite->changeAnimation(GO_BACK);
 	}
+	// Adapt to camera movement
 	posEntity.x += 1;
 	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 }

@@ -98,41 +98,47 @@ void Player::update(int deltaTime)
 
 	ShootingEntity::update(deltaTime);
 
+	glm::vec2 dir = glm::vec2(0.f, 0.f);
+	int speed = 3;
+	Camera* cam = Camera::getInstance();
 	std::map<string, bool> arrow;
 	arrow["UP"] = Game::instance().getSpecialKey(GLUT_KEY_UP);
 	arrow["DOWN"] = Game::instance().getSpecialKey(GLUT_KEY_DOWN);
 	arrow["RIGHT"] = Game::instance().getSpecialKey(GLUT_KEY_RIGHT);
 	arrow["LEFT"] = Game::instance().getSpecialKey(GLUT_KEY_LEFT);
-	if (arrow["UP"] && !arrow["DOWN"]) {
-		posEntity.y -= 3;
+	if (arrow["UP"] && !arrow["DOWN"]) {							// MOVE UP
+		posEntity.y -= speed;
+		if (cam->collisionUp(posEntity, entitySize, 0.f) ||
+			map->collisionMoveUp(posEntity, entitySize))
+			posEntity.y += speed;
 		if (sprite->animation() != MOVE_UP)
 			sprite->changeAnimation(MOVE_UP);
-		//if (map->collisionMoveUp(posEntity, entitySize, posEntity.y))
-		//	posEntity.y += 2;
 	}
-	if (arrow["DOWN"] && !arrow["UP"]) {
-		posEntity.y += 3;
+	if (arrow["DOWN"] && !arrow["UP"]) {							// MOVE DOWN
+		posEntity.y += speed;
+		if (cam->collisionDown(posEntity, entitySize, 0.f) ||
+			map->collisionMoveDown(posEntity, entitySize))
+			posEntity.y -= speed;
 		if (sprite->animation() != MOVE_DOWN)
 			sprite->changeAnimation(MOVE_DOWN);
-		//if (map->collisionMoveDown(posEntity, entitySize, posEntity.y))
-		//	posEntity.y -= 2;
 	}
-	if (arrow["RIGHT"] && !arrow["LEFT"]) {
-		posEntity.x += 3;
-		//if (map->collisionMoveRight(posEntity, entitySize))
-		//	posEntity.x -= 2;
+	if (arrow["RIGHT"] && !arrow["LEFT"]) {							// MOVE RIGHT
+		posEntity.x += speed;
+		if (cam->collisionRight(posEntity, entitySize, 0.f) ||
+			map->collisionMoveRight(posEntity, entitySize))
+			posEntity.x -= speed;
 	}
-	if (arrow["LEFT"] && !arrow["RIGHT"]) {
-		posEntity.x -= 3;
-		//if (map->collisionMoveLeft(posEntity, entitySize))
-		//	posEntity.x += 2;
+	if (arrow["LEFT"] && !arrow["RIGHT"]) {							// MOVE LEFT
+		posEntity.x -= speed;
+		if (cam->collisionLeft(posEntity, entitySize, 0.f) ||
+			map->collisionMoveLeft(posEntity, entitySize))
+			posEntity.x += speed;
 	}
 	if (!arrow["UP"] && !arrow["DOWN"]) {
 		if (sprite->animation() != GO_BACK && sprite->animation() != STAND)
 			sprite->changeAnimation(GO_BACK);
 	}
 	// Adapt to camera movement
-	Camera* cam = Camera::getInstance();
 	posEntity += cam->getSpeed();
 	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 }

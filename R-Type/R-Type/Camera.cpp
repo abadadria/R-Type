@@ -26,15 +26,15 @@ glm::mat4 Camera::update() {
     return glm::ortho(cameraPos.x, cameraPos.x + cameraSize.x, cameraPos.y + cameraSize.y, cameraPos.y);
 }
 
-glm::vec2 Camera::getPos() {
+glm::vec2 Camera::getPos() const {
     return cameraPos;
 }
 
-glm::vec2 Camera::getSize() {
+glm::vec2 Camera::getSize() const {
     return cameraSize;
 }
 
-glm::vec2 Camera::getSpeed() {
+glm::vec2 Camera::getSpeed() const {
     return cameraSpeed;
 }
 
@@ -46,10 +46,26 @@ void Camera::setSpeed(glm::vec2 speed) {
     cameraSpeed = speed;
 }
 
-bool Camera::collision(glm::vec2 entityPos, glm::vec2 entitySize, float margin) {
+bool Camera::collision(glm::vec2 entityPos, glm::vec2 entitySize, float margin) const {
     return
         entityPos.x + entitySize.x  >= (cameraPos.x + cameraSize.x + margin) ||
-        entityPos.x                 <= (cameraPos.x - margin) ||
+        entityPos.x                 <= (cameraPos.x - margin)                ||
         entityPos.y + entitySize.y  >= (cameraPos.y + cameraSize.y + margin) ||
         entityPos.y                 <= (cameraPos.y - margin);
+}
+
+bool Camera::collisionUp(glm::vec2 entityPos, glm::vec2 entitySize, float margin) const {
+    return entityPos.y <= (cameraPos.y - margin);
+}
+
+bool Camera::collisionDown(glm::vec2 entityPos, glm::vec2 entitySize, float margin) const {
+    return entityPos.y + entitySize.y >= (cameraPos.y + cameraSize.y + margin);
+}
+
+bool Camera::collisionLeft(glm::vec2 entityPos, glm::vec2 entitySize, float margin) const {
+    return entityPos.x <= (cameraPos.x - margin);
+}
+
+bool Camera::collisionRight(glm::vec2 entityPos, glm::vec2 entitySize, float margin) const {
+    return entityPos.x + entitySize.x >= (cameraPos.x + cameraSize.x + margin);
 }

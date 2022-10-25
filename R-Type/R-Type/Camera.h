@@ -16,14 +16,18 @@ public:
 	void init(glm::vec2 pos, glm::vec2 size, glm::vec2 speed);
 	glm::mat4 update();
 
-	glm::vec2 getPos();
-	glm::vec2 getSize();
-	glm::vec2 getSpeed();
+	glm::vec2 getPos() const;
+	glm::vec2 getSize() const;
+	glm::vec2 getSpeed() const;
 
 	void setPos(glm::vec2 pos);
 	void setSpeed(glm::vec2 speed);
 
-	bool collision(glm::vec2 entityPos, glm::vec2 entitySize, float margin);
+	bool collision(glm::vec2 entityPos, glm::vec2 entitySize, float margin) const;
+	bool collisionUp(glm::vec2 entityPos, glm::vec2 entitySize, float margin) const;
+	bool collisionDown(glm::vec2 entityPos, glm::vec2 entitySize, float margin) const;
+	bool collisionLeft(glm::vec2 entityPos, glm::vec2 entitySize, float margin) const;
+	bool collisionRight(glm::vec2 entityPos, glm::vec2 entitySize, float margin) const;
 
 	Camera(Camera& other) = delete;
 	void operator=(const Camera&) = delete;

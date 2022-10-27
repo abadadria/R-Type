@@ -33,9 +33,9 @@ void PassiveEntity::setMovementVector(glm::ivec2 movVec) {
 	this->movementVector = movVec;
 }
 
-void PassiveEntity::setSprite(string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, ShaderProgram& texProgram, glm::vec2 offset) {
+void PassiveEntity::setSprite(string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, ShaderProgram* texProgram, glm::vec2 offset) {
 	spritesheet.loadFromFile(spriteFolder, TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(sizeSprite, posInSprite, &spritesheet, &texProgram);
+	sprite = Sprite::createSprite(sizeSprite, posInSprite, &spritesheet, texProgram);
 	sprite->setDisplayOffset(offset);
 }
 

@@ -10,9 +10,12 @@ class Player : public ShootingEntity
 	
 public:;
 
-	  void init(ShaderProgram& shaderProgram) override; // Abstract method
-	  void update(int deltaTime) override;
+	void init(ShaderProgram& shaderProgram) override; // Abstract method
+	void update(int deltaTime) override;
 
+private:
+	void startExplosion() override;
+	void explode() override;
 
 private:
 	const glm::ivec2 movVecShooting = glm::ivec2(7, 0);

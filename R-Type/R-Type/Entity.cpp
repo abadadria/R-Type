@@ -8,7 +8,6 @@
 
 #include "Game.h"
 
-
 void Entity::update(int deltaTime)
 {
 	sprite->update(deltaTime);
@@ -28,6 +27,10 @@ void Entity::setPosition(const glm::vec2& pos)
 {
 	posEntity = pos;
 	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
+}
+
+void Entity::startExplosion() {
+	state = EXPLODING;
 }
 
 Entity::~Entity() {

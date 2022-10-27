@@ -15,7 +15,7 @@ public:
 	  void render() override;
 	  void setMovementVector(glm::ivec2 movVec);
 	  void setInitialPosition(glm::ivec2 pos);
-	  void setSprite(string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, ShaderProgram& texProgram, glm::vec2 offset);
+	  void setSprite(string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, ShaderProgram* texProgram, glm::vec2 offset);
 	  glm::ivec2 getPosition();
 
 

@@ -35,6 +35,12 @@ void ShootingEntity::addPassiveEntity(glm::ivec2 movVec, glm::ivec2 pos, string 
 	passiveEntities.push_back(newPassiveEntity);
 }
 
-void ShootingEntity::setShader(ShaderProgram texProgram) {
+void ShootingEntity::setShader(ShaderProgram* texProgram) {
 	this->texProgram = texProgram;
+}
+
+void ShootingEntity::explode() {
+	// Check if animation is finished
+	// Check if there are any bullets
+	// If there are not, make sprite disappear
 }

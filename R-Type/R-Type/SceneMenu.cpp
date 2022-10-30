@@ -41,10 +41,8 @@ void SceneMenu::init()
 
 void SceneMenu::update(int deltaTime)
 {
-	
 	bool key_up = Game::instance().getSpecialKey(GLUT_KEY_UP);
 	bool key_down = Game::instance().getSpecialKey(GLUT_KEY_DOWN);
-
 	if (Game::instance().getSpecialKey(GLUT_KEY_UP)) {
 		changeSelected = UP;
 	}
@@ -78,29 +76,30 @@ void SceneMenu::update(int deltaTime)
 
 void SceneMenu::render()
 {
-	//Paint all of them as equal
-	text->render("PLAY", glm::vec2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), 40, glm::vec4(0, 0.6, 0.6, 1));
-	text->render("INSTRUCTIONS", glm::vec2(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 + 60), 40, glm::vec4(0, 0.6, 0.6, 1));
-	text->render("CREDITS", glm::vec2(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 + 120), 40, glm::vec4(0, 0.6, 0.6, 1));
-	text->render("EXIT", glm::vec2(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 + 180), 40, glm::vec4(0, 0.6, 0.6, 1));
+	glClearColor(0.f, 0.f, 0.f, 1.0f);
+	//PLAY
+	if (textSelected == PLAY) text->render("PLAY", posPlay, textSize, selectedTextColor);
+	else text->render("PLAY", posPlay, textSize, textColor);
 
-	//Repaint the one selected
-	switch (textSelected) {
-	case PLAY:
-		text->render("PLAY", glm::vec2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), 40, glm::vec4(0.5, 0.6, 0.6, 1));
-		break;
-	case INST:
-		text->render("INSTRUCTIONS", glm::vec2(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 + 60), 40, glm::vec4(0.5, 0.6, 0.6, 1));
-		break;
-	case CRED:
-		text->render("CREDITS", glm::vec2(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 + 120), 40, glm::vec4(0.5, 0.6, 0.6, 1));
-		break;
-	case EXIT:
-		text->render("EXIT", glm::vec2(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2 + 180), 40, glm::vec4(0.5, 0.6, 0.6, 1));
-		break;
-	}
+	//INSTRUCTIONS
+	if (textSelected == INST) text->render("INSTRUCTIONS", posInst, textSize, selectedTextColor);
+	else text->render("INSTRUCTIONS", posInst, textSize, textColor);
+
+	//CREDITS
+	if (textSelected == CRED) text->render("CREDITS", posCred, textSize, selectedTextColor);
+	else text->render("CREDITS", posCred, textSize, textColor);
+
+	//EXIT
+	if (textSelected == EXIT) text->render("EXIT", posExit, textSize, selectedTextColor);
+	else text->render("EXIT", posExit, textSize, textColor);
+
 
 	Scene::render();
 	spriteLogo->render();
+}
+
+int SceneMenu::getItemSelected()
+{
+	return textSelected;
 }
 

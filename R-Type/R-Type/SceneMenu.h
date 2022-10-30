@@ -7,6 +7,11 @@
 #include "Texture.h"
 #include "Text.h"
 
+#define PLAY 0
+#define INST 1
+#define CRED 2
+#define EXIT 3
+
 
 class SceneMenu : public Scene
 {
@@ -24,7 +29,10 @@ private:
 	Texture spritesheetLogo;
 	const glm::vec2 sizeLogo = glm::vec2(346, 86);
 	const glm::vec2 posLogo = glm::vec2(0, 0);
+	
 	Text* text;
+	int textSelected;
+	int changeSelected;
 	
 };
 

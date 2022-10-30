@@ -3,6 +3,9 @@
 
 
 #include "SceneLevel.h"
+#include "SceneMenu.h"
+#include "SceneCredits.h"
+#include "SceneInstructions.h"
 
 
 #define SCREEN_WIDTH 640
@@ -55,8 +58,11 @@ private:
 		state = 3 -> Credits
 	*/
 	bool exit_game;
-	int state;						  // State of the game
-	SceneLevel sceneLevel;           // SceneLevel to render
+	int state;								// State of the game
+	SceneLevel sceneLevel;					// SceneLevel to render
+	SceneMenu sceneMenu;					// SceneMenu to render
+	SceneCredits sceneCredits;				// SceneCredits to render
+	SceneInstructions sceneInstructions;	// SceneInstructions to render
 	// MainMenu main_menu;
 	// Instructions instructions;
 	// Credits credits;

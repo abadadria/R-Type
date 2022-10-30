@@ -8,14 +8,17 @@ void Game::init()
 	exit_game = false;
 	state = MAIN_MENU;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+	sceneMenu.init();
 	sceneLevel.init();
+	sceneInstructions.init();
+	sceneCredits.init();
 }
 
 bool Game::update(int deltaTime)
 {
 	switch (state) {
 	case MAIN_MENU:
-		
+		sceneMenu.update(deltaTime);
 		break;
 
 	case PLAYING:
@@ -23,11 +26,11 @@ bool Game::update(int deltaTime)
 		break;
 
 	case INSTRUCTIONS:
-		
+		sceneInstructions.update(deltaTime);
 		break;
 
 	case CREDITS:
-		
+		sceneCredits.update(deltaTime);
 		break;
 	}
 	return exit_game;
@@ -39,9 +42,7 @@ void Game::render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	switch (state) {
 		case MAIN_MENU:
-			//render lo que toca
-			glClearColor(1.f, 0.3f, 0.3f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			sceneMenu.render();
 			break;
 
 		case PLAYING:
@@ -50,15 +51,11 @@ void Game::render()
 			break;
 
 		case INSTRUCTIONS:
-			// render lo que toca
-			glClearColor(0.3f, 1.f, 0.3f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			sceneInstructions.render();
 			break;
 
 		case CREDITS:
-			//render lo que toca
-			glClearColor(0.3f, 0.3f, 1.f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			sceneCredits.render();
 			break;
 	}
 }

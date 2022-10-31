@@ -59,15 +59,7 @@ void Sprite::continueAnimation(int deltaTime, bool ascending, bool loop) {
 void Sprite::update(int deltaTime)
 {
 	if (currentAnimation >= 0)
-	{
-		timeAnimation += deltaTime;
-		while (timeAnimation > animations[currentAnimation].millisecsPerKeyframe)
-		{
-			timeAnimation -= animations[currentAnimation].millisecsPerKeyframe;
-			currentKeyframe = (currentKeyframe + 1) % animations[currentAnimation].keyframeDispl.size();
-		}
-		texCoordDispl = animations[currentAnimation].keyframeDispl[currentKeyframe];
-	}
+		continueAnimation(deltaTime, true, animations[currentAnimation].looping);
 }
 
 void Sprite::render() const

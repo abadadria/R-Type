@@ -97,8 +97,16 @@ void Sprite::setNumberAnimations(int nAnimations)
 
 void Sprite::setAnimationSpeed(int animId, int keyframesPerSec)
 {
-	if (animId < int(animations.size()))
+	if (animId < int(animations.size())) {
 		animations[animId].millisecsPerKeyframe = 1000.f / keyframesPerSec;
+		animations[animId].looping = true;
+	}
+}
+
+void Sprite::setAnimationLooping(int animId, bool looping)
+{
+	if (animId < int(animations.size()))
+		animations[animId].looping = looping;
 }
 
 void Sprite::addKeyframe(int animId, const glm::vec2& displacement)

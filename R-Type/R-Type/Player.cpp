@@ -161,7 +161,7 @@ void Player::startExplosion() {
 	sprite = Sprite::createSprite(entitySize, glm::vec2(0.125, 1), &spritesheet, texProgram);
 	sprite->setNumberAnimations(2);
 
-		int keyframesPerSec = 2;
+		int keyframesPerSec = 15;
 
 		sprite->setAnimationSpeed(0, keyframesPerSec);
 		sprite->addKeyframe(0, glm::vec2(0.f, 0.f));

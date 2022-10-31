@@ -17,6 +17,7 @@ struct AnimKeyframes
 {
 	float millisecsPerKeyframe;
 	vector<glm::vec2> keyframeDispl;
+	bool looping;
 };
 
 

@@ -15,7 +15,6 @@ public:;
 
 private:
 	void startExplosion() override;
-	void explode() override;
 
 private:
 	const glm::ivec2 movVecShooting = glm::ivec2(7, 0);

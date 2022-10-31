@@ -51,7 +51,7 @@ void Sprite::continueAnimation(int deltaTime, bool ascending, bool loop) {
 				currentKeyframe++;
 			else if (!ascending && (currentKeyframe - 1) >= 0)
 				currentKeyframe--;
-		}		
+		}
 	}
 	texCoordDispl = animations[currentAnimation].keyframeDispl[currentKeyframe];
 }
@@ -123,9 +123,8 @@ int Sprite::animation() const
 	return currentAnimation;
 }
 
-void Sprite::setPosition(const glm::vec2& pos)
-{
-	position = pos;
+bool Sprite::isAnimationFinished() {
+	return currentKeyframe == animations[currentAnimation].keyframeDispl.size() - 1;
 }
 
 void Sprite::setDisplayOffset(glm::vec2 offset) {
@@ -133,3 +132,7 @@ void Sprite::setDisplayOffset(glm::vec2 offset) {
 }
 
 
+void Sprite::setPosition(const glm::vec2& pos)
+{
+	position = pos;
+}

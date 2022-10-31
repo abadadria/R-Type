@@ -117,23 +117,26 @@ void Player::update(int deltaTime)
 		}
 		if (arrow["DOWN"] && !arrow["UP"]) {							// MOVE DOWN
 			posEntity.y += speed;
-			if (cam->collisionDown(posEntity, entitySize, 0.f) ||
-				map->collisionMoveDown(posEntity, entitySize))
+			if (cam->collisionDown(posEntity, entitySize, 0.f))
 				posEntity.y -= speed;
 			if (sprite->animation() != MOVE_DOWN)
 				sprite->changeAnimation(MOVE_DOWN);
+			if (map->collisionMoveDown(posEntity, entitySize))
+				startExplosion();
 		}
 		if (arrow["RIGHT"] && !arrow["LEFT"]) {							// MOVE RIGHT
 			posEntity.x += speed;
-			if (cam->collisionRight(posEntity, entitySize, 0.f) ||
-				map->collisionMoveRight(posEntity, entitySize))
+			if (cam->collisionRight(posEntity, entitySize, 0.f))
 				posEntity.x -= speed;
+			if (map->collisionMoveRight(posEntity, entitySize))
+				startExplosion();
 		}
 		if (arrow["LEFT"] && !arrow["RIGHT"]) {							// MOVE LEFT
 			posEntity.x -= speed;
-			if (cam->collisionLeft(posEntity, entitySize, 0.f) ||
-				map->collisionMoveLeft(posEntity, entitySize))
+			if (cam->collisionLeft(posEntity, entitySize, 0.f))
 				posEntity.x += speed;
+			if (map->collisionMoveLeft(posEntity, entitySize))
+				startExplosion();
 		}
 		if (!arrow["UP"] && !arrow["DOWN"]) {
 			if (sprite->animation() != GO_BACK && sprite->animation() != STAND)
@@ -141,14 +144,15 @@ void Player::update(int deltaTime)
 		}
 		// Adapt to camera movement
 		posEntity += cam->getSpeed();
-		if (cam->collisionRight(posEntity, entitySize, 0.f) ||
-			map->collisionMoveRight(posEntity, entitySize))
+		if (cam->collisionRight(posEntity, entitySize, 0.f))
 			posEntity -= cam->getSpeed();
+		if (map->collisionMoveRight(posEntity, entitySize))
+			startExplosion();
 
 		sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 	}
-	else { // state == EXPLODING
-		explode();
+	else if (state == EXPLODING) {
+		ShootingEntity::explode();
 	}
 }
 
@@ -156,26 +160,28 @@ void Player::startExplosion() {
 	Entity::startExplosion();
 	// TODO Set animation to explosion
 	delete sprite;
+	glm::ivec2 prevEntitySize = entitySize;
 	entitySize = glm::ivec2(64, 64);
 	spritesheet.loadFromFile("images/spaceship_explosion.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(entitySize, glm::vec2(0.125, 1), &spritesheet, texProgram);
 	sprite->setNumberAnimations(2);
 
-		int keyframesPerSec = 15;
+		int keyframesPerSec = 40;
 
 		sprite->setAnimationSpeed(0, keyframesPerSec);
 		sprite->addKeyframe(0, glm::vec2(0.f, 0.f));
 
 		sprite->setAnimationSpeed(1, keyframesPerSec);
+		sprite->setAnimationLooping(1, false);
 		for (int i = 0.f; i < 8; i += 1)
 			sprite->addKeyframe(1, glm::vec2(0.125f * float(i), 0.f));
 
 	sprite->changeAnimation(1);
+	if (prevEntitySize != entitySize) {
+		// Adjust entity position for the different in size between ALIVE sprite and EXPLODING sprite.
+		glm::ivec2 diffSize = prevEntitySize - entitySize;
+		posEntity.x = posEntity.x + float(diffSize.x / 2);
+		posEntity.y = posEntity.y + float(diffSize.y / 2);
+	}
 	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
-}
-
-void Player::explode() {
-	// If nothing is added, remove override
-	// and call directly to ShootingEntity method.
-	ShootingEntity::explode();
 }

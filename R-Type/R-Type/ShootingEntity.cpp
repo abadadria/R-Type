@@ -41,6 +41,11 @@ void ShootingEntity::setShader(ShaderProgram* texProgram) {
 
 void ShootingEntity::explode() {
 	// Check if animation is finished
-	// Check if there are any bullets
-	// If there are not, make sprite disappear
+	// Then delete sprite
+	if (sprite != nullptr && sprite->isAnimationFinished()) {
+		delete sprite;
+		state = DEAD;
+	}
+	// Check if there are missing bullets
+	// If not set state to COMPLETELY_DEAD
 }

@@ -4,8 +4,10 @@
 #include "Sprite.h"
 #include "TileMap.h"
 
-# define ALIVE 0
-# define EXPLODING 1
+#define ALIVE 0
+#define EXPLODING 1
+#define DEAD 2
+#define COMPLETELY_DEAD 3
 
 class Entity
 {
@@ -17,6 +19,8 @@ public:
 
 	void setTileMap(TileMap* tileMap);
 	void setPosition(const glm::vec2& pos);
+
+	int getState();
 
 	~Entity();
 

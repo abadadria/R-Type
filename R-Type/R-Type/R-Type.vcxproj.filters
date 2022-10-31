@@ -25,6 +25,9 @@
     <Filter Include="Archivos de encabezado\Scene">
       <UniqueIdentifier>{2f7ac24e-1a6a-40db-b3f3-f63e48c07296}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\Sprites">
+      <UniqueIdentifier>{28e0b454-46d5-43b7-9be0-c9d50cd7cb4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -49,12 +52,6 @@
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="TexturedQuad.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteSpaceship.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
@@ -89,6 +86,12 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Archivos de código fuente\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteSpaceship.cpp">
+      <Filter>Archivos de código fuente\Sprites</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

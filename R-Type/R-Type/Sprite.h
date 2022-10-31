@@ -36,6 +36,8 @@ public:
 	virtual void changeAnimation(int animId);
 	int animation() const;
 	void setDisplayOffset(glm::vec2 offset);
+
+	bool isAnimationFinished();
 	
 	void setPosition(const glm::vec2 &pos);
 

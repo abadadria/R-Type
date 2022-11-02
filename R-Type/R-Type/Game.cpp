@@ -7,7 +7,6 @@ void Game::init()
 {
 	exit_game = false;
 	state = MAIN_MENU;
-	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	sceneMenu.init();
 	sceneLevel.init();
 	sceneInstructions.init();
@@ -69,18 +68,19 @@ void Game::keyPressed(int key)
 			else
 				exit_game = true;
 			break;
+		// TODO cambiar esta logica para que coja el valor del SceneMenu y haga lo que corresponda
 		case 13: // Enter code
-			if (state == MAIN_MENU)
-				state = PLAYING;
-			break;
-		case 'i':
-			if (state == MAIN_MENU)
-				state = INSTRUCTIONS;
-			break;
-		case 'c':
-			if (state == MAIN_MENU)
-				state = CREDITS;
-			break;
+			int change = sceneMenu.getItemSelected();
+			if (change == 0) {
+				if (state == MAIN_MENU) state = PLAYING;
+			}
+			else if (change == 1) {
+				if (state == MAIN_MENU) state = INSTRUCTIONS;
+			}
+			else if (change == 2) {
+				if (state == MAIN_MENU) state = CREDITS;
+			}
+			else if (change == 3) exit_game = true;
 	}
 	keys[key] = true;
 }

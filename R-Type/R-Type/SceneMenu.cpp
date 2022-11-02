@@ -3,7 +3,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "SceneMenu.h"
 #include "Game.h"
+#include <GL/freeglut_std.h>
 
+#define STILL 0
+#define UP 1 
+#define DOWN 2 
 
 
 SceneMenu::SceneMenu()
@@ -27,22 +31,75 @@ void SceneMenu::init()
 	spriteLogo->setPosition(posLogo);
 
 	text = new Text();
-	if (!text->init("fonts/arcade.ttf")) {
+	if (!text->init("fonts/RetronoidItalic.ttf")) {
 		cout << "Could not load font!!!" << endl;
 	}
+
+	textSelected = PLAY;
+	changeSelected = STILL;
 }
 
 void SceneMenu::update(int deltaTime)
 {
+	bool key_up = Game::instance().getSpecialKey(GLUT_KEY_UP);
+	bool key_down = Game::instance().getSpecialKey(GLUT_KEY_DOWN);
+	if (Game::instance().getSpecialKey(GLUT_KEY_UP)) {
+		changeSelected = UP;
+	}
+	if (Game::instance().getSpecialKey(GLUT_KEY_DOWN)) {
+		changeSelected = DOWN;
+	}
+	if (!key_up && !key_down && changeSelected != STILL) {
+		switch (textSelected) {
+			case PLAY:
+				if (changeSelected == UP) textSelected = EXIT;
+				if (changeSelected == DOWN) textSelected = INST;
+				break;
+			case INST:
+				if (changeSelected == UP) textSelected = PLAY;
+				if (changeSelected == DOWN) textSelected = CRED;
+				break;
+			case CRED:
+				if (changeSelected == UP) textSelected = INST;
+				if (changeSelected == DOWN) textSelected = EXIT;
+				break;
+			case EXIT:
+				if (changeSelected == UP) textSelected = CRED;
+				if (changeSelected == DOWN) textSelected = PLAY;
+				break;
+		}
+		changeSelected = STILL;
+	}
+	
 	Scene::update(deltaTime);
-
 }
 
 void SceneMenu::render()
 {
-	text->render("Porfin mecagoendios", glm::vec2(300, 300), 24, glm::vec4(0, 1, 0, 1));
-	
+	glClearColor(0.f, 0.f, 0.f, 1.0f);
+	//PLAY
+	if (textSelected == PLAY) text->render("PLAY", posPlay, textSize, selectedTextColor);
+	else text->render("PLAY", posPlay, textSize, textColor);
+
+	//INSTRUCTIONS
+	if (textSelected == INST) text->render("INSTRUCTIONS", posInst, textSize, selectedTextColor);
+	else text->render("INSTRUCTIONS", posInst, textSize, textColor);
+
+	//CREDITS
+	if (textSelected == CRED) text->render("CREDITS", posCred, textSize, selectedTextColor);
+	else text->render("CREDITS", posCred, textSize, textColor);
+
+	//EXIT
+	if (textSelected == EXIT) text->render("EXIT", posExit, textSize, selectedTextColor);
+	else text->render("EXIT", posExit, textSize, textColor);
+
+
 	Scene::render();
 	spriteLogo->render();
+}
+
+int SceneMenu::getItemSelected()
+{
+	return textSelected;
 }
 

@@ -51,7 +51,7 @@ void Sprite::continueAnimation(int deltaTime, bool ascending, bool loop) {
 				currentKeyframe++;
 			else if (!ascending && (currentKeyframe - 1) >= 0)
 				currentKeyframe--;
-		}		
+		}
 	}
 	texCoordDispl = animations[currentAnimation].keyframeDispl[currentKeyframe];
 }
@@ -59,15 +59,7 @@ void Sprite::continueAnimation(int deltaTime, bool ascending, bool loop) {
 void Sprite::update(int deltaTime)
 {
 	if (currentAnimation >= 0)
-	{
-		timeAnimation += deltaTime;
-		while (timeAnimation > animations[currentAnimation].millisecsPerKeyframe)
-		{
-			timeAnimation -= animations[currentAnimation].millisecsPerKeyframe;
-			currentKeyframe = (currentKeyframe + 1) % animations[currentAnimation].keyframeDispl.size();
-		}
-		texCoordDispl = animations[currentAnimation].keyframeDispl[currentKeyframe];
-	}
+		continueAnimation(deltaTime, true, animations[currentAnimation].looping);
 }
 
 void Sprite::render() const
@@ -97,8 +89,16 @@ void Sprite::setNumberAnimations(int nAnimations)
 
 void Sprite::setAnimationSpeed(int animId, int keyframesPerSec)
 {
-	if (animId < int(animations.size()))
+	if (animId < int(animations.size())) {
 		animations[animId].millisecsPerKeyframe = 1000.f / keyframesPerSec;
+		animations[animId].looping = true;
+	}
+}
+
+void Sprite::setAnimationLooping(int animId, bool looping)
+{
+	if (animId < int(animations.size()))
+		animations[animId].looping = looping;
 }
 
 void Sprite::addKeyframe(int animId, const glm::vec2& displacement)
@@ -123,9 +123,8 @@ int Sprite::animation() const
 	return currentAnimation;
 }
 
-void Sprite::setPosition(const glm::vec2& pos)
-{
-	position = pos;
+bool Sprite::isAnimationFinished() {
+	return currentKeyframe == animations[currentAnimation].keyframeDispl.size() - 1;
 }
 
 void Sprite::setDisplayOffset(glm::vec2 offset) {
@@ -133,3 +132,7 @@ void Sprite::setDisplayOffset(glm::vec2 offset) {
 }
 
 
+void Sprite::setPosition(const glm::vec2& pos)
+{
+	position = pos;
+}

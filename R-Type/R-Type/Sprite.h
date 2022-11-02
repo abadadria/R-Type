@@ -31,10 +31,13 @@ public:
 
 	void setNumberAnimations(int nAnimations);
 	void setAnimationSpeed(int animId, int keyframesPerSec);
+	void setAnimationLooping(int animId, bool looping);
 	void addKeyframe(int animId, const glm::vec2 &frame);
 	virtual void changeAnimation(int animId);
 	int animation() const;
 	void setDisplayOffset(glm::vec2 offset);
+
+	bool isAnimationFinished();
 	
 	void setPosition(const glm::vec2 &pos);
 

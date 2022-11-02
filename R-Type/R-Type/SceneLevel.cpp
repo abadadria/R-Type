@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cmath>
-#include <glm/gtc/matrix_transform.hpp>
 #include "SceneLevel.h"
 #include "Game.h"
 
@@ -28,17 +27,15 @@ void SceneLevel::init()
 	Scene::init();
 	map = TileMap::createTileMap("levels/level01.txt", glm::vec2(0, 0), texProgram);
 	player = new Player();
-	player->init(texProgram);
+	player->init(texProgram, map);
 	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
-	player->setTileMap(map);
 }
 
 void SceneLevel::update(int deltaTime)
 {
 	Scene::update(deltaTime);
-	cameraPos.x += 1.f;
-	projection = glm::ortho(cameraPos.x, cameraPos.x + cameraSize.x, cameraPos.y + cameraSize.y, cameraPos.y);
-	player->update(deltaTime, cameraPos, cameraSize);
+	projection = camera->update();
+	player->update(deltaTime);
 }
 
 void SceneLevel::render()

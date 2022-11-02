@@ -103,6 +103,7 @@ bool TileMap::loadLevel(const string &levelFile)
 	}
 
 	fin.close();
+	return true;
 }
 
 void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
@@ -188,10 +189,8 @@ bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) c
 	y0 = pos.y / tileSize;
 	y1 = (pos.y + size.y - 1) / tileSize;
 	for(int y=y0; y<=y1; y++)
-	{
 		if(map[y*mapSize.x+x] != 0)
 			return true;
-	}
 	
 	return false;
 }
@@ -204,15 +203,13 @@ bool TileMap::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) 
 	y0 = pos.y / tileSize;
 	y1 = (pos.y + size.y - 1) / tileSize;
 	for(int y=y0; y<=y1; y++)
-	{
 		if(map[y*mapSize.x+x] != 0)
 			return true;
-	}
 	
 	return false;
 }
 
-bool TileMap::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size, int posY) const
+bool TileMap::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size) const
 {
 	int x0, x1, y;
 	
@@ -220,39 +217,31 @@ bool TileMap::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size, i
 	x1 = (pos.x + size.x - 1) / tileSize;
 	y = (pos.y + size.y - 1) / tileSize;
 	for(int x=x0; x<=x1; x++)
-	{
 		if(map[y*mapSize.x+x] != 0)
-		{
-			if(posY - tileSize * y + size.y <= 4)
-			{
-				posY = tileSize * y - size.y;
 				return true;
-			}
-		}
-	}
 	
 	return false;
 }
 
-bool TileMap::collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size, int posY) const
+bool TileMap::collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size) const
 {
 	int x0, x1, y;
 
 	x0 = pos.x / tileSize;
 	x1 = (pos.x + size.x - 1) / tileSize;
-	y = (pos.y + size.y - 1) / tileSize;
+	y = pos.y / tileSize;
 	for (int x = x0; x <= x1; x++)
-	{
-		if (map[(y - 1) * mapSize.x + x] != 0)
-		{
-			if ((posY) - tileSize * y - size.y <= 4)
-			{
+		if (map[y * mapSize.x + x] != 0)
 				return true;
-			}
-		}
-	}
 
 	return false;
+}
+
+bool TileMap::collision(const glm::ivec2& pos, const glm::ivec2& mov, const glm::ivec2& size) const
+{
+	glm::ivec2 newpos = pos + mov;
+	return mov.x > 0 && collisionMoveRight(newpos, size) || mov.x < 0 && collisionMoveLeft(newpos, size) ||
+		   mov.y > 0 && collisionMoveDown(newpos, size)  || mov.y < 0 && collisionMoveUp(newpos, size);
 }
 
 

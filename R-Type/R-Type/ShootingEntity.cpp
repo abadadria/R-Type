@@ -11,14 +11,13 @@ void ShootingEntity::update(int deltaTime)
 {
 	Entity::update(deltaTime);
 	for (std::list<PassiveEntity*>::iterator it = passiveEntities.begin(); it != passiveEntities.end();) {
-		(*it)->update(deltaTime);
-		glm::ivec2 posShoot = (*it)->getPosition();
-		Camera* cam = Camera::getInstance();
-		if (cam->collision(posShoot, glm::vec2(0.f, 0.f), 50.f)) {
-        		delete (*it);
+		int state = (*it)->getState();
+		if (state == COMPLETELY_DEAD) {
+        	delete (*it);
 			passiveEntities.erase(it++);
 		}
 		else {
+			(*it)->update(deltaTime);
 			++it;
 		}
 	}

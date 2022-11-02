@@ -40,5 +40,4 @@ void Entity::startExplosion() {
 }
 
 Entity::~Entity() {
-	delete sprite;
 }

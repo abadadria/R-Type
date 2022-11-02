@@ -5,7 +5,6 @@
 #include <list>
 #include "Entity.h"
 #include "PassiveEntity.h"
-#include "Camera.h"
 
 
 class ShootingEntity : public Entity

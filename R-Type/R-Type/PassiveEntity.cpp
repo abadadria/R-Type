@@ -6,6 +6,7 @@
 #include <GL/glut.h>
 
 #include "Sprite.h"
+#include "Camera.h"
 
 
 void PassiveEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap)
@@ -16,10 +17,17 @@ void PassiveEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap)
 
 void PassiveEntity::update(int deltaTime)
 {
-	//control the module of the movement vector
+	// TODO control the module of the movement vector
 	Entity::update(deltaTime);
-	posEntity += movementVector;
-	Entity::setPosition(posEntity);
+	if (state == ALIVE) {
+		Camera* cam = Camera::getInstance();
+		if (map->collision(posEntity, movementVector, entitySize) ||
+			cam->collision(posEntity+movementVector, entitySize, 50.f))
+			startExplosion();
+		posEntity += movementVector;
+		sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
+	}
+	
 }
 
 void PassiveEntity::render()
@@ -41,6 +49,8 @@ void PassiveEntity::setSprite(string spriteFolder, glm::ivec2 sizeSprite, glm::v
 	sprite->setDisplayOffset(offset);
 }
 
-glm::ivec2 PassiveEntity::getPosition() {
-	return posEntity;
+void PassiveEntity::startExplosion() {
+	Entity::startExplosion();
+	delete sprite;
+	state = COMPLETELY_DEAD;
 }

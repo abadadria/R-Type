@@ -237,6 +237,13 @@ bool TileMap::collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size) con
 	return false;
 }
 
+bool TileMap::collision(const glm::ivec2& pos, const glm::ivec2& mov, const glm::ivec2& size) const
+{
+	glm::ivec2 newpos = pos + mov;
+	return mov.x > 0 && collisionMoveRight(newpos, size) || mov.x < 0 && collisionMoveLeft(newpos, size) ||
+		   mov.y > 0 && collisionMoveDown(newpos, size)  || mov.y < 0 && collisionMoveUp(newpos, size);
+}
+
 
 
 

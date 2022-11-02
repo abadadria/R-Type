@@ -10,7 +10,7 @@ class Player : public ShootingEntity
 	
 public:;
 
-	void init(ShaderProgram& shaderProgram) override; // Abstract method
+	void init(ShaderProgram& shaderProgram, TileMap* tileMap) override;
 	void update(int deltaTime) override;
 
 private:

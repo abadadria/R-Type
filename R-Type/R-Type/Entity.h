@@ -13,11 +13,10 @@ class Entity
 {
 
 public:
-	virtual void init(ShaderProgram& shaderProgram) = 0; // Abstract method
+	virtual void init(TileMap* tileMap);
 	virtual void update(int deltaTime);
 	virtual void render();
 
-	void setTileMap(TileMap* tileMap);
 	void setPosition(const glm::vec2& pos);
 
 	int getState();

@@ -27,9 +27,8 @@ void SceneLevel::init()
 	Scene::init();
 	map = TileMap::createTileMap("levels/level01.txt", glm::vec2(0, 0), texProgram);
 	player = new Player();
-	player->init(texProgram);
+	player->init(texProgram, map);
 	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
-	player->setTileMap(map);
 }
 
 void SceneLevel::update(int deltaTime)

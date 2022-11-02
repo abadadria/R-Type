@@ -10,17 +10,18 @@ class PassiveEntity : Entity
 
 public:
 
-	  void init(ShaderProgram& shaderProgram) override; // Abstract method implementation
+	  void init(ShaderProgram& shaderProgram, TileMap* tileMap);
 	  void update(int deltaTime) override;
 	  void render() override;
 
 	  void setMovementVector(glm::ivec2 movVec);
 	  void setInitialPosition(glm::ivec2 pos);
-	  void setSprite(string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, ShaderProgram* texProgram, glm::vec2 offset);
+	  void setSprite(string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, glm::vec2 offset);
 	  glm::ivec2 getPosition();
 
 
 private:
+	ShaderProgram* texProgram;
 	glm::ivec2 movementVector;
 };
 

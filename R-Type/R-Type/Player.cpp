@@ -16,8 +16,9 @@ enum PlayerAnims
 };
 
 
-void Player::init(ShaderProgram &shaderProgram)
+void Player::init(ShaderProgram &shaderProgram, TileMap* tileMap)
 {
+	ShootingEntity::init(shaderProgram, tileMap);
 	entitySize = glm::ivec2(64, 32);
 	spritesheet.loadFromFile("images/spaceship.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = SpriteSpaceship::createSpriteSpaceship(entitySize, glm::vec2(0.25, 0.5), &spritesheet, &shaderProgram);
@@ -51,7 +52,6 @@ void Player::init(ShaderProgram &shaderProgram)
 	
 	sprite->changeAnimation(0);
 	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
-	ShootingEntity::setShader(&shaderProgram);
 }
 
 void Player::update(int deltaTime)

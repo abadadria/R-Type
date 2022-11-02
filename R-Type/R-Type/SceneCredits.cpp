@@ -66,8 +66,8 @@ void SceneCredits::render()
 	text2->render("USED FONTS", posElem + glm::vec2(0, 180), textElemSize, textElemColor);
 	text1->render("DOGICA AND RETRONOID", posElem + glm::vec2(-55, 210), textElemSize - 5, textElemColor);
 
-	text2->render("USED FONTS", posElem + glm::vec2(0, 270), textElemSize, textElemColor);
-	text1->render("BASED ON R-TYPE BY IREM", posElem + glm::vec2(-75, 300), textElemSize - 5, textElemColor);
+	text2->render("BASED ON", posElem + glm::vec2(10, 270), textElemSize, textElemColor);
+	text1->render("R-TYPE BY IREM", posElem + glm::vec2(-20, 300), textElemSize - 5, textElemColor);
 
 	Scene::render();
 }

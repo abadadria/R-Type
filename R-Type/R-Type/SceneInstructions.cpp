@@ -49,8 +49,8 @@ void SceneInstructions::render()
 	text0->render("BACK [ESC]", posBack, textBackSize, textBackColor);
 	text0->render("INSTRUCTIONS:", posInst, textInstSize, textColor);
 
-	text1->render("-[UP_ARROW]: Move player to the top", posElem, textElemSize, textElemColor);
-	text1->render("-[DOWN_ARROW]: Move player to the bottom", posElem + glm::vec2(0, 30), textElemSize, textElemColor);
+	text1->render("-[UP_ARROW]: Move player up", posElem, textElemSize, textElemColor);
+	text1->render("-[DOWN_ARROW]: Move player down", posElem + glm::vec2(0, 30), textElemSize, textElemColor);
 	text1->render("-[LEFT_ARROW]: Move player to the left", posElem + glm::vec2(0, 60), textElemSize, textElemColor);
 	text1->render("-[RIGHT_ARROW]: Move playe to the right", posElem + glm::vec2(0, 90), textElemSize, textElemColor);
 	text1->render("-[SPACE_BAR]: Shoot normal shot", posElem + glm::vec2(0, 120), textElemSize, textElemColor);
@@ -58,7 +58,8 @@ void SceneInstructions::render()
 	text1->render("-[ESC]: Go back", posElem + glm::vec2(0, 180), textElemSize, textElemColor);
 	text1->render("-[G]: Activate invulnerability", posElem + glm::vec2(0, 210), textElemSize, textElemColor);
 	text1->render("-[F]: Activate Force", posElem + glm::vec2(0, 240), textElemSize, textElemColor);
-	text1->render("-[1..3]: Skip levels", posElem + glm::vec2(0, 270), textElemSize, textElemColor);
+	text1->render("-[O]: Activate collission overlay", posElem + glm::vec2(0, 270), textElemSize, textElemColor);
+	text1->render("-[1..4]: Skip sections", posElem + glm::vec2(0, 300), textElemSize, textElemColor);
 
 	Scene::render();
 }

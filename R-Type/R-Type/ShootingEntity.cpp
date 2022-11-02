@@ -42,10 +42,12 @@ void ShootingEntity::setShader(ShaderProgram* texProgram) {
 void ShootingEntity::explode() {
 	// Check if animation is finished
 	// Then delete sprite
-	if (sprite != nullptr && sprite->isAnimationFinished()) {
+	if (state == EXPLODING && sprite->isAnimationFinished()) {
 		delete sprite;
 		state = DEAD;
 	}
 	// Check if there are missing bullets
-	// If not set state to COMPLETELY_DEAD
+	// If not set state to COMPLETELY_DEAD for the parent scope to delete the object
+	if (state == DEAD && passiveEntities.size() == 0)
+		state == COMPLETELY_DEAD;
 }

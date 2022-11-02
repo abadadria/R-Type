@@ -4,6 +4,7 @@
 
 #include <glm/glm.hpp>
 #include "ShaderProgram.h"
+#include "Camera.h"
 
 
 // Scene contains all the entities of our game.
@@ -27,9 +28,9 @@ protected:
 protected:
 	ShaderProgram texProgram;
 	float currentTime;
+
+	Camera* camera;
 	glm::mat4 projection;
-	glm::vec2 cameraSize;
-	glm::vec2 cameraPos;
 };
 
 

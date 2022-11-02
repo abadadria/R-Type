@@ -3,6 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Scene.h"
 #include "Game.h"
+#include "Camera.h"
 
 
 Scene::Scene() {}
@@ -13,9 +14,12 @@ Scene::~Scene() {}
 void Scene::init()
 {
 	initShaders();
-	cameraPos = glm::vec2(0.f, 0.f);
-	cameraSize = glm::vec2(float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1));
+	glm::vec2 cameraPos = glm::vec2(0.f, 0.f);
+	glm::vec2 cameraSize = glm::vec2(float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1));
+	glm::vec2 cameraSpeed = glm::vec2(1.f, 0.f);
 	projection = glm::ortho(cameraPos.x, cameraPos.x + cameraSize.x, cameraPos.y + cameraSize.y, cameraPos.y);
+	camera = Camera::getInstance();
+	camera->init(cameraPos, cameraSize, cameraSpeed);
 	currentTime = 0.0f;
 }
 

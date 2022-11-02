@@ -8,20 +8,20 @@
 
 #include "Game.h"
 
+void Entity::init(TileMap* tileMap) {
+	map = tileMap;
+}
 
 void Entity::update(int deltaTime)
 {
-	sprite->update(deltaTime);
+	if (state != DEAD && state != COMPLETELY_DEAD)
+		sprite->update(deltaTime);
 }
 
 void Entity::render()
 {
-	sprite->render();
-}
-
-void Entity::setTileMap(TileMap* tileMap)
-{
-	map = tileMap;
+	if (state != DEAD && state != COMPLETELY_DEAD)
+		sprite->render();
 }
 
 void Entity::setPosition(const glm::vec2& pos)
@@ -30,6 +30,14 @@ void Entity::setPosition(const glm::vec2& pos)
 	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 }
 
+int Entity::getState()
+{
+	return state;
+}
+
+void Entity::startExplosion() {
+	state = EXPLODING;
+}
+
 Entity::~Entity() {
-	delete sprite;
 }

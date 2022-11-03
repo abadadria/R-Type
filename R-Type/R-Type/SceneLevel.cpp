@@ -75,6 +75,33 @@ void SceneLevel::update(int deltaTime)
 		Scene::update(deltaTime);
 		projection = camera->update();
 		player->update(deltaTime);
+
+		// Get new enemies to spawn
+		Camera* cam = Camera::getInstance();
+		glm::ivec2 camPos, camSize;
+		camPos = cam->getPos();
+		camSize = cam->getSize();
+		int cameraRightLimit = camPos.x + camSize.x;
+		int tileCol = cameraRightLimit / map->getTileSize();
+		vector<pair<int, list<int>>> enemiesToSpawn = map->getEnemies(tileCol);
+		for (int i = 0; i < enemiesToSpawn.size(); ++i) {
+			int row = enemiesToSpawn[i].first;
+			list<int> list = enemiesToSpawn[i].second;
+			for (int e : list) {
+				AutonomousEntity* enemy;
+				switch (e) {
+					case 2:
+						enemy = new RedPlane();
+						break;
+					default:
+						enemy = nullptr;
+				}
+				enemy->init(texProgram, map, glm::ivec2(tileCol * map->getTileSize(), row * map->getTileSize()));
+				enemies.push_back(enemy);
+			}
+		}
+
+		// Update enemies
 		for (AutonomousEntity* enemy : enemies) {
 			enemy->update(deltaTime);
 		}

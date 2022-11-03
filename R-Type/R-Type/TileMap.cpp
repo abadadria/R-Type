@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <vector>
+#include <map>
 #include "TileMap.h"
 
 
@@ -86,15 +86,43 @@ bool TileMap::loadLevel(const string &levelFile)
 	scenario.setMinFilter(GL_NEAREST);
 	scenario.setMagFilter(GL_NEAREST);
 
+	// Load enemy definitions
+	std::map< char, list<int> > enemyDefs;
+	char nDefs, letter, nEnemies, enemy;
+	getline(fin, line);
+	if (line.compare(0, 9, "ENEMY_DEF") != 0)
+		return false;
+	getline(fin, line);
+	sstream.str(line);
+	sstream >> nDefs;
+	for (int i = 0; i < nDefs - '0'; ++i) {
+		sstream.str(line);
+		sstream >> letter >> nEnemies;
+		for (int j = 0; j < nEnemies - '0'; ++j) {
+			sstream >> enemy;
+			enemyDefs[letter].push_back(enemy - '0');
+		}
+	}
+
 	// Load level map
 	map = new int[mapSize.x * mapSize.y];
+	spawnedColumns = vector<bool>(mapSize.x, false);
+	mapEnemies = vector<vector<list<int>>>(mapSize.y, vector<list<int>>(mapSize.x));
 	for (int j = 0; j < mapSize.y; j++) {
 		for (int i = 0; i < mapSize.x; i++) {
 			fin.get(tile);
 			if (tile == ' ')
 				map[j * mapSize.x + i] = 0;
-			else
-				map[j * mapSize.x + i] = tile - int('0');
+			else if (tile == '1')
+				map[j * mapSize.x + i] = 1;
+			else if (tile >= '2' && tile <= '9') { // Single enemy
+				mapEnemies[j][i].push_back(tile - '0');
+			}
+			else if (tile >= 'A' && tile <= 'Z') // Enemy definition
+				if (enemyDefs.find(tile) == enemyDefs.end())
+					return false;
+				for (int e : enemyDefs[tile])
+					mapEnemies[j][i].push_back(e);
 		}
 		fin.get(tile);
 #ifndef _WIN32
@@ -177,6 +205,18 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 	texCoordLocationCollisionBlocks = program.bindVertexAttribute("texCoord", 2, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 }
 
+vector<pair<int, list<int>>> TileMap::getEnemies(int tileMapColumn) { 
+	if (spawnedColumns[tileMapColumn])
+		return vector<pair<int, list<int>>>(0);
+	vector<pair<int, list<int>>> enemies;
+	for (int j = 0; j < mapSize.y; ++j) {
+		list<int> aux = mapEnemies[j][tileMapColumn];
+		enemies.push_back(make_pair(j, aux));
+	}
+	spawnedColumns[tileMapColumn] = true;
+	return enemies;
+}
+
 // Collision tests for axis aligned bounding boxes.
 // Method collisionMoveDown also corrects Y coordinate if the box is
 // already intersecting a tile below.
@@ -189,7 +229,7 @@ bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) c
 	y0 = pos.y / tileSize;
 	y1 = (pos.y + size.y - 1) / tileSize;
 	for(int y=y0; y<=y1; y++)
-		if(map[y*mapSize.x+x] != 0)
+		if(map[y*mapSize.x+x] == 1)
 			return true;
 	
 	return false;
@@ -203,7 +243,7 @@ bool TileMap::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) 
 	y0 = pos.y / tileSize;
 	y1 = (pos.y + size.y - 1) / tileSize;
 	for(int y=y0; y<=y1; y++)
-		if(map[y*mapSize.x+x] != 0)
+		if(map[y*mapSize.x+x] == 1)
 			return true;
 	
 	return false;
@@ -217,7 +257,7 @@ bool TileMap::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size) c
 	x1 = (pos.x + size.x - 1) / tileSize;
 	y = (pos.y + size.y - 1) / tileSize;
 	for(int x=x0; x<=x1; x++)
-		if(map[y*mapSize.x+x] != 0)
+		if(map[y*mapSize.x+x] == 1)
 				return true;
 	
 	return false;
@@ -231,7 +271,7 @@ bool TileMap::collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size) con
 	x1 = (pos.x + size.x - 1) / tileSize;
 	y = pos.y / tileSize;
 	for (int x = x0; x <= x1; x++)
-		if (map[y * mapSize.x + x] != 0)
+		if (map[y * mapSize.x + x] == 1)
 				return true;
 
 	return false;

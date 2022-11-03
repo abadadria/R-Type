@@ -43,10 +43,21 @@ void PassiveEntity::setMovementVector(glm::ivec2 movVec) {
 	this->movementVector = movVec;
 }
 
-void PassiveEntity::setSprite(string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, glm::vec2 offset) {
+void PassiveEntity::setSprite(string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, int numberAnimations) {
 	spritesheet.loadFromFile(spriteFolder, TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(sizeSprite, posInSprite, &spritesheet, texProgram);
-	sprite->setDisplayOffset(offset);
+	entitySize = sizeSprite;
+	if (numberAnimations > 1) {
+		sprite->setNumberAnimations(1);
+		int keyframesPerSec = 30;
+		sprite->setAnimationSpeed(0, keyframesPerSec);
+		sprite->setAnimationLooping(0, true);
+		for (int i = 1; i <= numberAnimations; ++i) {
+			sprite->addKeyframe(0, glm::vec2(posInSprite.x*i, posInSprite.y));
+		}
+		sprite->changeAnimation(0);
+	}
+	
 }
 
 void PassiveEntity::startExplosion() {

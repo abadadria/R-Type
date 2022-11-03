@@ -62,38 +62,39 @@ void Player::update(int deltaTime)
 		if (Game::instance().getKey(' '))  beamCharger += 1;
 		else {
 			if (beamCharger != 0) {
-				string spriteFile;
-				glm::ivec2 sizeSprite;
-				glm::vec2 posInSprite;
-				glm::vec2 texCoordOffset;
 				glm::ivec2 posShoot(posEntity.x, posEntity.y);
 				if (beamCharger < 20) { // basic shoot
 					posShoot.x = posEntity.x + entitySize.x;
-					posShoot.y = posEntity.y + entitySize.y / 3;
-					spriteFile = shootingSpriteFile;
-					sizeSprite = sizeSpriteShooting;
-					posInSprite = posShootingInSprite;
-					texCoordOffset = glm::vec2(0.0, 0.0);
+					posShoot.y = posEntity.y + entitySize.y / 2;
+					ShootingEntity::addPassiveEntity(movVecShooting, posShoot, "images/shotShip.png", glm::ivec2(32, 8), glm::vec2(1, 1), 1);
 				}
 				else {
-					spriteFile = beamSpriteFile;
-					sizeSprite = sizeSpriteBeam;
-					posInSprite = posBeamInSprite;
-					if (beamCharger > 60) {
+					if (beamCharger > 70) {
 						posShoot.x = posEntity.x + entitySize.x - 8;
-						texCoordOffset = glm::vec2(0.5, 0.5);
+						posShoot.y = posEntity.y + entitySize.y / 2;
+						ShootingEntity::addPassiveEntity(movVecShooting, posShoot, "images/beam5.png", glm::ivec2(161 / 2, 16), glm::vec2(0.5, 1), 2);
+					}
+					else if (beamCharger > 60) {
+						posShoot.x = posEntity.x + entitySize.x - 8;
+						posShoot.y = posEntity.y + entitySize.y / 2;
+						ShootingEntity::addPassiveEntity(movVecShooting, posShoot, "images/beam4.png", glm::ivec2(129 / 2, 14), glm::vec2(0.5, 1), 2);
 					}
 					else if (beamCharger > 50) {
-						posShoot.x = posEntity.x + entitySize.x - 8;
-						texCoordOffset = glm::vec2(0.0, 0.5);
-					}
-					else if (beamCharger > 35) {
 						posShoot.x = posEntity.x + entitySize.x - 12;
-						texCoordOffset = glm::vec2(0.5, 0.0);
+						posShoot.y = posEntity.y + entitySize.y / 2;
+						ShootingEntity::addPassiveEntity(movVecShooting, posShoot, "images/beam3.png", glm::ivec2(97 / 2, 14), glm::vec2(0.5, 1), 2);
 					}
-					else texCoordOffset = glm::vec2(0.0, 0.0);
+					else if (beamCharger > 40){
+						posShoot.x = posEntity.x + entitySize.x - 12;
+						posShoot.y = posEntity.y + entitySize.y / 2;
+						ShootingEntity::addPassiveEntity(movVecShooting, posShoot, "images/beam2.png", glm::ivec2(65 / 2, 12), glm::vec2(0.5, 1), 2);
+					}
+					else {
+						posShoot.x = posEntity.x + entitySize.x - 12;
+						posShoot.y = posEntity.y + entitySize.y / 2;
+						ShootingEntity::addPassiveEntity(movVecShooting, posShoot, "images/beam1.png", glm::ivec2(33 / 2, 12), glm::vec2(0.5, 1), 2);
+					}
 				}
-				ShootingEntity::addPassiveEntity(movVecShooting, posShoot, spriteFile, sizeSprite, posInSprite, texCoordOffset);
 				beamCharger = 0;
 			}
 		}

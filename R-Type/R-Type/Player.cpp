@@ -52,6 +52,33 @@ void Player::init(ShaderProgram &shaderProgram, TileMap* tileMap)
 	
 	sprite->changeAnimation(0);
 	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
+
+	beamCharger = 0;
+	resetBeamCharge = true;
+}
+
+void Player::render() {
+	if (beamCharger > 20) {
+		spriteBeamCharge->render();
+	}
+	else if (resetBeamCharge) {
+		spritesheetBeamCharge.loadFromFile("images/beamCharge.png", TEXTURE_PIXEL_FORMAT_RGBA);
+		spriteBeamCharge = Sprite::createSprite(glm::ivec2(33, 32), glm::vec2(0.125, 1), &spritesheetBeamCharge, texProgram);
+		spriteBeamCharge->setNumberAnimations(1);
+			
+			int keyframesPerSec = 40;
+			spriteBeamCharge->setAnimationSpeed(0, keyframesPerSec);
+			spriteBeamCharge->setAnimationLooping(0, true);
+			for (int i = 0.f; i < 8; i += 1)
+				spriteBeamCharge->addKeyframe(0, glm::vec2(0.125f * float(i), 0.f));
+
+		spriteBeamCharge->changeAnimation(0);
+		spriteBeamCharge->setPosition(glm::ivec2(posEntity.x + 33, posEntity.y + 32));
+		resetBeamCharge = false;
+		
+	}
+	// if charging beam, render la cosilla esa
+	ShootingEntity::render();
 }
 
 void Player::update(int deltaTime)
@@ -59,7 +86,11 @@ void Player::update(int deltaTime)
 	ShootingEntity::update(deltaTime);
 	if (state == ALIVE) {
 		glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
-		if (Game::instance().getKey(' '))  beamCharger += 1;
+		if (Game::instance().getKey(' ')) {
+			beamCharger += 1;
+			spriteBeamCharge->update(deltaTime);
+			spriteBeamCharge->setPosition(glm::ivec2(posEntity.x + 33, posEntity.y + 32));
+		}
 		else {
 			if (beamCharger != 0) {
 				glm::ivec2 posShoot(posEntity.x, posEntity.y);
@@ -96,6 +127,7 @@ void Player::update(int deltaTime)
 					}
 				}
 				beamCharger = 0;
+				resetBeamCharge = true;
 			}
 		}
 

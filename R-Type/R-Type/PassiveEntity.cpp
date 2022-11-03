@@ -57,7 +57,7 @@ void PassiveEntity::setSprite(string spriteFolder, glm::ivec2 sizeSprite, glm::v
 		sprite->setAnimationSpeed(0, keyframesPerSec);
 		sprite->setAnimationLooping(0, true);
 		bool onlyOnce = true;
-		for (int i = 1; i <= 2; ++i) {
+		for (int i = 0; i < 2; ++i) {
 			sprite->addKeyframe(0, glm::vec2(posInSprite.x*i, posInSprite.y));
 			if (onlyOnce) {
 				for (int j = 0; j < 4; ++j) {

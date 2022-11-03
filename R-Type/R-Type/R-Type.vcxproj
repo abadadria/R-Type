@@ -20,6 +20,7 @@
     <ClCompile Include="PatternSin.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Quad.cpp" />
+    <ClCompile Include="RedPlane.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneCredits.cpp" />
     <ClCompile Include="SceneInstructions.cpp" />
@@ -48,6 +49,7 @@
     <ClInclude Include="PatternSin.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Quad.h" />
+    <ClInclude Include="RedPlane.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneCredits.h" />
     <ClInclude Include="SceneInstructions.h" />

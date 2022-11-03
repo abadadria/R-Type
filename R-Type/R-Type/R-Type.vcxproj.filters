@@ -102,6 +102,9 @@
     <ClCompile Include="AutonomousEntity.cpp">
       <Filter>Archivos de código fuente\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="RedPlane.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
     <ClCompile Include="SpaceshipBullet.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
@@ -181,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="AutonomousEntity.h">
       <Filter>Archivos de encabezado\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="RedPlane.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="SpaceshipBullet.h">
       <Filter>Archivos de encabezado</Filter>

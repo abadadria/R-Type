@@ -11,17 +11,18 @@ class AutonomousEntity : public ShootingEntity
 public:
 	~AutonomousEntity();
 
-	virtual void init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos);
+	virtual void init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos) = 0;
+	void init(ShaderProgram& shaderProgram, TileMap* tileMap);
 	virtual void update(int deltaTime) override;
+
+protected:
+	void setPattern(Pattern* pattern);
 
 private:
 	void startExplosion() override;
 
 protected:
 	Pattern* movementPattern;
-
-private:
-	std::list<PassiveEntity*> passiveEntities;
 };
 
 #endif _AUTONOMOUS_ENTITY_INCLUDE

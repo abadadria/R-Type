@@ -1,41 +1,21 @@
 #include "AutonomousEntity.h"
-#include "Camera.h"
 #include "PatternSin.h"
+#include "Camera.h"
 
 
 AutonomousEntity::~AutonomousEntity() {
 	delete movementPattern;
 }
 
-void AutonomousEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos)
+void AutonomousEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap)
 {
 	ShootingEntity::init(shaderProgram, tileMap);
-	this->movementPattern = new PatternSin(initialPos, 0, 5, -4, 100);
-	entitySize = glm::ivec2(64, 64);
-	spritesheet.loadFromFile("images/redplane.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(entitySize, glm::vec2(0.125, 0.5), &spritesheet, &shaderProgram);
-	sprite->setNumberAnimations(2);
-
-		int keyframesPerSec = 17;
-
-		sprite->setAnimationSpeed(0, keyframesPerSec);
-		sprite->addKeyframe(0, glm::vec2(0.f, 0.f));
-
-		sprite->setAnimationSpeed(1, keyframesPerSec);
-		sprite->setAnimationLooping(1, true);
-		for (int i = 0.f; i < 8; i += 1)
-			sprite->addKeyframe(1, glm::vec2(0.125f * float(i), 0.f));
-
-	sprite->changeAnimation(1);
-	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 }
 
 void AutonomousEntity::update(int deltaTime)
 {
 	ShootingEntity::update(deltaTime);
 	if (state == ALIVE) {
-		// Shooting
-
 		// Movement
 		posEntity = movementPattern->calcNewPosition(deltaTime);
 		Camera* cam = Camera::getInstance();
@@ -49,7 +29,12 @@ void AutonomousEntity::update(int deltaTime)
 	}
 }
 
+void AutonomousEntity::setPattern(Pattern* pattern) {
+	this->movementPattern = pattern;
+}
+
 void AutonomousEntity::startExplosion()
 {
 	Entity::startExplosion();
+	//TODO do specific stuff
 }

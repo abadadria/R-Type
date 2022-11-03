@@ -5,6 +5,7 @@
 #include "Game.h"
 #include <GL/freeglut_std.h>
 #include "PatternSin.h"
+#include "RedPlane.h"
 
 #define INIT_PLAYER_X 16
 #define INIT_PLAYER_Y 240
@@ -38,8 +39,7 @@ void SceneLevel::init()
 	player = new Player();
 	player->init(texProgram, map);
 	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
-	
-	AutonomousEntity* enemy = new AutonomousEntity();
+	AutonomousEntity* enemy = new RedPlane();
 	enemy->init(texProgram, map, glm::ivec2(400, 240));
 	enemies.push_back(enemy);
 	

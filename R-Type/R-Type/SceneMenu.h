@@ -5,7 +5,6 @@
 #include "Scene.h"
 #include "Sprite.h"
 #include "Texture.h"
-#include "Text.h"
 
 #define PLAY 0
 #define INST 1

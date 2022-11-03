@@ -31,10 +31,10 @@ void ShootingEntity::render()
 	Entity::render();
 }
 
-void ShootingEntity::addPassiveEntity(glm::ivec2 movVec, glm::ivec2 pos, string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, glm::vec2 offset) {
+void ShootingEntity::addPassiveEntity(glm::ivec2 movVec, glm::ivec2 pos, string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, int animationType) {
 	PassiveEntity* newPassiveEntity = new PassiveEntity{};
 	newPassiveEntity->init(*texProgram, map);
-	newPassiveEntity->setSprite(spriteFolder, sizeSprite, posInSprite, offset);
+	newPassiveEntity->setSprite(spriteFolder, sizeSprite, posInSprite, animationType);
 	newPassiveEntity->setInitialPosition(pos);
 	newPassiveEntity->setMovementVector(movVec);
 	passiveEntities.push_back(newPassiveEntity);

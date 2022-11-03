@@ -52,6 +52,32 @@ void Player::init(ShaderProgram &shaderProgram, TileMap* tileMap)
 	
 	sprite->changeAnimation(0);
 	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
+
+	beamCharger = 0;
+	resetBeamCharge = true;
+}
+
+void Player::render() {
+	if (beamCharger > 20) {
+		spriteBeamCharge->render();
+	}
+	else if (resetBeamCharge) {
+		spritesheetBeamCharge.loadFromFile("images/beamCharge.png", TEXTURE_PIXEL_FORMAT_RGBA);
+		spriteBeamCharge = Sprite::createSprite(glm::ivec2(33, 32), glm::vec2(0.125, 1), &spritesheetBeamCharge, texProgram);
+		spriteBeamCharge->setNumberAnimations(1);
+			
+			int keyframesPerSec = 10;
+			spriteBeamCharge->setAnimationSpeed(0, keyframesPerSec);
+			spriteBeamCharge->setAnimationLooping(0, true);
+			for (int i = 0.f; i < 8; i += 1)
+				spriteBeamCharge->addKeyframe(0, glm::vec2(0.125f * float(i), 0.f));
+
+		spriteBeamCharge->changeAnimation(0);
+		resetBeamCharge = false;
+		
+	}
+	// if charging beam, render la cosilla esa
+	ShootingEntity::render();
 }
 
 void Player::update(int deltaTime)
@@ -59,42 +85,48 @@ void Player::update(int deltaTime)
 	ShootingEntity::update(deltaTime);
 	if (state == ALIVE) {
 		glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
-		if (Game::instance().getKey(' '))  beamCharger += 1;
+		if (Game::instance().getKey(' ')) {
+			beamCharger += 1;
+			spriteBeamCharge->update(deltaTime);
+			spriteBeamCharge->setPosition(glm::ivec2(posEntity.x + 65, posEntity.y + 5));
+		}
 		else {
 			if (beamCharger != 0) {
-				string spriteFile;
-				glm::ivec2 sizeSprite;
-				glm::vec2 posInSprite;
-				glm::vec2 texCoordOffset;
 				glm::ivec2 posShoot(posEntity.x, posEntity.y);
 				if (beamCharger < 20) { // basic shoot
 					posShoot.x = posEntity.x + entitySize.x;
-					posShoot.y = posEntity.y + entitySize.y / 3;
-					spriteFile = shootingSpriteFile;
-					sizeSprite = sizeSpriteShooting;
-					posInSprite = posShootingInSprite;
-					texCoordOffset = glm::vec2(0.0, 0.0);
+					posShoot.y = posEntity.y + entitySize.y / 2;
+					ShootingEntity::addPassiveEntity(movVecShooting, posShoot, "images/shotShip.png", glm::ivec2(32, 8), glm::vec2(1, 1), 0);
 				}
 				else {
-					spriteFile = beamSpriteFile;
-					sizeSprite = sizeSpriteBeam;
-					posInSprite = posBeamInSprite;
-					if (beamCharger > 60) {
+					if (beamCharger > 70) {
 						posShoot.x = posEntity.x + entitySize.x - 8;
-						texCoordOffset = glm::vec2(0.5, 0.5);
+						posShoot.y = posEntity.y + (entitySize.y / 2) - 2;
+						ShootingEntity::addPassiveEntity(movVecShooting, posShoot, "images/beam5.png", glm::ivec2(161 / 2, 16), glm::vec2(0.5, 1), 1);
+					}
+					else if (beamCharger > 60) {
+						posShoot.x = posEntity.x + entitySize.x - 8;
+						posShoot.y = posEntity.y + (entitySize.y / 2) - 2;
+						ShootingEntity::addPassiveEntity(movVecShooting, posShoot, "images/beam4.png", glm::ivec2(129 / 2, 14), glm::vec2(0.5, 1), 1);
 					}
 					else if (beamCharger > 50) {
-						posShoot.x = posEntity.x + entitySize.x - 8;
-						texCoordOffset = glm::vec2(0.0, 0.5);
-					}
-					else if (beamCharger > 35) {
 						posShoot.x = posEntity.x + entitySize.x - 12;
-						texCoordOffset = glm::vec2(0.5, 0.0);
+						posShoot.y = posEntity.y + (entitySize.y / 2) - 1;
+						ShootingEntity::addPassiveEntity(movVecShooting, posShoot, "images/beam3.png", glm::ivec2(97 / 2, 14), glm::vec2(0.5, 1), 1);
 					}
-					else texCoordOffset = glm::vec2(0.0, 0.0);
+					else if (beamCharger > 40){
+						posShoot.x = posEntity.x + entitySize.x - 12;
+						posShoot.y = posEntity.y + (entitySize.y / 2) - 1;
+						ShootingEntity::addPassiveEntity(movVecShooting, posShoot, "images/beam2.png", glm::ivec2(65 / 2, 12), glm::vec2(0.5, 1), 1);
+					}
+					else {
+						posShoot.x = posEntity.x + entitySize.x - 12;
+						posShoot.y = posEntity.y + entitySize.y / 2;
+						ShootingEntity::addPassiveEntity(movVecShooting, posShoot, "images/beam1.png", glm::ivec2(33 / 2, 12), glm::vec2(0.5, 1), 1);
+					}
 				}
-				ShootingEntity::addPassiveEntity(movVecShooting, posShoot, spriteFile, sizeSprite, posInSprite, texCoordOffset);
 				beamCharger = 0;
+				resetBeamCharge = true;
 			}
 		}
 

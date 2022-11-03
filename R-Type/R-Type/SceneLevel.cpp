@@ -41,11 +41,11 @@ void SceneLevel::init()
 	}
 
 	spritesheetBeamStatus.loadFromFile("images/beamStatus.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	spriteBeamStatus = Sprite::createSprite(glm::ivec2(320, 32), glm::vec2(1, 1), &spritesheetBeamStatus, &texProgram);
+	spriteBeamStatus = Sprite::createSprite(glm::ivec2(240, 32), glm::vec2(1, 1), &spritesheetBeamStatus, &texProgram);
 	spriteBeamStatus->setPosition(posBeamStatus);
 
 	spritesheetBeamStatusBar.loadFromFile("images/beamStatusBar.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	spriteBeamStatusBar = Sprite::createSprite(glm::ivec2(310, 22), glm::vec2(1, 1), &spritesheetBeamStatusBar, &texProgram);
+	spriteBeamStatusBar = Sprite::createSprite(glm::ivec2(230, 22), glm::vec2(1, 1), &spritesheetBeamStatusBar, &texProgram);
 	spriteBeamStatusBar->setPosition(posBeamStatusBar);
 }
 

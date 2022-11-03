@@ -31,20 +31,20 @@ private:
 	int lives;
 
 	Text* text0;
-	const glm::vec2 posScore = glm::vec2(130, 544 - 10);
+	const glm::vec2 posScore = glm::vec2(140, 544 - 10);
 	const glm::vec2 posLives = glm::vec2(5, 544 - 10);
-	const glm::vec2 posBeam = glm::vec2(250, 544 - 10);
+	const glm::vec2 posBeam = glm::vec2(320, 544 - 10);
 	const int textSize = 15;
 	const glm::vec4 textColor = glm::vec4(1.f, 1.f, 1.f, 1);
 
 	Sprite* spriteBeamStatus;
 	Texture spritesheetBeamStatus;
-	const glm::vec2 posBeamStatus = glm::vec2(320, 544 - 32);
+	const glm::vec2 posBeamStatus = glm::vec2(390, 544 - 32);
 
 	//la barra tiene 5 pixeles menos por las 4 caras respecto al Beamstatus
 	Sprite* spriteBeamStatusBar;
 	Texture spritesheetBeamStatusBar;
-	const glm::vec2 posBeamStatusBar = glm::vec2(315, 544 - 27);
+	const glm::vec2 posBeamStatusBar = glm::vec2(395, 544 - 27);
 };
 
 

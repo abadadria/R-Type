@@ -5,12 +5,13 @@
 #include "ShootingEntity.h"
 #include "Pattern.h"
 
-
 class AutonomousEntity : public ShootingEntity
 {
 
 public:
-	virtual void init(ShaderProgram& shaderProgram, TileMap* tileMap, Pattern* movementPattern);
+	~AutonomousEntity();
+
+	virtual void init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos);
 	virtual void update(int deltaTime) override;
 
 private:

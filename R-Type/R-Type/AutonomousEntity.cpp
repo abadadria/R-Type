@@ -1,11 +1,16 @@
 #include "AutonomousEntity.h"
 #include "Camera.h"
+#include "PatternSin.h"
 
 
-void AutonomousEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap, Pattern* movementPattern)
+AutonomousEntity::~AutonomousEntity() {
+	delete movementPattern;
+}
+
+void AutonomousEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos)
 {
 	ShootingEntity::init(shaderProgram, tileMap);
-	this->movementPattern = movementPattern;
+	this->movementPattern = new PatternSin(initialPos, 0, 5, -4, 100);
 	entitySize = glm::ivec2(64, 64);
 	spritesheet.loadFromFile("images/redplane.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(entitySize, glm::vec2(0.125, 0.5), &spritesheet, &shaderProgram);

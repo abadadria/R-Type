@@ -40,7 +40,7 @@ void SceneLevel::init()
 	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
 	
 	AutonomousEntity* enemy = new AutonomousEntity();
-	enemy->init(texProgram, map, new PatternSin(glm::vec2(400, 240), 0, 5, -4, 100));
+	enemy->init(texProgram, map, glm::ivec2(400, 240));
 	enemies.push_back(enemy);
 	
 	score = 1000; // cambiar por 0, valor de prueba

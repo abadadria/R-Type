@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <string>
 #include "SceneLevel.h"
 #include "Game.h"
 
@@ -12,6 +13,7 @@ SceneLevel::SceneLevel()
 	map = NULL;
 	player = NULL;
 	text0 = NULL;
+	text1 = NULL;
 }
 
 SceneLevel::~SceneLevel()
@@ -22,6 +24,8 @@ SceneLevel::~SceneLevel()
 		delete player;
 	if (text0 != NULL)
 		delete text0;
+	if (text1 != NULL)
+		delete text1;
 }
 
 
@@ -40,12 +44,17 @@ void SceneLevel::init()
 		cout << "Could not load font!!!" << endl;
 	}
 
+	text1 = new Text();
+	if (!text1->init("fonts/dogicapixelbold.ttf")) {
+		cout << "Could not load font!!!" << endl;
+	}
+
 	spritesheetBeamStatus.loadFromFile("images/beamStatus.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	spriteBeamStatus = Sprite::createSprite(glm::ivec2(240, 32), glm::vec2(1, 1), &spritesheetBeamStatus, &texProgram);
 	spriteBeamStatus->setPosition(posBeamStatus);
 
 	spritesheetBeamStatusBar.loadFromFile("images/beamStatusBar.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	spriteBeamStatusBar = Sprite::createSprite(glm::ivec2(230, 22), glm::vec2(1, 1), &spritesheetBeamStatusBar, &texProgram);
+	spriteBeamStatusBar = Sprite::createSprite(glm::ivec2(230, 0), glm::vec2(1, 1), &spritesheetBeamStatusBar, &texProgram);
 	spriteBeamStatusBar->setPosition(posBeamStatusBar);
 }
 
@@ -59,9 +68,11 @@ void SceneLevel::update(int deltaTime)
 void SceneLevel::render()
 {
 	// no necesitan update de la pos
-	text0->render("Lives: ", posLives, textSize, textColor);
-	text0->render("Score: ", posScore, textSize, textColor);
-	text0->render("BEAM", posBeam, textSize, textColor);
+	text1->render("Lives: ", posLives, textSize, textColor);
+	text0->render(std::to_string(lives), glm::ivec2(posLives.x + 90, posLives.y), textSize, textColor);
+	text1->render("Score: ", posScore, textSize, textColor);
+	text0->render(std::to_string(score), glm::ivec2(posScore.x + 90, posScore.y), textSize, textColor);
+	text1->render("BEAM", posBeam, textSize, textColor);
 
 	Scene::render();
 
@@ -71,9 +82,13 @@ void SceneLevel::render()
 	Camera* cam = Camera::getInstance();
 	glm::vec2 posCamera = cam->getPos();
 	spriteBeamStatus->setPosition(glm::vec2(posBeamStatus.x + posCamera.x, posBeamStatus.y));
-	spriteBeamStatusBar->setPosition(glm::vec2(posBeamStatusBar.x + posCamera.x, posBeamStatusBar.y));
-
 	spriteBeamStatus->render();
+
+	int size = player->getBeamCharge();
+	// ensure max sixe of beam plus dont show if basic shot
+	if (size > 150) size = 150;
+	spriteBeamStatusBar = Sprite::createSprite(glm::ivec2((size * 230 / 150), 22), glm::vec2(1, 1), &spritesheetBeamStatusBar, &texProgram);
+	spriteBeamStatusBar->setPosition(glm::vec2(posBeamStatusBar.x + posCamera.x, posBeamStatusBar.y));
 	spriteBeamStatusBar->render();
 
 	// render all the sprites

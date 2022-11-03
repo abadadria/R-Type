@@ -33,7 +33,7 @@ private:
 	Text* text0;
 	Text* text1;
 	const glm::vec2 posScore = glm::vec2(140, 544 - 10);
-	const glm::vec2 posLives = glm::vec2(5, 544 - 10);
+	const glm::vec2 posLifes = glm::vec2(5, 544 - 10);
 	const glm::vec2 posBeam = glm::vec2(320, 544 - 10);
 	const int textSize = 15;
 	const glm::vec4 textColor = glm::vec4(1.f, 1.f, 1.f, 1);

@@ -68,8 +68,8 @@ void SceneLevel::update(int deltaTime)
 void SceneLevel::render()
 {
 	// no necesitan update de la pos
-	text1->render("Lives: ", posLives, textSize, textColor);
-	text0->render(std::to_string(lives), glm::ivec2(posLives.x + 90, posLives.y), textSize, textColor);
+	text1->render("Lifes: ", posLifes, textSize, textColor);
+	text0->render(std::to_string(lives), glm::ivec2(posLifes.x + 90, posLifes.y), textSize, textColor);
 	text1->render("Score: ", posScore, textSize, textColor);
 	text0->render(std::to_string(score), glm::ivec2(posScore.x + 90, posScore.y), textSize, textColor);
 	text1->render("BEAM", posBeam, textSize, textColor);

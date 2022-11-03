@@ -9,14 +9,14 @@ class PatternSin : public Pattern
 {
 
 public:
-	PatternSin(int initialAngle, int angleStep, int xSpeed, int amplitude);
+	PatternSin(glm::ivec2 initialPos, int initialAngle, int angleStep, int xSpeed, int amplitude);
 
-	glm::ivec2 calcNewPosition(int deltaTime, glm::ivec2 currentPos);
+	glm::ivec2 calcNewPosition(int deltaTime) override;
 
 private:
 	// Parameters
-	int initialAngle, angleStep,
-		xSpeed, amplitude;
+	glm::ivec2 pos;
+	int angleStep, xSpeed, amplitude;
 
 	// State
 	int currentAngle;

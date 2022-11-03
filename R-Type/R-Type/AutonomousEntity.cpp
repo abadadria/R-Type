@@ -11,7 +11,7 @@ void AutonomousEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap, Patt
 	sprite = Sprite::createSprite(entitySize, glm::vec2(0.125, 0.5), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(2);
 
-		int keyframesPerSec = 25;
+		int keyframesPerSec = 17;
 
 		sprite->setAnimationSpeed(0, keyframesPerSec);
 		sprite->addKeyframe(0, glm::vec2(0.f, 0.f));
@@ -32,7 +32,7 @@ void AutonomousEntity::update(int deltaTime)
 		// Shooting
 
 		// Movement
-		posEntity = movementPattern->calcNewPosition(deltaTime, posEntity);
+		posEntity = movementPattern->calcNewPosition(deltaTime);
 		Camera* cam = Camera::getInstance();
 		if (cam->collision(posEntity, entitySize, 200.f)) {
 			startExplosion();

@@ -7,7 +7,7 @@
 class Pattern
 {
 public:
-	virtual glm::ivec2 calcNewPosition(int deltaTime, glm::ivec2 currentPos) const = 0;
+	virtual glm::ivec2 calcNewPosition(int deltaTime) = 0;
 
 };
 

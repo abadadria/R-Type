@@ -4,6 +4,7 @@
 #include "SceneLevel.h"
 #include "Game.h"
 #include <GL/freeglut_std.h>
+#include "PatternSin.h"
 
 #define INIT_PLAYER_X 16
 #define INIT_PLAYER_Y 240
@@ -37,6 +38,11 @@ void SceneLevel::init()
 	player = new Player();
 	player->init(texProgram, map);
 	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
+	
+	AutonomousEntity* enemy = new AutonomousEntity();
+	enemy->init(texProgram, map, new PatternSin(glm::vec2(400, 240), 0, 5, -4, 100));
+	enemies.push_back(enemy);
+	
 	score = 1000; // cambiar por 0, valor de prueba
 	lives = 3;
 	playerDead = false;
@@ -69,6 +75,9 @@ void SceneLevel::update(int deltaTime)
 		Scene::update(deltaTime);
 		projection = camera->update();
 		player->update(deltaTime);
+		for (AutonomousEntity* enemy : enemies) {
+			enemy->update(deltaTime);
+		}
 		change = NO_CHANGE;
 	}
 	else {
@@ -114,9 +123,11 @@ void SceneLevel::render()
 	}
 
 	Scene::render();
-
 	map->render();
 	player->render();
+	for (AutonomousEntity* enemy : enemies) {
+		enemy->render();
+	}
 
 	Camera* cam = Camera::getInstance();
 	glm::vec2 posCamera = cam->getPos();

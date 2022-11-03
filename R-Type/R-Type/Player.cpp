@@ -89,6 +89,7 @@ void Player::update(int deltaTime)
 {
 	ShootingEntity::update(deltaTime);
 	if (state == ALIVE) {
+		// Shooting and Beam
 		glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
 		if (Game::instance().getKey(' ')) {
 			beamCharger += 1;
@@ -121,6 +122,7 @@ void Player::update(int deltaTime)
 			resetBeamCharge = true;
 		}
 
+		// Movement
 		glm::vec2 dir = glm::vec2(0.f, 0.f);
 		int speed = 3;
 		Camera* cam = Camera::getInstance();

@@ -16,7 +16,7 @@ public:
 
 	  void setMovementVector(glm::ivec2 movVec);
 	  void setInitialPosition(glm::ivec2 pos);
-	  void setSprite(string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, int numberAnimations);
+	  void setSprite(string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, int animationType);
 
 private:
 	void startExplosion() override;

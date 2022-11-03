@@ -9,6 +9,9 @@
 #include "Camera.h"
 
 
+#define BEAM 1
+
+
 void PassiveEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap)
 {
 	Entity::init(tileMap);
@@ -43,17 +46,25 @@ void PassiveEntity::setMovementVector(glm::ivec2 movVec) {
 	this->movementVector = movVec;
 }
 
-void PassiveEntity::setSprite(string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, int numberAnimations) {
+void PassiveEntity::setSprite(string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, int animationType) {
 	spritesheet.loadFromFile(spriteFolder, TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(sizeSprite, posInSprite, &spritesheet, texProgram);
 	entitySize = sizeSprite;
-	if (numberAnimations > 1) {
+	// especifico del beam, si alguna passive entity mas lo necesita mirar de cambiar
+	if (animationType == BEAM) {
 		sprite->setNumberAnimations(1);
-		int keyframesPerSec = 30;
+		int keyframesPerSec = 40;
 		sprite->setAnimationSpeed(0, keyframesPerSec);
 		sprite->setAnimationLooping(0, true);
-		for (int i = 1; i <= numberAnimations; ++i) {
+		bool onlyOnce = true;
+		for (int i = 1; i <= 2; ++i) {
 			sprite->addKeyframe(0, glm::vec2(posInSprite.x*i, posInSprite.y));
+			if (onlyOnce) {
+				for (int j = 0; j < 4; ++j) {
+					sprite->addKeyframe(0, glm::vec2(posInSprite.x * i, posInSprite.y));
+				}
+				onlyOnce = false;
+			}
 		}
 		sprite->changeAnimation(0);
 	}

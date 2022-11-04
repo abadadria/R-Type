@@ -1,5 +1,6 @@
 #include "ShootingEntity.h"
 #include "SpaceshipBullet.h"
+#include "SpaceshipBeam.h"
 #include <iostream>
 
 
@@ -32,18 +33,9 @@ void ShootingEntity::render()
 	Entity::render();
 }
 
-void ShootingEntity::addPassiveEntity(glm::ivec2 movVec, glm::ivec2 pos, string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, int animationType) {
-	PassiveEntity* newPassiveEntity = new PassiveEntity{};
-	newPassiveEntity->init(*texProgram, map);
-	newPassiveEntity->setSprite(spriteFolder, sizeSprite, posInSprite, animationType);
-	newPassiveEntity->setInitialPosition(pos);
-	newPassiveEntity->setMovementVector(movVec);
-	passiveEntities.push_back(newPassiveEntity);
-}
-
 void ShootingEntity::shoot(glm::ivec2 movVec)
 {
-	PassiveEntity* newBullet = new SpaceshipBullet();;
+	PassiveEntity* newBullet = new SpaceshipBullet();
 	newBullet->init(*texProgram, map);
 	glm::ivec2 pos;
 	pos.x = posEntity.x + entitySize.x;
@@ -51,6 +43,19 @@ void ShootingEntity::shoot(glm::ivec2 movVec)
 	newBullet->setPosition(pos);
 	newBullet->setMovementVector(movVec);
 	passiveEntities.push_back(newBullet);
+}
+
+void ShootingEntity::shootBeam(glm::ivec2 movVec, int level)
+{
+	PassiveEntity* newBeam = new SpaceshipBeam();
+	newBeam->init(*texProgram, map, level);
+	glm::ivec2 beamSize = newBeam->getSize();
+	glm::ivec2 pos;
+	pos.x = posEntity.x + entitySize.x - 10;
+	pos.y = posEntity.y + 18 - beamSize.y / 2;
+	newBeam->setPosition(pos);
+	newBeam->setMovementVector(movVec);
+	passiveEntities.push_back(newBeam);
 }
 
 void ShootingEntity::explode() {

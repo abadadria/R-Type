@@ -16,7 +16,6 @@ void SpaceshipBullet::init(ShaderProgram& shaderProgram, TileMap* tileMap)
 
 	sprite->changeAnimation(0);
 	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
-
 }
 
 void SpaceshipBullet::update(int deltaTime)

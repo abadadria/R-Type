@@ -97,29 +97,19 @@ void Player::update(int deltaTime)
 			}
 			else {
 				if (beamCharger > 70) {
-					posShoot.x = posEntity.x + entitySize.x - 8;
-					posShoot.y = posEntity.y + (entitySize.y / 2) - 2;
-					ShootingEntity::addPassiveEntity(movVecShooting, posShoot, "images/beam5.png", glm::ivec2(161 / 2, 16), glm::vec2(0.5, 1), 1);
+					ShootingEntity::shootBeam(movVecShooting, 5);
 				}
 				else if (beamCharger > 60) {
-					posShoot.x = posEntity.x + entitySize.x - 8;
-					posShoot.y = posEntity.y + (entitySize.y / 2) - 2;
-					ShootingEntity::addPassiveEntity(movVecShooting, posShoot, "images/beam4.png", glm::ivec2(129 / 2, 14), glm::vec2(0.5, 1), 1);
+					ShootingEntity::shootBeam(movVecShooting, 4);
 				}
 				else if (beamCharger > 50) {
-					posShoot.x = posEntity.x + entitySize.x - 12;
-					posShoot.y = posEntity.y + (entitySize.y / 2) - 1;
-					ShootingEntity::addPassiveEntity(movVecShooting, posShoot, "images/beam3.png", glm::ivec2(97 / 2, 14), glm::vec2(0.5, 1), 1);
+					ShootingEntity::shootBeam(movVecShooting, 3);
 				}
 				else if (beamCharger > 40){
-					posShoot.x = posEntity.x + entitySize.x - 12;
-					posShoot.y = posEntity.y + (entitySize.y / 2) - 1;
-					ShootingEntity::addPassiveEntity(movVecShooting, posShoot, "images/beam2.png", glm::ivec2(65 / 2, 12), glm::vec2(0.5, 1), 1);
+					ShootingEntity::shootBeam(movVecShooting, 2);
 				}
 				else {
-					posShoot.x = posEntity.x + entitySize.x - 12;
-					posShoot.y = posEntity.y + entitySize.y / 2;
-					ShootingEntity::addPassiveEntity(movVecShooting, posShoot, "images/beam1.png", glm::ivec2(33 / 2, 12), glm::vec2(0.5, 1), 1);
+					ShootingEntity::shootBeam(movVecShooting, 1);
 				}
 			}
 			beamCharger = 0;

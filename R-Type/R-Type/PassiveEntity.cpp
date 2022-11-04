@@ -18,6 +18,8 @@ void PassiveEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap)
 	texProgram = &shaderProgram;
 }
 
+void PassiveEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap, int level) {}
+
 void PassiveEntity::update(int deltaTime)
 {
 	// TODO control the module of the movement vector

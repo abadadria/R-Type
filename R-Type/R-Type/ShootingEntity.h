@@ -14,8 +14,9 @@ public:
 	virtual void init(ShaderProgram& shaderProgram, TileMap* tileMap);
 	virtual void update(int deltaTime);
 	void render() override;
-	void addPassiveEntity(glm::ivec2 movVec, glm::ivec2 pos, string spriteFolder, glm::ivec2 sizeSprite, glm::vec2 posInSprite, int animationType);
+
 	void shoot(glm::ivec2 movVec);
+	void shootBeam(glm::ivec2 movVec, int level);
 
 protected:
 	virtual void explode();

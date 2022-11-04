@@ -19,7 +19,8 @@ public:
 
 	void setPosition(const glm::vec2& pos);
 
-	int getState();
+	glm::ivec2 getSize() const;
+	int getState() const;
 
 	~Entity();
 

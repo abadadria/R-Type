@@ -93,6 +93,12 @@
     <ClCompile Include="SpriteSpaceship.cpp">
       <Filter>Archivos de código fuente\Sprites</Filter>
     </ClCompile>
+    <ClCompile Include="SpaceshipBullet.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="SpaceshipBeam.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -156,6 +162,12 @@
       <Filter>Archivos de encabezado\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="SpaceshipBullet.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="SpaceshipBeam.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

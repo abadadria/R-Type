@@ -7,6 +7,10 @@
 #include "Player.h"
 #include "PassiveEntity.h"
 
+#define NO_CHANGE 0
+#define GOTO_MENU 1
+#define RETRY 2
+
 
 // SceneLevel contains all the entities of our game.
 // It is responsible for updating and render them.
@@ -26,6 +30,9 @@ public:
 private:
 	TileMap* map;
 	Player* player;
+
+	bool playerDead;
+	int change;
 
 	int score; // TODO implementar cuando haya colisiones entre entityes
 	int lives;

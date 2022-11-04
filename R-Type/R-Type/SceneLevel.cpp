@@ -38,6 +38,7 @@ void SceneLevel::init()
 	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
 	score = 10000; // cambiar por 0, valor de prueba
 	lives = 3;
+	playerDead = false;
 
 	text0 = new Text();
 	if (!text0->init("fonts/dogica.ttf")) {
@@ -60,9 +61,19 @@ void SceneLevel::init()
 
 void SceneLevel::update(int deltaTime)
 {
-	Scene::update(deltaTime);
-	projection = camera->update();
-	player->update(deltaTime);
+	if (!playerDead) {
+		Scene::update(deltaTime);
+		projection = camera->update();
+		player->update(deltaTime);
+		change = NO_CHANGE;
+	}
+	else {
+		// render el spirte que diga retry o go back to menu
+		// obtener que tecla se pulsa (como se hace en player)
+		// cambiar estado a lo que corresponda GOTO_MENU o RETRY
+	}
+	if (player->getState() == COMPLETELY_DEAD) playerDead = true;
+	else playerDead = false;
 }
 
 void SceneLevel::render()
@@ -85,7 +96,7 @@ void SceneLevel::render()
 	spriteBeamStatus->render();
 
 	int size = player->getBeamCharge();
-	// ensure max sixe of beam plus dont show if basic shot
+	// ensure max sixe of beam
 	if (size > 150) size = 150;
 	spriteBeamStatusBar = Sprite::createSprite(glm::ivec2((size * 230 / 150), 22), glm::vec2(1, 1), &spritesheetBeamStatusBar, &texProgram);
 	spriteBeamStatusBar->setPosition(glm::vec2(posBeamStatusBar.x + posCamera.x, posBeamStatusBar.y));

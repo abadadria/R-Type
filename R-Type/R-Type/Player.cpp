@@ -157,8 +157,8 @@ void Player::update(int deltaTime)
 		}
 
 		// Movement
-		glm::vec2 dir = glm::vec2(0.f, 0.f);
-		int speed = 3;
+		glm::vec2 mov = glm::vec2(0.f, 0.f);
+		float speed = 5;
 		Camera* cam = Camera::getInstance();
 		std::map<string, bool> arrow;
 		arrow["UP"] = Game::instance().getSpecialKey(GLUT_KEY_UP);
@@ -166,34 +166,34 @@ void Player::update(int deltaTime)
 		arrow["RIGHT"] = Game::instance().getSpecialKey(GLUT_KEY_RIGHT);
 		arrow["LEFT"] = Game::instance().getSpecialKey(GLUT_KEY_LEFT);
 		if (arrow["UP"] && !arrow["DOWN"]) {							// MOVE UP
-			posEntity.y -= speed;
+			mov.y -= 1.f;
 			if (sprite->animation() != MOVE_UP)
 				sprite->changeAnimation(MOVE_UP);
 			if (cam->collisionUp(posEntity, entitySize, 0.f))
-				posEntity.y += speed;
+				mov.y += 1.f;
 			if (map->collisionMoveUp(posEntity, entitySize))
 				startExplosion();
 		}
 		if (arrow["DOWN"] && !arrow["UP"]) {							// MOVE DOWN
-			posEntity.y += speed;
+			mov.y += 1.f;
 			if (cam->collisionDown(posEntity, entitySize, 0.f))
-				posEntity.y -= speed;
+				mov.y -= 1.f;
 			if (sprite->animation() != MOVE_DOWN)
 				sprite->changeAnimation(MOVE_DOWN);
 			if (map->collisionMoveDown(posEntity, entitySize))
 				startExplosion();
 		}
 		if (arrow["RIGHT"] && !arrow["LEFT"]) {							// MOVE RIGHT
-			posEntity.x += speed;
+			mov.x += 1.f;
 			if (cam->collisionRight(posEntity, entitySize, 0.f))
-				posEntity.x -= speed;
+				mov.x -= 1.f;
 			if (map->collisionMoveRight(posEntity, entitySize))
 				startExplosion();
 		}
 		if (arrow["LEFT"] && !arrow["RIGHT"]) {							// MOVE LEFT
-			posEntity.x -= speed;
+			mov.x -= 1.f;
 			if (cam->collisionLeft(posEntity, entitySize, 0.f))
-				posEntity.x += speed;
+				mov.x += 1.f;
 			if (map->collisionMoveLeft(posEntity, entitySize))
 				startExplosion();
 		}
@@ -201,6 +201,13 @@ void Player::update(int deltaTime)
 			if (sprite->animation() != GO_BACK && sprite->animation() != STAND)
 				sprite->changeAnimation(GO_BACK);
 		}
+
+		if (mov.x != 0.f && mov.y != 0.f) {
+			mov = glm::normalize(mov);
+		}
+		posEntity.x = float(posEntity.x) + float(mov.x * speed);
+		posEntity.y = float(posEntity.y) + float(mov.y * speed);
+
 		// Adapt to camera movement
 		posEntity += cam->getSpeed();
 		if (cam->collisionRight(posEntity, entitySize, 0.f))

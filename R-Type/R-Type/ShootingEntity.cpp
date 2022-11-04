@@ -1,4 +1,5 @@
 #include "ShootingEntity.h"
+#include "SpaceshipBullet.h"
 #include <iostream>
 
 
@@ -38,6 +39,18 @@ void ShootingEntity::addPassiveEntity(glm::ivec2 movVec, glm::ivec2 pos, string 
 	newPassiveEntity->setInitialPosition(pos);
 	newPassiveEntity->setMovementVector(movVec);
 	passiveEntities.push_back(newPassiveEntity);
+}
+
+void ShootingEntity::shoot(glm::ivec2 movVec)
+{
+	PassiveEntity* newBullet = new SpaceshipBullet();;
+	newBullet->init(*texProgram, map);
+	glm::ivec2 pos;
+	pos.x = posEntity.x + entitySize.x;
+	pos.y = posEntity.y + entitySize.y / 2;
+	newBullet->setPosition(pos);
+	newBullet->setMovementVector(movVec);
+	passiveEntities.push_back(newBullet);
 }
 
 void ShootingEntity::explode() {

@@ -26,6 +26,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="ShootingEntity.cpp" />
+    <ClCompile Include="SpaceshipBullet.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteSpaceship.cpp" />
     <ClCompile Include="Text.cpp" />
@@ -49,6 +50,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="ShootingEntity.h" />
+    <ClInclude Include="SpaceshipBullet.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteSpaceship.h" />
     <ClInclude Include="Text.h" />

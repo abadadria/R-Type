@@ -125,7 +125,7 @@ void SceneLevel::update(int deltaTime)
 		if (lives == 0) change = GOTO_MENU;
 		
 	}
-	if (player->getState() == COMPLETELY_DEAD) playerDead = true;
+	if (player->getState() != ALIVE && player->getState() != EXPLODING) playerDead = true;
 	else playerDead = false;
 
 	glm::ivec2 posCamera = camera->getPos();
@@ -144,7 +144,7 @@ void SceneLevel::render()
 	text1->render("BEAM", posBeam, textSize, textColor);
 
 	if (playerDead) {
-		if (lives > 1) {
+		if (lives > 0) {
 			text1->render("DEAD!!", glm::vec2(267, 210), 20, textColor);
 			text0->render("[ENTER] RETRY", glm::vec2(185, 270), 20, textColor);
 			text0->render("[ESC] MAIN MENU", glm::vec2(165, 340), 20, textColor);
@@ -202,5 +202,11 @@ int SceneLevel::getScore()
 void SceneLevel::setScore(int newScore)
 {
 	score = newScore;
+}
+
+void SceneLevel::changeShowCollisionBlock() 
+{
+	bool showCollisionBlock = map->getShowCollisionBlock();
+	map->setShowCollisionBlock(!showCollisionBlock);
 }
 

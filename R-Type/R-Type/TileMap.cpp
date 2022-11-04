@@ -20,6 +20,7 @@ TileMap::TileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProg
 {
 	loadLevel(levelFile);
 	prepareArrays(minCoords, program);
+	showCollisionBlock = false;
 }
 
 TileMap::~TileMap()
@@ -40,13 +41,14 @@ void TileMap::render() const
 	glEnableVertexAttribArray(texCoordLocationScenario);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 
-	// Render collision blocks
-	collisionBlock.use();
-	glBindVertexArray(vaoCollisionBlocks);
-	glEnableVertexAttribArray(posLocationCollisionBlocks);
-	glEnableVertexAttribArray(texCoordLocationCollisionBlocks);
-	glDrawArrays(GL_TRIANGLES, 0, 6 * nTiles);
-
+	if (showCollisionBlock) {
+		// Render collision blocks
+		collisionBlock.use();
+		glBindVertexArray(vaoCollisionBlocks);
+		glEnableVertexAttribArray(posLocationCollisionBlocks);
+		glEnableVertexAttribArray(texCoordLocationCollisionBlocks);
+		glDrawArrays(GL_TRIANGLES, 0, 6 * nTiles);
+	}
 	glDisable(GL_TEXTURE_2D);
 }
 
@@ -286,30 +288,12 @@ bool TileMap::collision(const glm::ivec2& pos, const glm::ivec2& mov, const glm:
 
 
 
+bool TileMap::getShowCollisionBlock()
+{
+	return showCollisionBlock;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void TileMap::setShowCollisionBlock(bool newShowCollisionBlock)
+{
+	showCollisionBlock = newShowCollisionBlock;
+}

@@ -71,6 +71,7 @@ void Game::render()
 
 void Game::keyPressed(int key)
 {
+	int change;
 	switch (key) {
 		case 27: // Escape code
 			if (state == PLAYING || state == INSTRUCTIONS || state == CREDITS)
@@ -79,7 +80,7 @@ void Game::keyPressed(int key)
 				exit_game = true;
 			break;
 		case 13: // Enter code
-			int change = sceneMenu.getItemSelected();
+			change = sceneMenu.getItemSelected();
 			if (change == PLAY) {
 				if (state == MAIN_MENU) {
 					state = PLAYING;
@@ -93,6 +94,10 @@ void Game::keyPressed(int key)
 				if (state == MAIN_MENU) state = CREDITS;
 			}
 			else if (change == EXIT) exit_game = true;
+			break;
+		case 'o':
+			sceneLevel.changeShowCollisionBlock();
+			break;
 	}
 	keys[key] = true;
 }

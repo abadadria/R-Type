@@ -1,6 +1,4 @@
 #include "ShootingEntity.h"
-#include "SpaceshipBullet.h"
-#include "SpaceshipBeam.h"
 #include <iostream>
 
 
@@ -33,29 +31,9 @@ void ShootingEntity::render()
 	Entity::render();
 }
 
-void ShootingEntity::shoot(glm::ivec2 movVec)
+void ShootingEntity::addBullet(PassiveEntity* bullet)
 {
-	PassiveEntity* newBullet = new SpaceshipBullet();
-	newBullet->init(*texProgram, map);
-	glm::ivec2 pos;
-	pos.x = posEntity.x + entitySize.x;
-	pos.y = posEntity.y + entitySize.y / 2;
-	newBullet->setPosition(pos);
-	newBullet->setMovementVector(movVec);
-	passiveEntities.push_back(newBullet);
-}
-
-void ShootingEntity::shootBeam(glm::ivec2 movVec, int level)
-{
-	PassiveEntity* newBeam = new SpaceshipBeam();
-	newBeam->init(*texProgram, map, level);
-	glm::ivec2 beamSize = newBeam->getSize();
-	glm::ivec2 pos;
-	pos.x = posEntity.x + entitySize.x - 10;
-	pos.y = posEntity.y + 18 - beamSize.y / 2;
-	newBeam->setPosition(pos);
-	newBeam->setMovementVector(movVec);
-	passiveEntities.push_back(newBeam);
+	passiveEntities.push_back(bullet);
 }
 
 void ShootingEntity::explode() {
@@ -67,6 +45,11 @@ void ShootingEntity::explode() {
 	}
 	// Check if there are missing bullets
 	// If not set state to COMPLETELY_DEAD for the parent scope to delete the object
+	if (state == DEAD && passiveEntities.size() == 0)
+		state = COMPLETELY_DEAD;
+}
+
+void ShootingEntity::die() {
 	if (state == DEAD && passiveEntities.size() == 0)
 		state = COMPLETELY_DEAD;
 }

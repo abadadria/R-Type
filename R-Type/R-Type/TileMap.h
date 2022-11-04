@@ -3,6 +3,8 @@
 
 
 #include <glm/glm.hpp>
+#include <vector>
+#include <list>
 #include "Texture.h"
 #include "ShaderProgram.h"
 
@@ -30,6 +32,8 @@ public:
 	
 	int getTileSize() const { return tileSize; }
 
+	vector<pair<int, list<int>>> getEnemies(int tileMapColumn);
+
 	bool collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) const;
 	bool collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) const;
 	bool collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size) const;
@@ -49,6 +53,8 @@ private:
 	int tileSize;
 	Texture background, scenario, collisionBlock;
 	int* map;
+	vector<vector<list<int>>> mapEnemies;
+	vector<bool> spawnedColumns;
 };
 
 

@@ -28,6 +28,9 @@
     <Filter Include="Archivos de código fuente\Sprites">
       <UniqueIdentifier>{28e0b454-46d5-43b7-9be0-c9d50cd7cb4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Pattern">
+      <UniqueIdentifier>{7ca36094-b0a3-441b-822d-389aa7cc12e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -60,9 +63,6 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Archivos de código fuente\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="PassiveEntity.cpp">
-      <Filter>Archivos de código fuente\Entity</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Archivos de código fuente\Entity</Filter>
     </ClCompile>
@@ -93,10 +93,25 @@
     <ClCompile Include="SpriteSpaceship.cpp">
       <Filter>Archivos de código fuente\Sprites</Filter>
     </ClCompile>
+    <ClCompile Include="PassiveEntity.cpp">
+      <Filter>Archivos de código fuente\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="PatternSin.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="AutonomousEntity.cpp">
+      <Filter>Archivos de código fuente\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="RedPlane.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
     <ClCompile Include="SpaceshipBullet.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="SpaceshipBeam.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBullet.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
@@ -164,10 +179,25 @@
     <ClInclude Include="Camera.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Pattern.h">
+      <Filter>Archivos de encabezado\Pattern</Filter>
+    </ClInclude>
+    <ClInclude Include="PatternSin.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="AutonomousEntity.h">
+      <Filter>Archivos de encabezado\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="RedPlane.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
     <ClInclude Include="SpaceshipBullet.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="SpaceshipBeam.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBullet.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

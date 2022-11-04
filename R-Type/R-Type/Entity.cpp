@@ -44,5 +44,9 @@ void Entity::startExplosion() {
 	state = EXPLODING;
 }
 
+void Entity::startDying() {
+	state = DEAD;
+}
+
 Entity::~Entity() {
 }

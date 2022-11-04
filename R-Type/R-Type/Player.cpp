@@ -7,7 +7,8 @@
 #include "Player.h"
 #include "Game.h"
 #include "SpriteSpaceship.h"
-#include "PassiveEntity.h"
+#include "SpaceshipBullet.h"
+#include "SpaceshipBeam.h"
 
 
 enum PlayerAnims
@@ -15,6 +16,20 @@ enum PlayerAnims
 	STAND, MOVE_UP, MOVE_DOWN, GO_BACK
 };
 
+Player* Player::instance{ nullptr };
+
+Player::Player() {}
+
+Player::~Player() {
+	delete instance;
+}
+
+Player* Player::getInstance() {
+	if (instance == nullptr) {
+		instance = new Player();
+	}
+	return instance;
+}
 
 void Player::init(ShaderProgram &shaderProgram, TileMap* tileMap)
 {
@@ -80,6 +95,16 @@ void Player::render() {
 	ShootingEntity::render();
 }
 
+glm::ivec2 Player::getPosition() const
+{
+	return posEntity;
+}
+
+glm::ivec2 Player::getSize() const
+{
+	return entitySize;
+}
+
 int Player::getBeamCharge()
 {
 	return beamCharger;
@@ -89,6 +114,7 @@ void Player::update(int deltaTime)
 {
 	ShootingEntity::update(deltaTime);
 	if (state == ALIVE) {
+		// Shooting and Beam
 		glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
 		if (Game::instance().getKey(' ')) {
 			beamCharger += 1;
@@ -98,29 +124,30 @@ void Player::update(int deltaTime)
 		else if (beamCharger != 0) {
 			glm::ivec2 posShoot(posEntity.x, posEntity.y);
 			if (beamCharger < 20) { // basic shoot
-				ShootingEntity::shoot(movVecShooting);
+				shoot(0);
 			}
 			else {
 				if (beamCharger > 70) {
-					ShootingEntity::shootBeam(movVecShooting, 5);
+					shoot(5);
 				}
 				else if (beamCharger > 60) {
-					ShootingEntity::shootBeam(movVecShooting, 4);
+					shoot(4);
 				}
 				else if (beamCharger > 50) {
-					ShootingEntity::shootBeam(movVecShooting, 3);
+					shoot(3);
 				}
 				else if (beamCharger > 40){
-					ShootingEntity::shootBeam(movVecShooting, 2);
+					shoot(2);
 				}
 				else {
-					ShootingEntity::shootBeam(movVecShooting, 1);
+					shoot(1);
 				}
 			}
 			beamCharger = 0;
 			resetBeamCharge = true;
 		}
 
+		// Movement
 		glm::vec2 dir = glm::vec2(0.f, 0.f);
 		int speed = 3;
 		Camera* cam = Camera::getInstance();
@@ -179,9 +206,28 @@ void Player::update(int deltaTime)
 	}
 }
 
+void Player::shoot(int level)
+{
+	PassiveEntity* newBullet;
+	if (level == 0) {
+		newBullet = new SpaceshipBullet();
+		newBullet->init(*texProgram, map);
+	}
+	else {
+		newBullet = new SpaceshipBeam();
+		newBullet->init(*texProgram, map, level);
+	}
+	glm::ivec2 bulletSize = newBullet->getSize();
+	glm::ivec2 pos;
+	pos.x = posEntity.x + entitySize.x - 10;
+	pos.y = posEntity.y + 18 - bulletSize.y / 2;
+	newBullet->setPosition(pos);
+	newBullet->setMovementVector(glm::ivec2(10.f, 0.f));
+	addBullet(newBullet);
+}
+
 void Player::startExplosion() {
 	Entity::startExplosion();
-	// TODO Set animation to explosion
 	delete sprite;
 	glm::ivec2 prevEntitySize = entitySize;
 	entitySize = glm::ivec2(64, 64);

@@ -3,7 +3,6 @@
 
 
 #include <glm/glm.hpp>
-#include <mutex>
 #include <glm/gtc/matrix_transform.hpp>
 
 

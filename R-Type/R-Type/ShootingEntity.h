@@ -15,11 +15,12 @@ public:
 	virtual void update(int deltaTime);
 	void render() override;
 
-	void shoot(glm::ivec2 movVec);
-	void shootBeam(glm::ivec2 movVec, int level);
-
 protected:
+	void addBullet(PassiveEntity* bullet);
+	virtual void shoot(int level) = 0;
+
 	virtual void explode();
+	virtual void die();
 
 protected:
 	ShaderProgram* texProgram;

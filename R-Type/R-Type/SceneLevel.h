@@ -2,10 +2,12 @@
 #define _SCENELEVEL_INCLUDE
 
 
+#include <list>
 #include "Scene.h"
 #include "TileMap.h"
 #include "Player.h"
 #include "PassiveEntity.h"
+#include "AutonomousEntity.h"
 
 #define NO_CHANGE 0
 #define GOTO_MENU 1
@@ -36,7 +38,7 @@ public:
 private:
 	TileMap* map;
 	Player* player;
-
+	std::list<AutonomousEntity*> enemies;
 
 	bool playerDead;
 	int change;

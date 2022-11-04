@@ -4,6 +4,8 @@
 #include "SceneLevel.h"
 #include "Game.h"
 #include <GL/freeglut_std.h>
+#include "PatternSin.h"
+#include "RedPlane.h"
 
 #define INIT_PLAYER_X 16
 #define INIT_PLAYER_Y 240
@@ -34,9 +36,12 @@ void SceneLevel::init()
 {
 	Scene::init();
 	map = TileMap::createTileMap("levels/level01.txt", glm::vec2(0, 0), texProgram);
-	player = new Player();
+	player = Player::getInstance();
 	player->init(texProgram, map);
 	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
+
+	// TODO Spawn all enemies before tileCol
+	
 	score = 1000; // cambiar por 0, valor de prueba
 	lives = 3;
 	playerDead = false;
@@ -68,7 +73,45 @@ void SceneLevel::update(int deltaTime)
 	if (!playerDead) {
 		Scene::update(deltaTime);
 		projection = camera->update();
+
+		// Get new enemies to spawn
+		Camera* cam = Camera::getInstance();
+		glm::ivec2 camPos, camSize;
+		camPos = cam->getPos();
+		camSize = cam->getSize();
+		int cameraRightLimit = camPos.x + camSize.x;
+		int tileCol = cameraRightLimit / map->getTileSize();
+		vector<pair<int, list<int>>> enemiesToSpawn = map->getEnemies(tileCol);
+		for (int i = 0; i < enemiesToSpawn.size(); ++i) {
+			int row = enemiesToSpawn[i].first;
+			list<int> list = enemiesToSpawn[i].second;
+			for (int e : list) {
+				AutonomousEntity* enemy;
+				switch (e) {
+					case 2:
+						enemy = new RedPlane();
+						break;
+					default:
+						enemy = nullptr;
+				}
+				enemy->init(texProgram, map, glm::ivec2(tileCol * map->getTileSize(), row * map->getTileSize()));
+				enemies.push_back(enemy);
+			}
+		}
+
+		// Update enemies
 		player->update(deltaTime);
+		for (std::list<AutonomousEntity*>::iterator it = enemies.begin(); it != enemies.end();) {
+			int state = (*it)->getState();
+			if (state == COMPLETELY_DEAD) {
+				delete (*it);
+				enemies.erase(it++);
+			}
+			else {
+				(*it)->update(deltaTime);
+				++it;
+			}
+		}
 		change = NO_CHANGE;
 	}
 	else {
@@ -114,9 +157,11 @@ void SceneLevel::render()
 	}
 
 	Scene::render();
-
 	map->render();
 	player->render();
+	for (AutonomousEntity* enemy : enemies) {
+		enemy->render();
+	}
 
 	Camera* cam = Camera::getInstance();
 	glm::vec2 posCamera = cam->getPos();

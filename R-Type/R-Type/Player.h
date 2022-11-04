@@ -16,6 +16,8 @@ public:;
 	int getBeamCharge();
 
 private:
+	void shoot(glm::ivec2 movVec, int level) override;
+
 	void startExplosion() override;
 
 private:

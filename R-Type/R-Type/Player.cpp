@@ -7,7 +7,8 @@
 #include "Player.h"
 #include "Game.h"
 #include "SpriteSpaceship.h"
-#include "PassiveEntity.h"
+#include "SpaceshipBullet.h"
+#include "SpaceshipBeam.h"
 
 
 enum PlayerAnims
@@ -99,23 +100,23 @@ void Player::update(int deltaTime)
 		else if (beamCharger != 0) {
 			glm::ivec2 posShoot(posEntity.x, posEntity.y);
 			if (beamCharger < 20) { // basic shoot
-				ShootingEntity::shoot(movVecShooting);
+				shoot(movVecShooting, 0);
 			}
 			else {
 				if (beamCharger > 70) {
-					ShootingEntity::shootBeam(movVecShooting, 5);
+					shoot(movVecShooting, 5);
 				}
 				else if (beamCharger > 60) {
-					ShootingEntity::shootBeam(movVecShooting, 4);
+					shoot(movVecShooting, 4);
 				}
 				else if (beamCharger > 50) {
-					ShootingEntity::shootBeam(movVecShooting, 3);
+					shoot(movVecShooting, 3);
 				}
 				else if (beamCharger > 40){
-					ShootingEntity::shootBeam(movVecShooting, 2);
+					shoot(movVecShooting, 2);
 				}
 				else {
-					ShootingEntity::shootBeam(movVecShooting, 1);
+					shoot(movVecShooting, 1);
 				}
 			}
 			beamCharger = 0;
@@ -179,6 +180,26 @@ void Player::update(int deltaTime)
 	else if (state == EXPLODING) {
 		ShootingEntity::explode();
 	}
+}
+
+void Player::shoot(glm::ivec2 movVec, int level)
+{
+	PassiveEntity* newBullet;
+	if (level == 0) {
+		newBullet = new SpaceshipBullet();
+		newBullet->init(*texProgram, map);
+	}
+	else {
+		newBullet = new SpaceshipBeam();
+		newBullet->init(*texProgram, map, level);
+	}
+	glm::ivec2 bulletSize = newBullet->getSize();
+	glm::ivec2 pos;
+	pos.x = posEntity.x + entitySize.x - 10;
+	pos.y = posEntity.y + 18 - bulletSize.y / 2;
+	newBullet->setPosition(pos);
+	newBullet->setMovementVector(movVec);
+	addBullet(newBullet);
 }
 
 void Player::startExplosion() {

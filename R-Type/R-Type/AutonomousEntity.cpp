@@ -1,6 +1,6 @@
 #include "AutonomousEntity.h"
-#include "PatternSin.h"
 #include "Camera.h"
+#include "EnemyBullet.h"
 
 
 AutonomousEntity::~AutonomousEntity() {
@@ -35,6 +35,13 @@ void AutonomousEntity::update(int deltaTime)
 
 void AutonomousEntity::setPattern(Pattern* pattern) {
 	this->movementPattern = pattern;
+}
+
+void AutonomousEntity::shoot(glm::ivec2 movVec, int level)
+{
+	PassiveEntity* newBullet = new EnemyBullet();
+	newBullet->init(*texProgram, map);
+	// TODO continue implementing
 }
 
 void AutonomousEntity::startExplosion()

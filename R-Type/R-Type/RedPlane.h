@@ -1,5 +1,10 @@
-#pragma once
+#ifndef _RED_PLANE_INCLUDE
+#define _RED_PLANE_INCLUDE
+
+
 #include "AutonomousEntity.h"
+
+
 class RedPlane : public AutonomousEntity
 {
 
@@ -8,3 +13,4 @@ public:
 	void update(int deltaTime) override;
 };
 
+#endif _RED_PLANE_INCLUDE

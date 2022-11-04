@@ -39,9 +39,8 @@ void SceneLevel::init()
 	player = new Player();
 	player->init(texProgram, map);
 	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
-	AutonomousEntity* enemy = new RedPlane();
-	enemy->init(texProgram, map, glm::ivec2(400, 240));
-	enemies.push_back(enemy);
+
+	// TODO Spawn all enemies before tileCol
 	
 	score = 1000; // cambiar por 0, valor de prueba
 	lives = 3;

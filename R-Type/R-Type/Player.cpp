@@ -16,6 +16,20 @@ enum PlayerAnims
 	STAND, MOVE_UP, MOVE_DOWN, GO_BACK
 };
 
+Player* Player::instance{ nullptr };
+
+Player::Player() {}
+
+Player::~Player() {
+	delete instance;
+}
+
+Player* Player::getInstance() {
+	if (instance == nullptr) {
+		instance = new Player();
+	}
+	return instance;
+}
 
 void Player::init(ShaderProgram &shaderProgram, TileMap* tileMap)
 {

@@ -8,7 +8,9 @@
 class Player : public ShootingEntity
 {
 	
-public:;
+public:
+	static Player* getInstance();
+	~Player();
 
 	void init(ShaderProgram& shaderProgram, TileMap* tileMap) override;
 	void update(int deltaTime) override;
@@ -16,11 +18,15 @@ public:;
 	int getBeamCharge();
 
 private:
+	Player();
+
 	void shoot(glm::ivec2 movVec, int level) override;
 
 	void startExplosion() override;
 
 private:
+	static Player* instance;
+
 	const glm::ivec2 movVecShooting = glm::ivec2(10, 0);
 	int beamCharger;
 	bool resetBeamCharge;

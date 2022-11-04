@@ -109,6 +109,11 @@ glm::ivec2 Player::getSize() const
 	return entitySize;
 }
 
+string Player::getType() const
+{
+	return "Player";
+}
+
 int Player::getBeamCharge()
 {
 	return beamCharger;

@@ -12,6 +12,8 @@ public:
 	void init(ShaderProgram& shaderProgram, TileMap* tileMap) override;
 	void update(int deltaTime) override;
 
+	string getType() const override;
+
 };
 
 #endif _SPACESHIP_BULLET_INCLUDE

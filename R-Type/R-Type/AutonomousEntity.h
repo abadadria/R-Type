@@ -15,6 +15,8 @@ public:
 	void init(ShaderProgram& shaderProgram, TileMap* tileMap);
 	virtual void update(int deltaTime) override;
 
+	virtual string getType() const override;
+
 protected:
 	void setPattern(Pattern* pattern);
 

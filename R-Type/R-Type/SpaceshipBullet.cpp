@@ -23,3 +23,8 @@ void SpaceshipBullet::update(int deltaTime)
 	PassiveEntity::update(deltaTime);
 	//TODO collision with entities logic
 }
+
+string SpaceshipBullet::getType() const
+{
+	return "SpaceshipBullet";
+}

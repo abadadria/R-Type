@@ -30,6 +30,11 @@ void Entity::setPosition(const glm::vec2& pos)
 	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 }
 
+string Entity::getType() const
+{
+	return "Entity";
+}
+
 glm::ivec2 Entity::getSize() const
 {
 	return entitySize;

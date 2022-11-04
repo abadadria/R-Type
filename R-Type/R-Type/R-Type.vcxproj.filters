@@ -102,17 +102,17 @@
     <ClCompile Include="AutonomousEntity.cpp">
       <Filter>Archivos de código fuente\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="RedPlane.cpp">
-      <Filter>Archivos de código fuente</Filter>
+    <ClCompile Include="EnemyBullet.cpp">
+      <Filter>Archivos de código fuente\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="SpaceshipBullet.cpp">
-      <Filter>Archivos de código fuente</Filter>
+    <ClCompile Include="RedPlane.cpp">
+      <Filter>Archivos de código fuente\Entity</Filter>
     </ClCompile>
     <ClCompile Include="SpaceshipBeam.cpp">
-      <Filter>Archivos de código fuente</Filter>
+      <Filter>Archivos de código fuente\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyBullet.cpp">
-      <Filter>Archivos de código fuente</Filter>
+    <ClCompile Include="SpaceshipBullet.cpp">
+      <Filter>Archivos de código fuente\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

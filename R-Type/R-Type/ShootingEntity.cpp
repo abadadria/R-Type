@@ -31,6 +31,11 @@ void ShootingEntity::render()
 	Entity::render();
 }
 
+string ShootingEntity::getType() const
+{
+	return "ShootingEntity";
+}
+
 void ShootingEntity::addBullet(PassiveEntity* bullet)
 {
 	passiveEntities.push_back(bullet);

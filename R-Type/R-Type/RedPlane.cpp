@@ -38,3 +38,8 @@ void RedPlane::update(int deltaTime)
 		}
 	}
 }
+
+string RedPlane::getType() const
+{
+	return "RedPlane";
+}

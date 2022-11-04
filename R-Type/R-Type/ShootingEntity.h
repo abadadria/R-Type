@@ -15,6 +15,8 @@ public:
 	virtual void update(int deltaTime);
 	void render() override;
 
+	virtual string getType() const override;
+
 protected:
 	void addBullet(PassiveEntity* bullet);
 	virtual void shoot(int level) = 0;

@@ -3,6 +3,7 @@
 
 #include "Sprite.h"
 #include "TileMap.h"
+#include <string>
 
 #define ALIVE 0
 #define EXPLODING 1
@@ -19,8 +20,11 @@ public:
 
 	void setPosition(const glm::vec2& pos);
 
+	virtual string getType() const;
 	glm::ivec2 getSize() const;
 	int getState() const;
+
+	bool collision(glm::ivec2 pos, glm::ivec2 size);
 
 	~Entity();
 

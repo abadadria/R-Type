@@ -46,3 +46,8 @@ void SpaceshipBeam::update(int deltaTime)
 	PassiveEntity::update(deltaTime);
 	//TODO collision with entities logic
 }
+
+string SpaceshipBeam::getType() const
+{
+	return "SpaceshipBeam";
+}

@@ -24,3 +24,8 @@ void EnemyBullet::update(int deltaTime)
 	PassiveEntity::update(deltaTime);
 	//TODO collision with entities logic
 }
+
+string EnemyBullet::getType() const
+{
+	return "EnemyBullet";
+}

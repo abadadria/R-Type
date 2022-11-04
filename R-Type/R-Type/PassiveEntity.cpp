@@ -44,6 +44,11 @@ void PassiveEntity::setMovementVector(glm::vec2 movVec) {
 	this->movementVector = movVec;
 }
 
+string PassiveEntity::getType() const
+{
+	return "PassiveEntity";
+}
+
 void PassiveEntity::startExplosion() {
 	Entity::startExplosion();
 	delete sprite;

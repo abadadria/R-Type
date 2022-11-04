@@ -34,6 +34,11 @@ void AutonomousEntity::update(int deltaTime)
 	}
 }
 
+string AutonomousEntity::getType() const
+{
+	return "AutonomousEntity";
+}
+
 void AutonomousEntity::setPattern(Pattern* pattern) {
 	this->movementPattern = pattern;
 }

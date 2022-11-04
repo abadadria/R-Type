@@ -17,6 +17,8 @@ public:
 
 	  void setMovementVector(glm::vec2 movVec);
 
+	  virtual string getType() const override;
+
 private:
 	void startExplosion() override;
 

@@ -12,6 +12,8 @@ public:
 	void init(ShaderProgram& shaderProgram, TileMap* tileMap, int level) override;
 	void update(int deltaTime) override;
 
+	string getType() const override;
+
 private:
 	int level;
 };

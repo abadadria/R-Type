@@ -12,6 +12,8 @@ public:
 	void init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos) override;
 	void update(int deltaTime) override;
 
+	string getType() const override;
+
 private:
 	int shootingCounter;
 };

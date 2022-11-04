@@ -10,6 +10,7 @@
 #define NO_CHANGE 0
 #define GOTO_MENU 1
 #define RETRY 2
+#define GAME_OVER 3
 
 
 // SceneLevel contains all the entities of our game.
@@ -26,10 +27,16 @@ public:
 	void init() override;
 	void update(int deltaTime) override;
 	void render() override;
+	int getChange();
+	int getLives();
+	void setLives(int newLives);
+	int getScore();
+	void setScore(int newScore);
 
 private:
 	TileMap* map;
 	Player* player;
+
 
 	bool playerDead;
 	int change;
@@ -53,6 +60,9 @@ private:
 	Sprite* spriteBeamStatusBar;
 	Texture spritesheetBeamStatusBar;
 	const glm::vec2 posBeamStatusBar = glm::vec2(395, 544 - 27);
+
+	Sprite* spriteAuxQuad;
+	Texture spritesheetAuxQuad;
 };
 
 

@@ -22,6 +22,16 @@ bool Game::update(int deltaTime)
 
 	case PLAYING:
 		sceneLevel.update(deltaTime);
+		if (sceneLevel.getChange() == GOTO_MENU) state == MAIN_MENU;
+		else if (sceneLevel.getChange() == RETRY) { // init pero sin resetear variables
+			// get lives y restar 1
+			int lives = sceneLevel.getLives();
+			int score = sceneLevel.getScore();
+			sceneLevel.init();
+			sceneLevel.setLives(--lives);
+			sceneLevel.setScore(score - 10); // revisar este valor
+			// set lives
+		}
 		break;
 
 	case INSTRUCTIONS:

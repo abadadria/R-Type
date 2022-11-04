@@ -74,7 +74,6 @@ void SceneLevel::update(int deltaTime)
 	if (!playerDead) {
 		Scene::update(deltaTime);
 		projection = camera->update();
-		player->update(deltaTime);
 
 		// Get new enemies to spawn
 		Camera* cam = Camera::getInstance();
@@ -102,8 +101,17 @@ void SceneLevel::update(int deltaTime)
 		}
 
 		// Update enemies
-		for (AutonomousEntity* enemy : enemies) {
-			enemy->update(deltaTime);
+		player->update(deltaTime);
+		for (std::list<AutonomousEntity*>::iterator it = enemies.begin(); it != enemies.end();) {
+			int state = (*it)->getState();
+			if (state == COMPLETELY_DEAD) {
+				delete (*it);
+				enemies.erase(it++);
+			}
+			else {
+				(*it)->update(deltaTime);
+				++it;
+			}
 		}
 		change = NO_CHANGE;
 	}

@@ -183,7 +183,6 @@ void Player::update(int deltaTime)
 
 void Player::startExplosion() {
 	Entity::startExplosion();
-	// TODO Set animation to explosion
 	delete sprite;
 	glm::ivec2 prevEntitySize = entitySize;
 	entitySize = glm::ivec2(64, 64);

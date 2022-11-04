@@ -20,6 +20,7 @@ protected:
 
 private:
 	void startExplosion() override;
+	void startDying() override;
 
 protected:
 	Pattern* movementPattern;

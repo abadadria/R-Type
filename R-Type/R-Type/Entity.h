@@ -26,6 +26,7 @@ public:
 
 protected:
 	virtual void startExplosion();
+	virtual void startDying();
 
 protected:
 	Sprite* sprite;

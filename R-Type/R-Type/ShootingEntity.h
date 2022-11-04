@@ -20,6 +20,7 @@ public:
 
 protected:
 	virtual void explode();
+	virtual void die();
 
 protected:
 	ShaderProgram* texProgram;

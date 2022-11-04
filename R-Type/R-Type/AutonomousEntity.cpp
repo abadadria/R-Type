@@ -1,6 +1,7 @@
 #include "AutonomousEntity.h"
 #include "Camera.h"
 #include "EnemyBullet.h"
+#include "Player.h"
 
 
 AutonomousEntity::~AutonomousEntity() {
@@ -37,11 +38,28 @@ void AutonomousEntity::setPattern(Pattern* pattern) {
 	this->movementPattern = pattern;
 }
 
-void AutonomousEntity::shoot(glm::ivec2 movVec, int level)
+void AutonomousEntity::shoot(int level)
 {
 	PassiveEntity* newBullet = new EnemyBullet();
 	newBullet->init(*texProgram, map);
-	// TODO continue implementing
+	glm::ivec2 bulletSize = newBullet->getSize();
+	glm::vec2 pos;
+	pos.x = float(posEntity.x) + float(entitySize.x) / 2.f - float(bulletSize.x) / 2.f;
+	pos.y = float(posEntity.y) + float(entitySize.y) / 2.f - float(bulletSize.y) / 2.f;
+	newBullet->setPosition(glm::ivec2(int(pos.x), int(pos.y)));
+	Player* p = Player::getInstance();
+	glm::ivec2 pPos = p->getPosition();
+	glm::ivec2 pSize = p->getSize();
+	glm::vec2 pCenter;
+	pCenter.x = float(pPos.x) + float(pSize.x) / 2.f;
+	pCenter.y = float(pPos.y) + float(pSize.y) / 2.f;
+	glm::vec2 dir = pCenter - pos;
+	dir = glm::normalize(dir);
+	glm::ivec2 movementVector;
+	movementVector.x = float(dir.x * 6.f);
+	movementVector.y = float(dir.y * 6.f);
+	newBullet->setMovementVector(movementVector);
+	addBullet(newBullet);
 }
 
 void AutonomousEntity::startExplosion()

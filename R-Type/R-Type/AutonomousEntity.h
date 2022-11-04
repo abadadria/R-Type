@@ -18,7 +18,7 @@ public:
 protected:
 	void setPattern(Pattern* pattern);
 
-	void shoot(glm::ivec2 movVec, int level) override;
+	void shoot(int level) override;
 
 private:
 	void startExplosion() override;

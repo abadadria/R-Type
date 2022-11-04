@@ -4,7 +4,7 @@
 void RedPlane::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos)
 {
 	AutonomousEntity::init(shaderProgram, tileMap);
-	AutonomousEntity::setPattern(new PatternSin(initialPos, 0, 5, -4, 100));
+	AutonomousEntity::setPattern(new PatternSin(initialPos, 0, 4, -1, 100));
 	entitySize = glm::ivec2(64, 64);
 	spritesheet.loadFromFile("images/redplane.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(entitySize, glm::vec2(0.125, 0.5), &spritesheet, &shaderProgram);
@@ -22,6 +22,8 @@ void RedPlane::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 i
 
 	sprite->changeAnimation(1);
 	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
+
+	shootingCounter = 0;
 }
 
 void RedPlane::update(int deltaTime)
@@ -29,6 +31,10 @@ void RedPlane::update(int deltaTime)
 	AutonomousEntity::update(deltaTime);
 	if (state == ALIVE) {
 		// Shooting
-		
+		shootingCounter += 1;
+		while (shootingCounter > 80) {
+			shootingCounter -= 80;
+			shoot(0);
+		}
 	}
 }

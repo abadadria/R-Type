@@ -17,7 +17,7 @@ public:
 
 protected:
 	void addBullet(PassiveEntity* bullet);
-	virtual void shoot(glm::ivec2 movVec, int level) = 0;
+	virtual void shoot(int level) = 0;
 
 	virtual void explode();
 	virtual void die();

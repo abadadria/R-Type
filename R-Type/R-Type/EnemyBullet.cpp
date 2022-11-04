@@ -8,7 +8,7 @@ void EnemyBullet::init(ShaderProgram& shaderProgram, TileMap* tileMap)
 	sprite = Sprite::createSprite(entitySize, glm::vec2(0.25f, 1.f), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(1);
 
-		int keyframesPerSec = 25;
+		int keyframesPerSec = 16;
 
 		sprite->setAnimationSpeed(0, keyframesPerSec);
 		sprite->setAnimationLooping(0, true);

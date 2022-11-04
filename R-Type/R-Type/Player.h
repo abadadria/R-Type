@@ -17,10 +17,13 @@ public:
 	void render() override;
 	int getBeamCharge();
 
+	glm::ivec2 getPosition() const;
+	glm::ivec2 getSize() const;
+
 private:
 	Player();
 
-	void shoot(glm::ivec2 movVec, int level) override;
+	void shoot(int level) override;
 
 	void startExplosion() override;
 

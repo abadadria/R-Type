@@ -95,6 +95,16 @@ void Player::render() {
 	ShootingEntity::render();
 }
 
+glm::ivec2 Player::getPosition() const
+{
+	return posEntity;
+}
+
+glm::ivec2 Player::getSize() const
+{
+	return entitySize;
+}
+
 int Player::getBeamCharge()
 {
 	return beamCharger;
@@ -114,23 +124,23 @@ void Player::update(int deltaTime)
 		else if (beamCharger != 0) {
 			glm::ivec2 posShoot(posEntity.x, posEntity.y);
 			if (beamCharger < 20) { // basic shoot
-				shoot(movVecShooting, 0);
+				shoot(0);
 			}
 			else {
 				if (beamCharger > 70) {
-					shoot(movVecShooting, 5);
+					shoot(5);
 				}
 				else if (beamCharger > 60) {
-					shoot(movVecShooting, 4);
+					shoot(4);
 				}
 				else if (beamCharger > 50) {
-					shoot(movVecShooting, 3);
+					shoot(3);
 				}
 				else if (beamCharger > 40){
-					shoot(movVecShooting, 2);
+					shoot(2);
 				}
 				else {
-					shoot(movVecShooting, 1);
+					shoot(1);
 				}
 			}
 			beamCharger = 0;
@@ -196,7 +206,7 @@ void Player::update(int deltaTime)
 	}
 }
 
-void Player::shoot(glm::ivec2 movVec, int level)
+void Player::shoot(int level)
 {
 	PassiveEntity* newBullet;
 	if (level == 0) {
@@ -212,7 +222,7 @@ void Player::shoot(glm::ivec2 movVec, int level)
 	pos.x = posEntity.x + entitySize.x - 10;
 	pos.y = posEntity.y + 18 - bulletSize.y / 2;
 	newBullet->setPosition(pos);
-	newBullet->setMovementVector(movVec);
+	newBullet->setMovementVector(glm::ivec2(10.f, 0.f));
 	addBullet(newBullet);
 }
 

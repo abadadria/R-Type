@@ -9,7 +9,8 @@
 
 
 #define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 512
+//#define SCREEN_HEIGHT 512
+#define SCREEN_HEIGHT 544
 
 #define MAIN_MENU 0
 #define PLAYING 1

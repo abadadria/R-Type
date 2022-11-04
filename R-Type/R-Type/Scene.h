@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include "ShaderProgram.h"
 #include "Camera.h"
+#include "Text.h"
 
 
 // Scene contains all the entities of our game.

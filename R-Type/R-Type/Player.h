@@ -13,6 +13,7 @@ public:;
 	void init(ShaderProgram& shaderProgram, TileMap* tileMap) override;
 	void update(int deltaTime) override;
 	void render() override;
+	int getBeamCharge();
 
 private:
 	void startExplosion() override;

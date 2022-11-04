@@ -3,7 +3,6 @@
 
 
 #include "Scene.h"
-#include "Text.h"
 
 class SceneCredits : public Scene
 {

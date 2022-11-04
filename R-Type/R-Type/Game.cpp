@@ -22,6 +22,16 @@ bool Game::update(int deltaTime)
 
 	case PLAYING:
 		sceneLevel.update(deltaTime);
+		if (sceneLevel.getChange() == GOTO_MENU) state == MAIN_MENU;
+		else if (sceneLevel.getChange() == RETRY) { // init pero sin resetear variables
+			// get lives y restar 1
+			int lives = sceneLevel.getLives();
+			int score = sceneLevel.getScore();
+			sceneLevel.init();
+			sceneLevel.setLives(--lives);
+			sceneLevel.setScore(score - 10); // revisar este valor
+			// set lives
+		}
 		break;
 
 	case INSTRUCTIONS:
@@ -68,19 +78,21 @@ void Game::keyPressed(int key)
 			else
 				exit_game = true;
 			break;
-		// TODO cambiar esta logica para que coja el valor del SceneMenu y haga lo que corresponda
 		case 13: // Enter code
 			int change = sceneMenu.getItemSelected();
-			if (change == 0) {
-				if (state == MAIN_MENU) state = PLAYING;
+			if (change == PLAY) {
+				if (state == MAIN_MENU) {
+					state = PLAYING;
+					sceneLevel.init();
+				}
 			}
-			else if (change == 1) {
+			else if (change == INST) {
 				if (state == MAIN_MENU) state = INSTRUCTIONS;
 			}
-			else if (change == 2) {
+			else if (change == CRED) {
 				if (state == MAIN_MENU) state = CREDITS;
 			}
-			else if (change == 3) exit_game = true;
+			else if (change == EXIT) exit_game = true;
 	}
 	keys[key] = true;
 }

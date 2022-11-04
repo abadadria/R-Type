@@ -80,6 +80,11 @@ void Player::render() {
 	ShootingEntity::render();
 }
 
+int Player::getBeamCharge()
+{
+	return beamCharger;
+}
+
 void Player::update(int deltaTime)
 {
 	ShootingEntity::update(deltaTime);

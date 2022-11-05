@@ -57,7 +57,7 @@ void Game::render()
 			break;
 
 		case PLAYING:
-			glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+			glClearColor(0.f, 0.f, 0.f, 1.0f);
 			sceneLevel.render();
 			break;
 
@@ -77,6 +77,7 @@ void Game::keyPressed(int key)
 	switch (key) {
 		case 27: // Escape code
 			if (state == PLAYING || state == INSTRUCTIONS || state == CREDITS) {
+				sceneMenu.init();
 				state = MAIN_MENU;
 			}
 			else {

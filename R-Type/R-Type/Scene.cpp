@@ -21,11 +21,18 @@ void Scene::init()
 	camera = Camera::getInstance();
 	camera->init(cameraPos, cameraSize, cameraSpeed);
 	currentTime = 0.0f;
+
+	spritesheetBackground.loadFromFile("images/space_background.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spriteBackground = Sprite::createSprite(glm::ivec2(2752, 544), glm::vec2(1, 1), &spritesheetBackground, &texProgram);
+	spriteBackground->setPosition(glm::ivec2(0, 0));
 }
 
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
+	Camera* cam = Camera::getInstance();
+	glm::ivec2 posCamera = cam->getPos();
+	spriteBackground->setPosition(glm::ivec2(posCamera.x / 1.55, posCamera.y / 1.55));
 }
 
 void Scene::render()

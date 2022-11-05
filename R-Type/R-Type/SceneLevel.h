@@ -70,6 +70,9 @@ private:
 
 	Sprite* spriteAuxQuad;
 	Texture spritesheetAuxQuad;
+
+	Sprite* spriteBackHUDQuad;
+	Texture spritesheetBackHUDQuad;
 };
 
 

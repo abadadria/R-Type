@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cmath>
 #include <glm/gtc/matrix_transform.hpp>
+#include <Windows.h>
+#include <mmsystem.h>
 #include "SceneMenu.h"
 #include "Game.h"
 #include <GL/freeglut_std.h>
@@ -37,6 +39,8 @@ void SceneMenu::init()
 
 	textSelected = PLAY;
 	changeSelected = STILL;
+
+	mciSendString(TEXT("play sounds/IntergalacticOdyssey.mp3 repeat"), NULL, 0, NULL);
 }
 
 void SceneMenu::update(int deltaTime)

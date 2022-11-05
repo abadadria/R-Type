@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cmath>
 #include <string>
+#include <Windows.h>
+#include <mmsystem.h>
 #include "SceneLevel.h"
 #include "Game.h"
 #include <GL/freeglut_std.h>
@@ -71,6 +73,8 @@ void SceneLevel::init()
 	spritesheetBackHUDQuad.loadFromFile("images/backHUDQuad.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	spriteBackHUDQuad = Sprite::createSprite(glm::ivec2(640, 32), glm::vec2(1, 1), &spritesheetBackHUDQuad, &texProgram);
 	spriteBackHUDQuad->setPosition(glm::vec2(0, 512));
+
+	mciSendString(TEXT("stop sounds/IntergalacticOdyssey.mp3"), NULL, 0, NULL);
 }
 
 void SceneLevel::update(int deltaTime)

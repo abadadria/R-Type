@@ -9,11 +9,10 @@ void Game::init()
 {
 	exit_game = false;
 	state = MAIN_MENU;
-	sceneMenu.init();
 	sceneLevel.init();
+	sceneMenu.init();
 	sceneInstructions.init();
 	sceneCredits.init();
-	mciSendString(TEXT("play sounds/IntergalacticOdyssey.wav"), NULL, 0, NULL);
 }
 
 bool Game::update(int deltaTime)

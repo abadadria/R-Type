@@ -22,6 +22,7 @@ public:
 	void update(int deltaTime) override;
 	void render() override;
 	int getItemSelected();
+	void setItemSelected(int newSelected);
 
 private:
 

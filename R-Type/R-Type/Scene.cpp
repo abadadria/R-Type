@@ -22,8 +22,8 @@ void Scene::init()
 	camera->init(cameraPos, cameraSize, cameraSpeed);
 	currentTime = 0.0f;
 
-	spritesheetBackground.loadFromFile("images/space_background.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	spriteBackground = Sprite::createSprite(glm::ivec2(2752, 544), glm::vec2(1, 1), &spritesheetBackground, &texProgram);
+	spritesheetBackground.loadFromFile("images/space_backgroundSmall.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spriteBackground = Sprite::createSprite(glm::ivec2(3247, 544), glm::vec2(1, 1), &spritesheetBackground, &texProgram);
 	spriteBackground->setPosition(glm::ivec2(0, 0));
 }
 

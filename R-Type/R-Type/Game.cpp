@@ -9,11 +9,10 @@ void Game::init()
 {
 	exit_game = false;
 	state = MAIN_MENU;
-	sceneMenu.init();
 	sceneLevel.init();
+	sceneMenu.init();
 	sceneInstructions.init();
 	sceneCredits.init();
-	mciSendString(TEXT("play sounds/IntergalacticOdyssey.wav"), NULL, 0, NULL);
 }
 
 bool Game::update(int deltaTime)
@@ -77,7 +76,9 @@ void Game::keyPressed(int key)
 	switch (key) {
 		case 27: // Escape code
 			if (state == PLAYING || state == INSTRUCTIONS || state == CREDITS) {
+				change = sceneMenu.getItemSelected();
 				sceneMenu.init();
+				sceneMenu.setItemSelected(change);
 				state = MAIN_MENU;
 			}
 			else {

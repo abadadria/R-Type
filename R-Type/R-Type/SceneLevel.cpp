@@ -47,7 +47,7 @@ void SceneLevel::init()
 	// Spawn enemies before tileCol
 	int initialTileCol = 21;
 	int tileCol = getEnemySpawnColumn();
-	for (int c = initialTileCol; c < tileCol; ++c) {
+	for (int c = initialTileCol; c <= tileCol; ++c) {
 		vector<pair<int, list<int>>> enemiesToSpawn = map->getEnemies(c);
 		for (int i = 0; i < enemiesToSpawn.size(); ++i) {
 			int row = enemiesToSpawn[i].first;
@@ -61,7 +61,7 @@ void SceneLevel::init()
 				default:
 					enemy = nullptr;
 				}
-				enemy->init(texProgram, map, glm::ivec2(tileCol * map->getTileSize(), row * map->getTileSize()));
+				enemy->init(texProgram, map, glm::ivec2(c * map->getTileSize(), row * map->getTileSize()));
 				enemies.push_back(enemy);
 			}
 		}

@@ -202,8 +202,10 @@ void Player::update(int deltaTime, SceneLevel* scene)
 		// Add collision with other entities
 		vector<pair<string, string>> collisions = scene->getCollisions(this);
 		for (pair<string, string> e : collisions) {
-			if (e.first == "RedPlane" || e.first == "EnemyBullet")
+			if (e.first == "RedPlane" || e.first == "EnemyBullet") {
 				startExplosion();
+				break;
+			}
 		}
 
 		// Adapt to camera movement
@@ -244,7 +246,7 @@ void Player::startExplosion()
 {
 	mciSendString(TEXT("play sounds/playerDead.wav"), NULL, 0, NULL);
 	
-	Entity::startExplosion();
+ 	Entity::startExplosion();
 	delete sprite;
 	glm::ivec2 prevEntitySize = entitySize;
 	entitySize = glm::ivec2(64, 64);

@@ -43,6 +43,7 @@ void RedPlane::update(int deltaTime, SceneLevel* scene)
 			if (e.first == "Player" || e.first == "SpaceshipBullet" || e.first == "SpaceshipBeam") {
 				scene->increaseScore(200);
 				startExplosion();
+				break;
 			}
 		}
 	}

@@ -37,6 +37,9 @@ public:
 	void setScore(int newScore);
 	void changeShowCollisionBlock();
 
+	//First string is the getType(), second string is for extra information (e.g. direction of the bounce).
+	vector<pair<string, string>> getCollisions(Entity* entity);
+
 private:
 	TileMap* map;
 	Player* player;

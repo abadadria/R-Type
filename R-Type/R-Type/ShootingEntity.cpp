@@ -36,6 +36,14 @@ string ShootingEntity::getType() const
 	return "ShootingEntity";
 }
 
+pair<bool, string> ShootingEntity::getBulletCollisions(Entity* entity) const
+{
+	for (PassiveEntity* bullet : passiveEntities)
+		if (bullet->collision(entity))
+			return make_pair(true, bullet->getType());
+	return make_pair(false, "");
+}
+
 void ShootingEntity::addBullet(PassiveEntity* bullet)
 {
 	passiveEntities.push_back(bullet);

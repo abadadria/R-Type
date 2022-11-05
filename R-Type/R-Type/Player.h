@@ -18,8 +18,6 @@ public:
 	void render() override;
 	int getBeamCharge();
 
-	glm::ivec2 getPosition() const;
-	glm::ivec2 getSize() const;
 	string getType() const override;
 
 private:

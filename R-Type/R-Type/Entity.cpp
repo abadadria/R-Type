@@ -35,6 +35,11 @@ string Entity::getType() const
 	return "Entity";
 }
 
+glm::ivec2 Entity::getPosition() const
+{
+	return posEntity;
+}
+
 glm::ivec2 Entity::getSize() const
 {
 	return entitySize;
@@ -45,8 +50,11 @@ int Entity::getState() const
 	return state;
 }
 
-bool Entity::collision(glm::ivec2 pos, glm::ivec2 size)
+bool Entity::collision(Entity* entity)
 {
+	glm::ivec2 pos = entity->getPosition();
+	glm::ivec2 size = entity->getSize();
+
 	int minx1 = posEntity.x;
 	int maxx1 = posEntity.x + entitySize.x;
 	int minx2 = pos.x;

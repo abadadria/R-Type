@@ -99,16 +99,6 @@ void Player::render() {
 	ShootingEntity::render();
 }
 
-glm::ivec2 Player::getPosition() const
-{
-	return posEntity;
-}
-
-glm::ivec2 Player::getSize() const
-{
-	return entitySize;
-}
-
 string Player::getType() const
 {
 	return "Player";
@@ -207,7 +197,11 @@ void Player::update(int deltaTime, SceneLevel* scene)
 		posEntity.y = float(float(posEntity.y) + mov.y);
 
 		// Add collision with other entities
-
+		vector<pair<string, string>> collisions = scene->getCollisions(this);
+		for (pair<string, string> e : collisions) {
+			if (e.first == "RedPlane" || e.first == "EnemyBullet")
+				startExplosion();
+		}
 
 		// Adapt to camera movement
 		posEntity += cam->getSpeed();

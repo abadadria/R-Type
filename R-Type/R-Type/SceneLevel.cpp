@@ -124,7 +124,6 @@ void SceneLevel::update(int deltaTime)
 		else if (Game::instance().getKey(13)) change = RETRY; // ENTER key
 		else change = NO_CHANGE;
 		if (lives == 0) change = GOTO_MENU;
-		
 	}
 	
 	if (player->getState() == COMPLETELY_DEAD) {
@@ -213,5 +212,25 @@ void SceneLevel::changeShowCollisionBlock()
 {
 	bool showCollisionBlock = map->getShowCollisionBlock();
 	map->setShowCollisionBlock(!showCollisionBlock);
+}
+
+vector<pair<string, string>> SceneLevel::getCollisions(Entity* entity)
+{
+	string type = entity->getType();
+
+	vector<pair<string, string>> collisions;
+
+	if (type != "Player" && player->collision(entity))
+		collisions.push_back(make_pair(player->getType(), ""));
+
+	for (AutonomousEntity* enemy : enemies) {
+		if (enemy->collision(entity))
+			collisions.push_back(make_pair(enemy->getType(), ""));
+		pair<bool, string> bullet_collision = enemy->getBulletCollisions(entity);
+		if (bullet_collision.first)
+			collisions.push_back(make_pair(bullet_collision.second, ""));
+	}
+
+	return collisions;
 }
 

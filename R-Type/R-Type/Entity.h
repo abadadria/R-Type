@@ -21,10 +21,11 @@ public:
 	void setPosition(const glm::vec2& pos);
 
 	virtual string getType() const;
+	glm::ivec2 getPosition() const;
 	glm::ivec2 getSize() const;
 	int getState() const;
 
-	bool collision(glm::ivec2 pos, glm::ivec2 size);
+	bool collision(Entity* entity);
 
 	~Entity();
 

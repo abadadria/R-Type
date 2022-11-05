@@ -76,7 +76,8 @@ void SceneMenu::update(int deltaTime)
 
 void SceneMenu::render()
 {
-	glClearColor(0.f, 0.f, 0.f, 1.0f);
+	spriteBackground->render();
+
 	//PLAY
 	if (textSelected == PLAY) text->render("PLAY", posPlay, textSize, selectedTextColor);
 	else text->render("PLAY", posPlay, textSize, textColor);

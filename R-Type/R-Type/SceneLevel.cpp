@@ -68,9 +68,9 @@ void SceneLevel::init()
 	spritesheetAuxQuad.loadFromFile("images/auxQuad.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	spriteAuxQuad = Sprite::createSprite(glm::ivec2(350, 250), glm::vec2(1, 1), &spritesheetAuxQuad, &texProgram);
 
-	spritesheetBackground.loadFromFile("images/space_background.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	spriteBackground = Sprite::createSprite(glm::ivec2(2752, 512), glm::vec2(1, 1), &spritesheetBackground, &texProgram);
-	spriteBackground->setPosition(glm::ivec2(0, 0));
+	spritesheetBackHUDQuad.loadFromFile("images/backHUDQuad.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spriteBackHUDQuad = Sprite::createSprite(glm::ivec2(640, 32), glm::vec2(1, 1), &spritesheetBackHUDQuad, &texProgram);
+	spriteBackHUDQuad->setPosition(glm::vec2(0, 512));
 }
 
 void SceneLevel::update(int deltaTime)
@@ -140,14 +140,14 @@ void SceneLevel::update(int deltaTime)
 	else playerDead = false;
 	
 	spriteAuxQuad->setPosition(glm::ivec2(posCamera.x + SCREEN_WIDTH/2 - 175, posCamera.y + SCREEN_HEIGHT / 2 - 125));
+	spriteBackHUDQuad->setPosition(glm::ivec2(posCamera.x, 512));
 }
 
 void SceneLevel::render()
 {
-	Camera* cam = Camera::getInstance();
-	glm::ivec2 posCamera = cam->getPos();
-	spriteBackground->setPosition(glm::ivec2(posCamera.x / 1.55, posCamera.y / 1.55));
 	spriteBackground->render();
+
+	spriteBackHUDQuad->render();
 
 	if (playerDead) spriteAuxQuad->render();
 
@@ -180,6 +180,8 @@ void SceneLevel::render()
 		}
 	}
 
+	Camera* cam = Camera::getInstance();
+	glm::ivec2 posCamera = cam->getPos();
 	spriteBeamStatus->setPosition(glm::vec2(posBeamStatus.x + posCamera.x, posBeamStatus.y));
 	spriteBeamStatus->render();
 

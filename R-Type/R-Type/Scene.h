@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include "ShaderProgram.h"
 #include "Camera.h"
+#include "Sprite.h"
 #include "Text.h"
 
 
@@ -32,6 +33,9 @@ protected:
 
 	Camera* camera;
 	glm::mat4 projection;
+
+	Sprite* spriteBackground;
+	Texture spritesheetBackground;
 };
 
 

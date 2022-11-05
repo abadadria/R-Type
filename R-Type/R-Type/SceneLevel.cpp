@@ -220,7 +220,7 @@ void SceneLevel::setLives(int newLives)
 	lives = newLives;
 }
 
-int SceneLevel::getScore()
+int SceneLevel::getScore() const
 {
 	return score;
 }
@@ -228,6 +228,16 @@ int SceneLevel::getScore()
 void SceneLevel::setScore(int newScore)
 {
 	score = newScore;
+}
+
+void SceneLevel::increaseScore(int score)
+{
+	this->score += score;
+}
+
+void SceneLevel::decreaseScore(int score)
+{
+	this->score -= score;
 }
 
 void SceneLevel::changeShowCollisionBlock() 

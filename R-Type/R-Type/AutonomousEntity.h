@@ -21,11 +21,10 @@ public:
 
 protected:
 	void setPattern(Pattern* pattern);
-
 	void shoot(int level) override;
+	void startExplosion() override;
 
 private:
-	void startExplosion() override;
 	void startDying() override;
 
 protected:

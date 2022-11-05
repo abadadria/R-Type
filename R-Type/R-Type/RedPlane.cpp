@@ -36,6 +36,16 @@ void RedPlane::update(int deltaTime, SceneLevel* scene)
 			shootingCounter -= 80;
 			shoot(0);
 		}
+
+		//Collision with other Entities
+		vector<pair<string, string>> collisions = scene->getCollisions(this);
+		for (pair<string, string> e : collisions) {
+			if (e.first == "Player" || e.first == "SpaceshipBullet" || e.first == "SpaceshipBeam") {
+				scene->increaseScore(200);
+				startExplosion();
+			}
+				
+		}
 	}
 }
 

@@ -164,8 +164,10 @@ void SceneLevel::render()
 	Scene::render();
 	map->render();
 	player->render();
-	for (AutonomousEntity* enemy : enemies) {
-		enemy->render();
+	if (!playerDead) {
+		for (AutonomousEntity* enemy : enemies) {
+			enemy->render();
+		}
 	}
 
 	Camera* cam = Camera::getInstance();

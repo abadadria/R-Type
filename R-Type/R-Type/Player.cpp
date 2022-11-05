@@ -2,6 +2,8 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GL/glut.h>
+#include <Windows.h>
+#include <mmsystem.h>
 #include <map>
 
 #include "Player.h"
@@ -20,10 +22,11 @@ Player* Player::instance{ nullptr };
 
 Player::Player() {}
 
+/*
 Player::~Player() {
 	delete instance;
 }
-
+*/
 Player* Player::getInstance() {
 	if (instance == nullptr) {
 		instance = new Player();
@@ -227,7 +230,10 @@ void Player::shoot(int level)
 	addBullet(newBullet);
 }
 
-void Player::startExplosion() {
+void Player::startExplosion() 
+{
+	mciSendString(TEXT("play sounds/playerDead.wav"), NULL, 0, NULL);
+	
 	Entity::startExplosion();
 	delete sprite;
 	glm::ivec2 prevEntitySize = entitySize;

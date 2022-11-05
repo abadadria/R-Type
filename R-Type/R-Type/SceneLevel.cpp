@@ -67,16 +67,21 @@ void SceneLevel::init()
 
 	spritesheetAuxQuad.loadFromFile("images/auxQuad.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	spriteAuxQuad = Sprite::createSprite(glm::ivec2(350, 250), glm::vec2(1, 1), &spritesheetAuxQuad, &texProgram);
+
+	spritesheetBackground.loadFromFile("images/space_background.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spriteBackground = Sprite::createSprite(glm::ivec2(2752, 512), glm::vec2(1, 1), &spritesheetBackground, &texProgram);
+	spriteBackground->setPosition(glm::ivec2(0, 0));
 }
 
 void SceneLevel::update(int deltaTime)
 {
+	Camera* cam = Camera::getInstance();
+	glm::ivec2 posCamera = cam->getPos();
 	if (!playerDead) {
 		Scene::update(deltaTime);
 		projection = camera->update();
 
 		// Get new enemies to spawn
-		Camera* cam = Camera::getInstance();
 		glm::ivec2 camPos, camSize;
 		camPos = cam->getPos();
 		camSize = cam->getSize();
@@ -121,7 +126,9 @@ void SceneLevel::update(int deltaTime)
 		// cambiar estado a lo que corresponda GOTO_MENU o RETRY
 		glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
 		if (Game::instance().getKey(27)) change = GOTO_MENU; // ESC key
-		else if (Game::instance().getKey(13)) change = RETRY; // ENTER key
+		else if (Game::instance().getKey(13)) { // ENTER key
+			change = RETRY;
+		}
 		else change = NO_CHANGE;
 		if (lives == 0) change = GOTO_MENU;
 	}
@@ -132,12 +139,16 @@ void SceneLevel::update(int deltaTime)
 	}
 	else playerDead = false;
 	
-	glm::ivec2 posCamera = camera->getPos();
 	spriteAuxQuad->setPosition(glm::ivec2(posCamera.x + SCREEN_WIDTH/2 - 175, posCamera.y + SCREEN_HEIGHT / 2 - 125));
 }
 
 void SceneLevel::render()
 {
+	Camera* cam = Camera::getInstance();
+	glm::ivec2 posCamera = cam->getPos();
+	spriteBackground->setPosition(glm::ivec2(posCamera.x / 1.55, posCamera.y / 1.55));
+	spriteBackground->render();
+
 	if (playerDead) spriteAuxQuad->render();
 
 	// no necesitan update de la pos
@@ -169,8 +180,6 @@ void SceneLevel::render()
 		}
 	}
 
-	Camera* cam = Camera::getInstance();
-	glm::vec2 posCamera = cam->getPos();
 	spriteBeamStatus->setPosition(glm::vec2(posBeamStatus.x + posCamera.x, posBeamStatus.y));
 	spriteBeamStatus->render();
 

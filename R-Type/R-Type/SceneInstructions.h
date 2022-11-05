@@ -29,7 +29,7 @@ private:
 
 	const glm::vec2 posElem = glm::vec2(28, 130);
 	const int textElemSize = 15;
-	const glm::vec4 textElemColor = glm::vec4(0, 0.4, 0.4, 1);
+	const glm::vec4 textElemColor = glm::vec4(1, 1, 1, 1);
 };
 
 #endif // _SCENEINSTRUCTIONS_ INCLUDE

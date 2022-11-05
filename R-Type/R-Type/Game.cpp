@@ -57,7 +57,7 @@ void Game::render()
 			break;
 
 		case PLAYING:
-			glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+			glClearColor(0.f, 0.f, 0.f, 1.0f);
 			sceneLevel.render();
 			break;
 

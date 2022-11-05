@@ -41,8 +41,13 @@ void SpaceshipBeam::init(ShaderProgram& shaderProgram, TileMap* tileMap, int lev
 	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 }
 
-void SpaceshipBeam::update(int deltaTime)
+void SpaceshipBeam::update(int deltaTime, SceneLevel* scene)
 {
 	PassiveEntity::update(deltaTime);
 	//TODO collision with entities logic
+}
+
+string SpaceshipBeam::getType() const
+{
+	return "SpaceshipBeam";
 }

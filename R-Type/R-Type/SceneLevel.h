@@ -29,12 +29,16 @@ public:
 	void init() override;
 	void update(int deltaTime) override;
 	void render() override;
+
 	int getChange();
 	int getLives();
 	void setLives(int newLives);
 	int getScore();
 	void setScore(int newScore);
 	void changeShowCollisionBlock();
+
+	//First string is the getType(), second string is for extra information (e.g. direction of the bounce).
+	vector<pair<string, string>> getCollisions(Entity* entity);
 
 private:
 	TileMap* map;

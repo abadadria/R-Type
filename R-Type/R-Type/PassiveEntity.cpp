@@ -10,7 +10,7 @@
 
 
 #define BEAM 1
-
+class SceneLevel; // To fix compilation due to circular includes
 
 void PassiveEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap)
 {
@@ -42,6 +42,11 @@ void PassiveEntity::render()
 
 void PassiveEntity::setMovementVector(glm::vec2 movVec) {
 	this->movementVector = movVec;
+}
+
+string PassiveEntity::getType() const
+{
+	return "PassiveEntity";
 }
 
 void PassiveEntity::startExplosion() {

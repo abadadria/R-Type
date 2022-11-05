@@ -3,14 +3,16 @@
 
 
 #include "PassiveEntity.h"
-
+#include "SceneLevel.h"
 
 class SpaceshipBeam : public PassiveEntity
 {
 
 public:
 	void init(ShaderProgram& shaderProgram, TileMap* tileMap, int level) override;
-	void update(int deltaTime) override;
+	void update(int deltaTime, SceneLevel* scene) override;
+
+	string getType() const override;
 
 private:
 	int level;

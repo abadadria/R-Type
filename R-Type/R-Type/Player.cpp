@@ -99,14 +99,9 @@ void Player::render() {
 	ShootingEntity::render();
 }
 
-glm::ivec2 Player::getPosition() const
+string Player::getType() const
 {
-	return posEntity;
-}
-
-glm::ivec2 Player::getSize() const
-{
-	return entitySize;
+	return "Player";
 }
 
 int Player::getBeamCharge()
@@ -114,9 +109,9 @@ int Player::getBeamCharge()
 	return beamCharger;
 }
 
-void Player::update(int deltaTime)
+void Player::update(int deltaTime, SceneLevel* scene)
 {
-	ShootingEntity::update(deltaTime);
+	ShootingEntity::update(deltaTime, scene);
 	if (state == ALIVE) {
 		// Shooting and Beam
 		glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
@@ -152,8 +147,8 @@ void Player::update(int deltaTime)
 		}
 
 		// Movement
-		glm::vec2 dir = glm::vec2(0.f, 0.f);
-		int speed = 3;
+		glm::vec2 mov = glm::vec2(0.f, 0.f);
+		float speed = 5;
 		Camera* cam = Camera::getInstance();
 		std::map<string, bool> arrow;
 		arrow["UP"] = Game::instance().getSpecialKey(GLUT_KEY_UP);
@@ -161,41 +156,53 @@ void Player::update(int deltaTime)
 		arrow["RIGHT"] = Game::instance().getSpecialKey(GLUT_KEY_RIGHT);
 		arrow["LEFT"] = Game::instance().getSpecialKey(GLUT_KEY_LEFT);
 		if (arrow["UP"] && !arrow["DOWN"]) {							// MOVE UP
-			posEntity.y -= speed;
+			mov.y -= 1.f;
 			if (sprite->animation() != MOVE_UP)
 				sprite->changeAnimation(MOVE_UP);
 			if (cam->collisionUp(posEntity, entitySize, 0.f))
-				posEntity.y += speed;
-			if (map->collisionMoveUp(posEntity, entitySize))
-				startExplosion();
+				mov.y += 1.f;
 		}
 		if (arrow["DOWN"] && !arrow["UP"]) {							// MOVE DOWN
-			posEntity.y += speed;
+			mov.y += 1.f;
 			if (cam->collisionDown(posEntity, entitySize, 0.f))
-				posEntity.y -= speed;
+				mov.y -= 1.f;
 			if (sprite->animation() != MOVE_DOWN)
 				sprite->changeAnimation(MOVE_DOWN);
-			if (map->collisionMoveDown(posEntity, entitySize))
-				startExplosion();
 		}
 		if (arrow["RIGHT"] && !arrow["LEFT"]) {							// MOVE RIGHT
-			posEntity.x += speed;
+			mov.x += 1.f;
 			if (cam->collisionRight(posEntity, entitySize, 0.f))
-				posEntity.x -= speed;
-			if (map->collisionMoveRight(posEntity, entitySize))
-				startExplosion();
+				mov.x -= 1.f;
 		}
 		if (arrow["LEFT"] && !arrow["RIGHT"]) {							// MOVE LEFT
-			posEntity.x -= speed;
+			mov.x -= 1.f;
 			if (cam->collisionLeft(posEntity, entitySize, 0.f))
-				posEntity.x += speed;
-			if (map->collisionMoveLeft(posEntity, entitySize))
-				startExplosion();
+				mov.x += 1.f;
 		}
 		if (!arrow["UP"] && !arrow["DOWN"]) {
 			if (sprite->animation() != GO_BACK && sprite->animation() != STAND)
 				sprite->changeAnimation(GO_BACK);
 		}
+
+		if (mov.x != 0.f && mov.y != 0.f) {
+			mov = glm::normalize(mov);
+		}
+		mov.x = float(mov.x * speed);
+		mov.y = float(mov.y * speed);
+
+		if (map->collision(posEntity, glm::ivec2(int(mov.x), int(mov.y)), entitySize))
+			startExplosion();
+
+		posEntity.x = float(float(posEntity.x) + mov.x);
+		posEntity.y = float(float(posEntity.y) + mov.y);
+
+		// Add collision with other entities
+		vector<pair<string, string>> collisions = scene->getCollisions(this);
+		for (pair<string, string> e : collisions) {
+			if (e.first == "RedPlane" || e.first == "EnemyBullet")
+				startExplosion();
+		}
+
 		// Adapt to camera movement
 		posEntity += cam->getSpeed();
 		if (cam->collisionRight(posEntity, entitySize, 0.f))
@@ -226,7 +233,7 @@ void Player::shoot(int level)
 	pos.x = posEntity.x + entitySize.x - 10;
 	pos.y = posEntity.y + 18 - bulletSize.y / 2;
 	newBullet->setPosition(pos);
-	newBullet->setMovementVector(glm::ivec2(10.f, 0.f));
+	newBullet->setMovementVector(glm::ivec2(20.f, 0.f));
 	addBullet(newBullet);
 }
 

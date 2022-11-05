@@ -6,14 +6,19 @@
 #include "Entity.h"
 #include "PassiveEntity.h"
 
+class SceneLevel;
 
 class ShootingEntity : public Entity
 {
 
 public:
 	virtual void init(ShaderProgram& shaderProgram, TileMap* tileMap);
-	virtual void update(int deltaTime);
+	void update(int deltaTime, SceneLevel* scene);
 	void render() override;
+
+	virtual string getType() const override;
+	//First is the result and second the getType() of the bullets
+	pair<bool, string> getBulletCollisions(Entity* entity) const;
 
 protected:
 	void addBullet(PassiveEntity* bullet);

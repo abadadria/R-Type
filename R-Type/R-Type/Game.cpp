@@ -77,7 +77,9 @@ void Game::keyPressed(int key)
 	switch (key) {
 		case 27: // Escape code
 			if (state == PLAYING || state == INSTRUCTIONS || state == CREDITS) {
+				change = sceneMenu.getItemSelected();
 				sceneMenu.init();
+				sceneMenu.setItemSelected(change);
 				state = MAIN_MENU;
 			}
 			else {

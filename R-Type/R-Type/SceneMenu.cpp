@@ -104,3 +104,8 @@ int SceneMenu::getItemSelected()
 	return textSelected;
 }
 
+void SceneMenu::setItemSelected(int newSelected)
+{
+	textSelected = newSelected;
+}
+

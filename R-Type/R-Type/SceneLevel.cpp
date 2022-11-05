@@ -42,7 +42,30 @@ void SceneLevel::init()
 	player->init(texProgram, map);
 	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
 
-	// TODO Spawn all enemies before tileCol
+	// Clears all previous enemies
+	enemies.clear();
+	// Spawn enemies before tileCol
+	int initialTileCol = 21;
+	int tileCol = getEnemySpawnColumn();
+	for (int c = initialTileCol; c < tileCol; ++c) {
+		vector<pair<int, list<int>>> enemiesToSpawn = map->getEnemies(c);
+		for (int i = 0; i < enemiesToSpawn.size(); ++i) {
+			int row = enemiesToSpawn[i].first;
+			list<int> list = enemiesToSpawn[i].second;
+			for (int e : list) {
+				AutonomousEntity* enemy;
+				switch (e) {
+				case 2:
+					enemy = new RedPlane();
+					break;
+				default:
+					enemy = nullptr;
+				}
+				enemy->init(texProgram, map, glm::ivec2(tileCol * map->getTileSize(), row * map->getTileSize()));
+				enemies.push_back(enemy);
+			}
+		}
+	}
 	
 	score = 1000; // cambiar por 0, valor de prueba
 	lives = 3;
@@ -87,11 +110,7 @@ void SceneLevel::update(int deltaTime)
 		projection = camera->update();
 
 		// Get new enemies to spawn
-		glm::ivec2 camPos, camSize;
-		camPos = cam->getPos();
-		camSize = cam->getSize();
-		int cameraRightLimit = camPos.x + camSize.x;
-		int tileCol = cameraRightLimit / map->getTileSize();
+		int tileCol = getEnemySpawnColumn();
 		vector<pair<int, list<int>>> enemiesToSpawn = map->getEnemies(tileCol);
 		for (int i = 0; i < enemiesToSpawn.size(); ++i) {
 			int row = enemiesToSpawn[i].first;
@@ -270,5 +289,15 @@ vector<pair<string, string>> SceneLevel::getCollisions(Entity* entity)
 	}
 
 	return collisions;
+}
+
+int SceneLevel::getEnemySpawnColumn() const
+{
+	Camera* cam = Camera::getInstance();
+	glm::ivec2 camPos, camSize;
+	camPos = cam->getPos();
+	camSize = cam->getSize();
+	int cameraRightLimit = camPos.x + camSize.x;
+	return cameraRightLimit / map->getTileSize() + 1;
 }
 

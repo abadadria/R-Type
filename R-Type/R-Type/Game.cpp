@@ -9,7 +9,6 @@ void Game::init()
 {
 	exit_game = false;
 	state = MAIN_MENU;
-	sceneLevel.init();
 	sceneMenu.init();
 	sceneInstructions.init();
 	sceneCredits.init();

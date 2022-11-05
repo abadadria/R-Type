@@ -45,6 +45,9 @@ public:
 	vector<pair<string, string>> getCollisions(Entity* entity);
 
 private:
+	int getEnemySpawnColumn() const;
+
+private:
 	TileMap* map;
 	Player* player;
 	std::list<AutonomousEntity*> enemies;

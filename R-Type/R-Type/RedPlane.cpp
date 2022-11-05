@@ -44,7 +44,6 @@ void RedPlane::update(int deltaTime, SceneLevel* scene)
 				scene->increaseScore(200);
 				startExplosion();
 			}
-				
 		}
 	}
 }

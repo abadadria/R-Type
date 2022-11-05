@@ -74,8 +74,6 @@ void Player::init(ShaderProgram &shaderProgram, TileMap* tileMap)
 	beamCharger = 0;
 	resetBeamCharge = true;
 	state = ALIVE;
-
-	mciSendString(L"open sounds/basicShot.mp3 alias basicShot", 0, 0, 0);
 }
 
 void Player::render() {

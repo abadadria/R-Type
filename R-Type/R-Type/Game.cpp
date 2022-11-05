@@ -13,7 +13,7 @@ void Game::init()
 	sceneLevel.init();
 	sceneInstructions.init();
 	sceneCredits.init();
-	//PlaySound(TEXT("sounds/file_example.wav"), NULL, SND_ASYNC);
+	mciSendString(TEXT("play sounds/IntergalacticOdyssey.wav"), NULL, 0, NULL);
 }
 
 bool Game::update(int deltaTime)

@@ -7,7 +7,7 @@ void ShootingEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap) {
 	this->texProgram = &shaderProgram;
 }
 
-void ShootingEntity::update(int deltaTime)
+void ShootingEntity::update(int deltaTime, SceneLevel* scene)
 {
 	Entity::update(deltaTime);
 	for (std::list<PassiveEntity*>::iterator it = passiveEntities.begin(); it != passiveEntities.end();) {
@@ -17,7 +17,7 @@ void ShootingEntity::update(int deltaTime)
 			passiveEntities.erase(it++);
 		}
 		else {
-			(*it)->update(deltaTime);
+			(*it)->update(deltaTime, scene);
 			++it;
 		}
 	}

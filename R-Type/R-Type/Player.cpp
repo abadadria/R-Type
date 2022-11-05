@@ -111,7 +111,7 @@ int Player::getBeamCharge()
 
 void Player::update(int deltaTime, SceneLevel* scene)
 {
-	ShootingEntity::update(deltaTime);
+	ShootingEntity::update(deltaTime, scene);
 	if (state == ALIVE) {
 		// Shooting and Beam
 		glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);

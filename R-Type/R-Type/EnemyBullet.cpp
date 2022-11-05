@@ -19,10 +19,15 @@ void EnemyBullet::init(ShaderProgram& shaderProgram, TileMap* tileMap)
 	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 }
 
-void EnemyBullet::update(int deltaTime)
+void EnemyBullet::update(int deltaTime, SceneLevel* scene)
 {
 	PassiveEntity::update(deltaTime);
-	//TODO collision with entities logic
+	// Collision with other entities
+	vector<pair<string, string>> collisions = scene->getCollisions(this);
+	for (pair<string, string> e : collisions) {
+		if (e.first == "Player")
+			startExplosion();
+	}
 }
 
 string EnemyBullet::getType() const

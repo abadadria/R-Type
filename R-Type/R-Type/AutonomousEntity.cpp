@@ -15,7 +15,7 @@ void AutonomousEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap)
 
 void AutonomousEntity::update(int deltaTime, SceneLevel* scene)
 {
-	ShootingEntity::update(deltaTime);
+	ShootingEntity::update(deltaTime, scene);
 	if (state == ALIVE) {
 		// Movement
 		posEntity = movementPattern->calcNewPosition(deltaTime);
@@ -26,7 +26,11 @@ void AutonomousEntity::update(int deltaTime, SceneLevel* scene)
 		sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 
 		//Collision with other Entities
-
+		vector<pair<string, string>> collisions = scene->getCollisions(this);
+		for (pair<string, string> e : collisions) {
+			if (e.first == "Player" || e.first == "SpaceshipBullet" || e.first == "SpaceshipBeam")
+				startExplosion();
+		}
 	}
 	else if (state == EXPLODING) {
 		ShootingEntity::explode();

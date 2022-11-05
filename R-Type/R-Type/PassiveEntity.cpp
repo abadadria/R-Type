@@ -10,7 +10,7 @@
 
 
 #define BEAM 1
-
+class SceneLevel; // To fix compilation due to circular includes
 
 void PassiveEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap)
 {

@@ -220,8 +220,14 @@ vector<pair<string, string>> SceneLevel::getCollisions(Entity* entity)
 
 	vector<pair<string, string>> collisions;
 
-	if (type != "Player" && player->collision(entity))
-		collisions.push_back(make_pair(player->getType(), ""));
+	if (type != "Player") {
+		if (player->collision(entity))
+			collisions.push_back(make_pair(player->getType(), ""));
+		pair<bool, string> bullet_collision = player->getBulletCollisions(entity);
+		if (bullet_collision.first)
+			collisions.push_back(make_pair(bullet_collision.second, ""));
+	}
+ 		
 
 	for (AutonomousEntity* enemy : enemies) {
 		if (enemy->collision(entity))

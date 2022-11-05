@@ -26,6 +26,7 @@ public:
 	SceneLevel();
 	~SceneLevel();
 
+	void load();
 	void init() override;
 	void update(int deltaTime) override;
 	void render() override;

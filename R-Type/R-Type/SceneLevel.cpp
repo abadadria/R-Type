@@ -34,15 +34,51 @@ SceneLevel::~SceneLevel()
 }
 
 
-void SceneLevel::init()
+void SceneLevel::load()
 {
 	Scene::init();
 	map = TileMap::createTileMap("levels/level01.txt", glm::vec2(0, 0), texProgram);
+
+	spritesheetBeamStatus.loadFromFile("images/beamStatus.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spriteBeamStatus = Sprite::createSprite(glm::ivec2(240, 32), glm::vec2(1, 1), &spritesheetBeamStatus, &texProgram);
+	spriteBeamStatus->setPosition(posBeamStatus);
+
+	spritesheetBeamStatusBar.loadFromFile("images/beamStatusBar.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spriteBeamStatusBar = Sprite::createSprite(glm::ivec2(230, 0), glm::vec2(1, 1), &spritesheetBeamStatusBar, &texProgram);
+	spriteBeamStatusBar->setPosition(posBeamStatusBar);
+
+	spritesheetAuxQuad.loadFromFile("images/auxQuad.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spriteAuxQuad = Sprite::createSprite(glm::ivec2(350, 250), glm::vec2(1, 1), &spritesheetAuxQuad, &texProgram);
+
+	spritesheetBackHUDQuad.loadFromFile("images/backHUDQuad.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spriteBackHUDQuad = Sprite::createSprite(glm::ivec2(640, 32), glm::vec2(1, 1), &spritesheetBackHUDQuad, &texProgram);
+	spriteBackHUDQuad->setPosition(glm::vec2(0, 512));
+}
+
+void SceneLevel::init() {
+	Scene::init();
+	map->resetSpawnedEnemies();
 	player = Player::getInstance();
 	player->init(texProgram, map);
 	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
 
+	score = 0;
+	lives = 3;
+	playerDead = false;
+	change = NO_CHANGE;
+
+	text0 = new Text();
+	if (!text0->init("fonts/dogica.ttf")) {
+		cout << "Could not load font!!!" << endl;
+	}
+
+	text1 = new Text();
+	if (!text1->init("fonts/dogicapixelbold.ttf")) {
+		cout << "Could not load font!!!" << endl;
+	}
+
 	// Clears all previous enemies
+	//TODO clear subentities
 	enemies.clear();
 	// Spawn enemies before tileCol
 	int initialTileCol = 21;
@@ -66,36 +102,6 @@ void SceneLevel::init()
 			}
 		}
 	}
-	
-	score = 1000; // cambiar por 0, valor de prueba
-	lives = 3;
-	playerDead = false;
-	change = NO_CHANGE;
-
-	text0 = new Text();
-	if (!text0->init("fonts/dogica.ttf")) {
-		cout << "Could not load font!!!" << endl;
-	}
-
-	text1 = new Text();
-	if (!text1->init("fonts/dogicapixelbold.ttf")) {
-		cout << "Could not load font!!!" << endl;
-	}
-
-	spritesheetBeamStatus.loadFromFile("images/beamStatus.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	spriteBeamStatus = Sprite::createSprite(glm::ivec2(240, 32), glm::vec2(1, 1), &spritesheetBeamStatus, &texProgram);
-	spriteBeamStatus->setPosition(posBeamStatus);
-
-	spritesheetBeamStatusBar.loadFromFile("images/beamStatusBar.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	spriteBeamStatusBar = Sprite::createSprite(glm::ivec2(230, 0), glm::vec2(1, 1), &spritesheetBeamStatusBar, &texProgram);
-	spriteBeamStatusBar->setPosition(posBeamStatusBar);
-
-	spritesheetAuxQuad.loadFromFile("images/auxQuad.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	spriteAuxQuad = Sprite::createSprite(glm::ivec2(350, 250), glm::vec2(1, 1), &spritesheetAuxQuad, &texProgram);
-
-	spritesheetBackHUDQuad.loadFromFile("images/backHUDQuad.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	spriteBackHUDQuad = Sprite::createSprite(glm::ivec2(640, 32), glm::vec2(1, 1), &spritesheetBackHUDQuad, &texProgram);
-	spriteBackHUDQuad->setPosition(glm::vec2(0, 512));
 
 	mciSendString(TEXT("stop sounds/IntergalacticOdyssey.mp3"), NULL, 0, NULL);
 	mciSendString(TEXT("play sounds/Chiptronical.mp3 repeat"), NULL, 0, NULL);

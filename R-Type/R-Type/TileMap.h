@@ -39,8 +39,10 @@ public:
 	bool collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size) const;
 	bool collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size) const;
 	bool collision(const glm::ivec2& pos, const glm::ivec2& mov, const glm::ivec2& size) const;
+
 	bool getShowCollisionBlock();
 	void setShowCollisionBlock(bool newShowCollisionBlock);
+	void resetSpawnedEnemies();
 
 private:
 	bool loadLevel(const string &levelFile);

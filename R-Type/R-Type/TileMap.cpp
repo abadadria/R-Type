@@ -297,3 +297,8 @@ void TileMap::setShowCollisionBlock(bool newShowCollisionBlock)
 {
 	showCollisionBlock = newShowCollisionBlock;
 }
+
+void TileMap::resetSpawnedEnemies()
+{
+	spawnedColumns = vector<bool>(mapSize.x, false);
+}

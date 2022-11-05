@@ -45,6 +45,7 @@ void SceneLevel::init()
 	score = 1000; // cambiar por 0, valor de prueba
 	lives = 3;
 	playerDead = false;
+	change = NO_CHANGE;
 
 	text0 = new Text();
 	if (!text0->init("fonts/dogica.ttf")) {
@@ -125,9 +126,13 @@ void SceneLevel::update(int deltaTime)
 		if (lives == 0) change = GOTO_MENU;
 		
 	}
-	if (player->getState() != ALIVE && player->getState() != EXPLODING) playerDead = true;
+	
+	if (player->getState() == COMPLETELY_DEAD) {
+		// borrar la entidad de player
+		playerDead = true;
+	}
 	else playerDead = false;
-
+	
 	glm::ivec2 posCamera = camera->getPos();
 	spriteAuxQuad->setPosition(glm::ivec2(posCamera.x + SCREEN_WIDTH/2 - 175, posCamera.y + SCREEN_HEIGHT / 2 - 125));
 }
@@ -174,8 +179,6 @@ void SceneLevel::render()
 	spriteBeamStatusBar = Sprite::createSprite(glm::ivec2((size * 230 / 150), 22), glm::vec2(1, 1), &spritesheetBeamStatusBar, &texProgram);
 	spriteBeamStatusBar->setPosition(glm::vec2(posBeamStatusBar.x + posCamera.x, posBeamStatusBar.y));
 	spriteBeamStatusBar->render();
-
-	// no se puede hacer antes del Scene::render
 	
 }
 

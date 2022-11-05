@@ -70,6 +70,7 @@ void Player::init(ShaderProgram &shaderProgram, TileMap* tileMap)
 
 	beamCharger = 0;
 	resetBeamCharge = true;
+	state = ALIVE;
 }
 
 void Player::render() {
@@ -201,7 +202,7 @@ void Player::update(int deltaTime)
 
 		sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 	}
-	else if (state == EXPLODING) {
+	else if (state == EXPLODING || state == DEAD) {
 		ShootingEntity::explode();
 	}
 }

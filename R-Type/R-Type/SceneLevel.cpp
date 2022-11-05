@@ -154,6 +154,9 @@ void SceneLevel::render()
 
 	spriteBackHUDQuad->render();
 
+	Scene::render();
+	map->render();
+
 	if (playerDead) spriteAuxQuad->render();
 
 	// no necesitan update de la pos
@@ -177,7 +180,6 @@ void SceneLevel::render()
 	}
 
 	Scene::render();
-	map->render();
 	player->render();
 	if (!playerDead) {
 		for (AutonomousEntity* enemy : enemies) {

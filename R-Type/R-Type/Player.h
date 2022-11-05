@@ -10,7 +10,7 @@ class Player : public ShootingEntity
 	
 public:
 	static Player* getInstance();
-	~Player();
+	//~Player();
 
 	void init(ShaderProgram& shaderProgram, TileMap* tileMap) override;
 	void update(int deltaTime) override;

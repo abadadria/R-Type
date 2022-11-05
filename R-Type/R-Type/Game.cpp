@@ -1,5 +1,7 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
+#include <Windows.h>
+#include <mmsystem.h>
 #include "Game.h"
 
 
@@ -11,6 +13,7 @@ void Game::init()
 	sceneLevel.init();
 	sceneInstructions.init();
 	sceneCredits.init();
+	//PlaySound(TEXT("sounds/file_example.wav"), NULL, SND_ASYNC);
 }
 
 bool Game::update(int deltaTime)
@@ -29,7 +32,7 @@ bool Game::update(int deltaTime)
 			sceneLevel.init();
 			sceneLevel.setLives(--lives);
 			sceneLevel.setScore(score - 10); // revisar este valor
-			// set lives
+			mciSendString(TEXT("play sounds/retry.wav"), NULL, 0, NULL);
 		}
 		break;
 
@@ -73,10 +76,13 @@ void Game::keyPressed(int key)
 	int change;
 	switch (key) {
 		case 27: // Escape code
-			if (state == PLAYING || state == INSTRUCTIONS || state == CREDITS)
+			if (state == PLAYING || state == INSTRUCTIONS || state == CREDITS) {
 				state = MAIN_MENU;
-			else
+			}
+			else {
 				exit_game = true;
+			}
+			mciSendString(TEXT("play sounds/changeScreen.wav"), NULL, 0, NULL);
 			break;
 		case 13: // Enter code
 			change = sceneMenu.getItemSelected();
@@ -84,15 +90,25 @@ void Game::keyPressed(int key)
 				if (state == MAIN_MENU) {
 					state = PLAYING;
 					sceneLevel.init();
+					mciSendString(TEXT("play sounds/retry.wav"), NULL, 0, NULL);
 				}
 			}
 			else if (change == INST) {
-				if (state == MAIN_MENU) state = INSTRUCTIONS;
+				if (state == MAIN_MENU) {
+					state = INSTRUCTIONS;
+					mciSendString(TEXT("play sounds/changeScreen.wav"), NULL, 0, NULL);
+				}
 			}
 			else if (change == CRED) {
-				if (state == MAIN_MENU) state = CREDITS;
+				if (state == MAIN_MENU) {
+					state = CREDITS;
+					mciSendString(TEXT("play sounds/changeScreen.wav"), NULL, 0, NULL);
+				}
 			}
-			else if (change == EXIT) exit_game = true;
+			else if (change == EXIT) {
+				exit_game = true;
+				mciSendString(TEXT("play sounds/changeScreen.wav"), NULL, 0, NULL);
+			}
 			break;
 		case 'o':
 			sceneLevel.changeShowCollisionBlock();

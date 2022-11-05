@@ -24,6 +24,11 @@ void Entity::render()
 		sprite->render();
 }
 
+void Entity::kill()
+{
+	delete sprite;
+}
+
 void Entity::setPosition(const glm::vec2& pos)
 {
 	posEntity = pos;

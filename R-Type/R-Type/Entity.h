@@ -17,6 +17,7 @@ public:
 	virtual void init(TileMap* tileMap);
 	virtual void update(int deltaTime);
 	virtual void render();
+	void kill();
 
 	void setPosition(const glm::vec2& pos);
 

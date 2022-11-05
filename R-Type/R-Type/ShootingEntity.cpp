@@ -2,6 +2,15 @@
 #include <iostream>
 
 
+ShootingEntity::~ShootingEntity()
+{
+	for (std::list<PassiveEntity*>::iterator it = passiveEntities.begin(); it != passiveEntities.end();) {
+		(*it)->kill();
+		delete (*it);
+		passiveEntities.erase(it++);
+	}
+}
+
 void ShootingEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap) {
 	Entity::init(tileMap);
 	this->texProgram = &shaderProgram;

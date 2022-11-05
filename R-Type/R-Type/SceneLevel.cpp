@@ -77,9 +77,12 @@ void SceneLevel::init() {
 		cout << "Could not load font!!!" << endl;
 	}
 
-	// Clears all previous enemies
-	//TODO clear subentities
-	enemies.clear();
+	// Clears all previous enemies and their bullets
+	for (std::list<AutonomousEntity*>::iterator it = enemies.begin(); it != enemies.end();) {
+		(*it)->kill();
+		delete (*it);
+		enemies.erase(it++);
+	}
 	// Spawn enemies before tileCol
 	int initialTileCol = 21;
 	int tileCol = getEnemySpawnColumn();

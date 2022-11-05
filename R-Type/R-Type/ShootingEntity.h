@@ -12,6 +12,8 @@ class ShootingEntity : public Entity
 {
 
 public:
+	~ShootingEntity();
+
 	virtual void init(ShaderProgram& shaderProgram, TileMap* tileMap);
 	void update(int deltaTime, SceneLevel* scene);
 	void render() override;

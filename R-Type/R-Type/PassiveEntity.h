@@ -11,15 +11,15 @@ class PassiveEntity : public Entity
 
 public:
 
-	  virtual void init(ShaderProgram& shaderProgram, TileMap* tileMap);
-	  virtual void init(ShaderProgram& shaderProgram, TileMap* tileMap, int level);
-	  void update(int deltaTime) override;
-	  virtual void update(int deltaTime, SceneLevel* scene) = 0;
-	  void render() override;
+	virtual void init(ShaderProgram& shaderProgram, TileMap* tileMap);
+	virtual void init(ShaderProgram& shaderProgram, TileMap* tileMap, int level);
+	void update(int deltaTime) override;
+	virtual void update(int deltaTime, SceneLevel* scene) = 0;
+	void render() override;
 
-	  void setMovementVector(glm::vec2 movVec);
+	void setMovementVector(glm::vec2 movVec);
 
-	  virtual string getType() const override;
+	virtual string getType() const override;
 
 protected:
 	void startExplosion() override;

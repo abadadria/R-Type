@@ -75,6 +75,7 @@ void SceneLevel::init()
 	spriteBackHUDQuad->setPosition(glm::vec2(0, 512));
 
 	mciSendString(TEXT("stop sounds/IntergalacticOdyssey.mp3"), NULL, 0, NULL);
+	mciSendString(TEXT("play sounds/Chiptronical.mp3 repeat"), NULL, 0, NULL);
 }
 
 void SceneLevel::update(int deltaTime)

@@ -40,6 +40,7 @@ void SceneMenu::init()
 	textSelected = PLAY;
 	changeSelected = STILL;
 
+	mciSendString(TEXT("stop sounds/Chiptronical.mp3"), NULL, 0, NULL);
 	mciSendString(TEXT("play sounds/IntergalacticOdyssey.mp3 repeat"), NULL, 0, NULL);
 }
 

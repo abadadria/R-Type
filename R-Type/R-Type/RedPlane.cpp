@@ -26,9 +26,9 @@ void RedPlane::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 i
 	shootingCounter = 0;
 }
 
-void RedPlane::update(int deltaTime)
+void RedPlane::update(int deltaTime, SceneLevel* scene)
 {
-	AutonomousEntity::update(deltaTime);
+	AutonomousEntity::update(deltaTime, scene);
 	if (state == ALIVE) {
 		// Shooting
 		shootingCounter += 1;

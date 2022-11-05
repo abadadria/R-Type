@@ -5,6 +5,8 @@
 #include "ShootingEntity.h"
 #include "Pattern.h"
 
+class SceneLevel; // To fix compilation due to circular includes
+
 class AutonomousEntity : public ShootingEntity
 {
 
@@ -13,7 +15,7 @@ public:
 
 	virtual void init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos) = 0;
 	void init(ShaderProgram& shaderProgram, TileMap* tileMap);
-	virtual void update(int deltaTime) override;
+	virtual void update(int deltaTime, SceneLevel* scene);
 
 	virtual string getType() const override;
 

@@ -29,6 +29,7 @@ public:
 	void init() override;
 	void update(int deltaTime) override;
 	void render() override;
+
 	int getChange();
 	int getLives();
 	void setLives(int newLives);

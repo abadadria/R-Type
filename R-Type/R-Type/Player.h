@@ -4,6 +4,7 @@
 
 #include "ShootingEntity.h"
 
+class SceneLevel; // To fix compilation due to circular includes
 
 class Player : public ShootingEntity
 {
@@ -13,7 +14,7 @@ public:
 	//~Player();
 
 	void init(ShaderProgram& shaderProgram, TileMap* tileMap) override;
-	void update(int deltaTime) override;
+	void update(int deltaTime, SceneLevel* scene);
 	void render() override;
 	int getBeamCharge();
 

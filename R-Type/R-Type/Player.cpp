@@ -119,7 +119,7 @@ int Player::getBeamCharge()
 	return beamCharger;
 }
 
-void Player::update(int deltaTime)
+void Player::update(int deltaTime, SceneLevel* scene)
 {
 	ShootingEntity::update(deltaTime);
 	if (state == ALIVE) {
@@ -171,8 +171,6 @@ void Player::update(int deltaTime)
 				sprite->changeAnimation(MOVE_UP);
 			if (cam->collisionUp(posEntity, entitySize, 0.f))
 				mov.y += 1.f;
-			if (map->collisionMoveUp(posEntity, entitySize))
-				startExplosion();
 		}
 		if (arrow["DOWN"] && !arrow["UP"]) {							// MOVE DOWN
 			mov.y += 1.f;
@@ -180,22 +178,16 @@ void Player::update(int deltaTime)
 				mov.y -= 1.f;
 			if (sprite->animation() != MOVE_DOWN)
 				sprite->changeAnimation(MOVE_DOWN);
-			if (map->collisionMoveDown(posEntity, entitySize))
-				startExplosion();
 		}
 		if (arrow["RIGHT"] && !arrow["LEFT"]) {							// MOVE RIGHT
 			mov.x += 1.f;
 			if (cam->collisionRight(posEntity, entitySize, 0.f))
 				mov.x -= 1.f;
-			if (map->collisionMoveRight(posEntity, entitySize))
-				startExplosion();
 		}
 		if (arrow["LEFT"] && !arrow["RIGHT"]) {							// MOVE LEFT
 			mov.x -= 1.f;
 			if (cam->collisionLeft(posEntity, entitySize, 0.f))
 				mov.x += 1.f;
-			if (map->collisionMoveLeft(posEntity, entitySize))
-				startExplosion();
 		}
 		if (!arrow["UP"] && !arrow["DOWN"]) {
 			if (sprite->animation() != GO_BACK && sprite->animation() != STAND)
@@ -205,8 +197,17 @@ void Player::update(int deltaTime)
 		if (mov.x != 0.f && mov.y != 0.f) {
 			mov = glm::normalize(mov);
 		}
-		posEntity.x = float(posEntity.x) + float(mov.x * speed);
-		posEntity.y = float(posEntity.y) + float(mov.y * speed);
+		mov.x = float(mov.x * speed);
+		mov.y = float(mov.y * speed);
+
+		if (map->collision(posEntity, glm::ivec2(int(mov.x), int(mov.y)), entitySize))
+			startExplosion();
+
+		posEntity.x = float(float(posEntity.x) + mov.x);
+		posEntity.y = float(float(posEntity.y) + mov.y);
+
+		// Add collision with other entities
+
 
 		// Adapt to camera movement
 		posEntity += cam->getSpeed();
@@ -238,7 +239,7 @@ void Player::shoot(int level)
 	pos.x = posEntity.x + entitySize.x - 10;
 	pos.y = posEntity.y + 18 - bulletSize.y / 2;
 	newBullet->setPosition(pos);
-	newBullet->setMovementVector(glm::ivec2(10.f, 0.f));
+	newBullet->setMovementVector(glm::ivec2(20.f, 0.f));
 	addBullet(newBullet);
 }
 

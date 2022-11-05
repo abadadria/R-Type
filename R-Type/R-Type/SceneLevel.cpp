@@ -100,8 +100,8 @@ void SceneLevel::update(int deltaTime)
 			}
 		}
 
-		// Update enemies
-		player->update(deltaTime);
+		// Update all entities
+		player->update(deltaTime, this);
 		for (std::list<AutonomousEntity*>::iterator it = enemies.begin(); it != enemies.end();) {
 			int state = (*it)->getState();
 			if (state == COMPLETELY_DEAD) {
@@ -109,7 +109,7 @@ void SceneLevel::update(int deltaTime)
 				enemies.erase(it++);
 			}
 			else {
-				(*it)->update(deltaTime);
+				(*it)->update(deltaTime, this);
 				++it;
 			}
 		}

@@ -44,7 +44,6 @@ bool Game::update(int deltaTime)
 		break;
 	}
 	return exit_game;
-
 }
 
 void Game::render()

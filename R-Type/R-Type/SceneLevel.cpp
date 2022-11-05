@@ -150,16 +150,17 @@ void SceneLevel::update(int deltaTime)
 
 void SceneLevel::render()
 {
-	spriteBackground->render();
 
+	spriteBackground->render();
 	spriteBackHUDQuad->render();
 
 	Scene::render();
 	map->render();
 
+
 	if (playerDead) spriteAuxQuad->render();
 
-	// no necesitan update de la pos
+	// Render HUD text
 	text1->render("Lifes: ", posLifes, textSize, textColor);
 	text0->render(std::to_string(lives), glm::ivec2(posLifes.x + 90, posLifes.y), textSize, textColor);
 	text1->render("Score: ", posScore, textSize, textColor);
@@ -179,14 +180,17 @@ void SceneLevel::render()
 		}
 	}
 
+	// Render other elements
 	Scene::render();
 	player->render();
-	if (!playerDead) {
+ 	if (!playerDead) {
+		// Render enemies
 		for (AutonomousEntity* enemy : enemies) {
 			enemy->render();
 		}
 	}
 
+	// Render Beam charge bar
 	Camera* cam = Camera::getInstance();
 	glm::ivec2 posCamera = cam->getPos();
 	spriteBeamStatus->setPosition(glm::vec2(posBeamStatus.x + posCamera.x, posBeamStatus.y));

@@ -45,6 +45,7 @@ void SceneLevel::init()
 	score = 1000; // cambiar por 0, valor de prueba
 	lives = 3;
 	playerDead = false;
+	change = NO_CHANGE;
 
 	text0 = new Text();
 	if (!text0->init("fonts/dogica.ttf")) {
@@ -125,9 +126,13 @@ void SceneLevel::update(int deltaTime)
 		if (lives == 0) change = GOTO_MENU;
 		
 	}
-	if (player->getState() == COMPLETELY_DEAD) playerDead = true;
+	
+	if (player->getState() == COMPLETELY_DEAD) {
+		// borrar la entidad de player
+		playerDead = true;
+	}
 	else playerDead = false;
-
+	
 	glm::ivec2 posCamera = camera->getPos();
 	spriteAuxQuad->setPosition(glm::ivec2(posCamera.x + SCREEN_WIDTH/2 - 175, posCamera.y + SCREEN_HEIGHT / 2 - 125));
 }
@@ -144,7 +149,7 @@ void SceneLevel::render()
 	text1->render("BEAM", posBeam, textSize, textColor);
 
 	if (playerDead) {
-		if (lives > 1) {
+		if (lives > 0) {
 			text1->render("DEAD!!", glm::vec2(267, 210), 20, textColor);
 			text0->render("[ENTER] RETRY", glm::vec2(185, 270), 20, textColor);
 			text0->render("[ESC] MAIN MENU", glm::vec2(165, 340), 20, textColor);
@@ -174,8 +179,6 @@ void SceneLevel::render()
 	spriteBeamStatusBar = Sprite::createSprite(glm::ivec2((size * 230 / 150), 22), glm::vec2(1, 1), &spritesheetBeamStatusBar, &texProgram);
 	spriteBeamStatusBar->setPosition(glm::vec2(posBeamStatusBar.x + posCamera.x, posBeamStatusBar.y));
 	spriteBeamStatusBar->render();
-
-	// no se puede hacer antes del Scene::render
 	
 }
 
@@ -202,5 +205,11 @@ int SceneLevel::getScore()
 void SceneLevel::setScore(int newScore)
 {
 	score = newScore;
+}
+
+void SceneLevel::changeShowCollisionBlock() 
+{
+	bool showCollisionBlock = map->getShowCollisionBlock();
+	map->setShowCollisionBlock(!showCollisionBlock);
 }
 

@@ -34,6 +34,7 @@ public:
 	void setLives(int newLives);
 	int getScore();
 	void setScore(int newScore);
+	void changeShowCollisionBlock();
 
 private:
 	TileMap* map;

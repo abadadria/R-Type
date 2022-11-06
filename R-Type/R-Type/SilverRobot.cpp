@@ -55,7 +55,8 @@ void SilverRobot::update(int deltaTime, SceneLevel* scene)
 		//Collision with other Entities
 		vector<pair<string, string>> collisions = scene->getCollisions(this);
 		for (pair<string, string> e : collisions) {
-			if (e.first == "Player" || e.first == "SpaceshipBullet" || e.first == "SpaceshipBeam" || e.first == "ForceBullet") {
+			if (e.first == "Player" || e.first == "SpaceshipBullet" || e.first == "SpaceshipBeam" || 
+				e.first == "Force" || e.first == "ForceBullet") {
 				scene->increaseScore(200);
 				startExplosion();
 				break;

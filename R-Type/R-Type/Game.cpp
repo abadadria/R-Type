@@ -117,6 +117,18 @@ void Game::keyPressed(int key)
 		case 'g':
 			sceneLevel.changeCollisionsActivePlayer();
 			break;
+		case '1':
+			
+			break;
+		case '2':
+			
+			break;
+		case '3':
+			
+			break;
+		case '4':
+			
+			break;
 	}
 	keys[key] = true;
 }

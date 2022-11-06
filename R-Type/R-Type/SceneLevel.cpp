@@ -280,7 +280,7 @@ void SceneLevel::render()
 	// Render other elements
 	Scene::render();
 	player->render();
-	if (force != nullptr)
+	if (force != nullptr && !playerDead)
 		force->render();
  	if (!playerDead) {
 		// Render enemies

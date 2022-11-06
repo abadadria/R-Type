@@ -1,4 +1,5 @@
 #include "Force.h"
+#include "ForceBullet.h"
 
 void Force::init(ShaderProgram& shaderProgram, TileMap* tileMap, Player* player)
 {
@@ -19,6 +20,8 @@ void Force::init(ShaderProgram& shaderProgram, TileMap* tileMap, Player* player)
 
 	sprite->changeAnimation(0);
 	copyPosPlayer();
+
+	shootingCounter = 0;
 }
 
 void Force::update(int deltaTime, SceneLevel* scene)
@@ -28,6 +31,11 @@ void Force::update(int deltaTime, SceneLevel* scene)
 		// Movement
 		copyPosPlayer();
 		// Shooting
+		shootingCounter += 1;
+		while (shootingCounter > 80) {
+			shootingCounter -= 80;
+			shoot(0);
+		}
 		// Collisions
 	}
 }
@@ -39,6 +47,15 @@ string Force::getType() const
 
 void Force::shoot(int level)
 {
+	PassiveEntity* newBullet = new ForceBullet();
+	newBullet->init(*texProgram, map);
+	glm::ivec2 bulletSize = newBullet->getSize();
+	glm::ivec2 pos;
+	pos.x = posEntity.x + entitySize.x - 10;
+	pos.y = posEntity.y + entitySize.y / 2;
+	newBullet->setPosition(pos);
+	newBullet->setMovementVector(glm::ivec2(20.f, 0.f));
+	addBullet(newBullet);
 }
 
 void Force::startExplosion()

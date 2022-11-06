@@ -21,5 +21,6 @@ private:
 	bool attached;
 	Player* player;
 	
+	int shootingCounter;
 };
 

@@ -31,6 +31,7 @@ void RedPlane::update(int deltaTime, SceneLevel* scene)
 	AutonomousEntity::update(deltaTime, scene);
 	if (state == ALIVE) {
 		// Shooting
+		// TODO it should only shoot when not attached
 		shootingCounter += 1;
 		while (shootingCounter > 80) {
 			shootingCounter -= 80;

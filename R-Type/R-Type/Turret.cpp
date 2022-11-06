@@ -66,7 +66,7 @@ void Turret::update(int deltaTime, SceneLevel* scene)
 		vector<pair<string, string>> collisions = scene->getCollisions(this);
 		for (pair<string, string> e : collisions) {
 			if (e.first == "Player" || e.first == "SpaceshipBullet" || e.first == "SpaceshipBeam" ||
-				e.first == "Force" || e.first == "ForceBullet") {
+				e.first == "Force" || e.first == "ForceBullet" || e.first == "ForceMissile") {
 				scene->increaseScore(200);
 				startExplosion();
 				break;

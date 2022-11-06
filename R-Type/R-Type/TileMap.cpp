@@ -89,20 +89,25 @@ bool TileMap::loadLevel(const string &levelFile)
 	scenario.setMagFilter(GL_NEAREST);
 
 	// Load enemy definitions
-	std::map< char, list<int> > enemyDefs;
-	char nDefs, letter, nEnemies, enemy;
+	// char is ID, first int is enemyType, second int is extraInfo
+	std::map<char, vector<pair<int, int>>> enemyDefs;
+	int nDefs, nEnemies, enemyType, extraInfo;
+	char letter;
 	getline(fin, line);
 	if (line.compare(0, 9, "ENEMY_DEF") != 0)
 		return false;
 	getline(fin, line);
 	sstream.str(line);
 	sstream >> nDefs;
-	for (int i = 0; i < nDefs - '0'; ++i) {
+	// Get all enemy definitions
+	for (int i = 0; i < nDefs; ++i) {
+		getline(fin, line);
 		sstream.str(line);
-		sstream >> letter >> nEnemies;
-		for (int j = 0; j < nEnemies - '0'; ++j) {
-			sstream >> enemy;
-			enemyDefs[letter].push_back(enemy - '0');
+		sstream >> letter;
+		sstream >> nEnemies;
+		for (int j = 0; j < nEnemies; ++j) {
+			sstream >> enemyType >> extraInfo;
+			enemyDefs[letter].push_back(make_pair(enemyType, extraInfo));
 		}
 	}
 
@@ -120,11 +125,11 @@ bool TileMap::loadLevel(const string &levelFile)
 			else if (tile >= '2' && tile <= '9') { // Single enemy
 				mapEnemies[j][i].push_back(tile - '0');
 			}
-			else if (tile >= 'A' && tile <= 'Z') // Enemy definition
-				if (enemyDefs.find(tile) == enemyDefs.end())
-					return false;
-				for (int e : enemyDefs[tile])
-					mapEnemies[j][i].push_back(e);
+			//else if (tile >= 'A' && tile <= 'Z') // Enemy definition
+			//	if (enemyDefs.find(tile) == enemyDefs.end())
+			//		return false;
+			//	for (int e : enemyDefs[tile])
+			//		mapEnemies[j][i].push_back(e);
 		}
 		fin.get(tile);
 #ifndef _WIN32

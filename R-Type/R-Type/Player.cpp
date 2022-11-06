@@ -211,7 +211,7 @@ void Player::update(int deltaTime, SceneLevel* scene)
 		vector<pair<string, string>> collisions = scene->getCollisions(this);
 		for (pair<string, string> e : collisions) {
 			if (collisionsActive &&
-				(e.first == "RedPlane" || e.first == "EnemyBullet")) {
+				(e.first == "RedPlane" || e.first == "EnemyBullet" || e.first == "SilverRobot")) {
 				startExplosion();
 				break;
 			}

@@ -46,13 +46,7 @@ void ForceMissile::update(int deltaTime, SceneLevel* scene)
 		spriteFlames->setPosition(glm::vec2(float(posFlames.x), float(posFlames.y)));
 
 		// Collision with other entities
-		vector<pair<string, string>> collisions = scene->getCollisions(this);
-		for (pair<string, string> e : collisions) {
-			if (e.first == "RedPlane") {
-				startExplosion();
-				break;
-			}
-		}
+		scene->doAllCollisions(this);
 	}
 }
 
@@ -82,4 +76,12 @@ void ForceMissile::setPosition(const glm::vec2& pos)
 	posFlames.x = float(posEntity.x - flamesSize.x);
 	posFlames.y = float(posEntity.y + entitySize.y / 2 - flamesSize.y / 2);
 	spriteFlames->setPosition(posFlames);
+}
+
+void ForceMissile::doCollision(Entity* entity)
+{
+	string type = entity->getType();
+	if (type == "RedPlane" || type == "SilverRobot" || type == "Turret") {
+		startExplosion();
+	}
 }

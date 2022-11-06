@@ -105,6 +105,19 @@ string Player::getType() const
 	return "Player";
 }
 
+void Player::doCollision(Entity* entity)
+{
+	string type = entity->getType();
+	if (collisionsActive &&
+		(type == "RedPlane" || type == "EnemyBullet" || type == "SilverRobot" ||
+		 type == "Turret") || type == "DragonFly" || type == "DragonFlyBullet") {
+		startExplosion();
+	}
+	else if (type == "ForceCoin") {
+		// TODO scene->spawnForce();
+	}
+}
+
 int Player::getBeamCharge()
 {
 	return beamCharger;
@@ -208,18 +221,7 @@ void Player::update(int deltaTime, SceneLevel* scene)
 		posEntity.y = float(float(posEntity.y) + mov.y);
 
 		// Add collision with other entities
-		vector<pair<string, string>> collisions = scene->getCollisions(this);
-		for (pair<string, string> e : collisions) {
-			if (collisionsActive &&
-				(e.first == "RedPlane" || e.first == "EnemyBullet" || e.first == "SilverRobot" || 
-					e.first == "DragonFly" || e.first == "DragonFlyBullet")) {
-				startExplosion();
-				break;
-			}
-			else if (e.first == "ForceCoin") {
-				scene->spawnForce();
-			}
-		}		
+		scene->doAllCollisions(this);		
 
 		// Adapt to camera movement
 		posEntity += cam->getSpeed();

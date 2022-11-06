@@ -26,7 +26,8 @@ public:
 	glm::ivec2 getSize() const;
 	int getState() const;
 
-	bool collision(Entity* entity);
+	void collision(Entity* entity);
+	virtual void doCollision(Entity* entity) = 0;
 
 	~Entity();
 

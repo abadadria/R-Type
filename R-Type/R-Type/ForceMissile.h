@@ -11,6 +11,7 @@ public:
 
 	string getType() const override;
 	void setPosition(const glm::vec2& pos) override;
+	void doCollision(Entity* entity) override;
 
 private:
 	glm::ivec2 flamesSize;

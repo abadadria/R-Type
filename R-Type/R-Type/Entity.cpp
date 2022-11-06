@@ -55,26 +55,27 @@ int Entity::getState() const
 	return state;
 }
 
-bool Entity::collision(Entity* entity)
+void Entity::collision(Entity* entity)
 {
-	//if (!(this->state == ALIVE) || !(entity->state == ALIVE))
-	//	return false;
+	if ((this->state == ALIVE) && (entity->state == ALIVE)) {
+		glm::ivec2 pos = entity->posEntity;
+		glm::ivec2 size = entity->entitySize;
 
-	glm::ivec2 pos = entity->posEntity;
-	glm::ivec2 size = entity->entitySize;
+		int minx1 = posEntity.x;
+		int maxx1 = posEntity.x + entitySize.x;
+		int minx2 = pos.x;
+		int maxx2 = pos.x + size.x;
 
-	int minx1 = posEntity.x;
-	int maxx1 = posEntity.x + entitySize.x;
-	int minx2 = pos.x;
-	int maxx2 = pos.x + size.x;
+		int miny1 = posEntity.y;
+		int maxy1 = posEntity.y + entitySize.y;
+		int miny2 = pos.y;
+		int maxy2 = pos.y + size.y;
 
-	int miny1 = posEntity.y;
-	int maxy1 = posEntity.y + entitySize.y;
-	int miny2 = pos.y;
-	int maxy2 = pos.y + size.y;
-
-	return (minx1 < maxx2) && (minx2 < maxx1) &&
-		   (miny1 < maxy2) && (miny2 < maxy1);
+		if ((minx1 < maxx2) && (minx2 < maxx1) && (miny1 < maxy2) && (miny2 < maxy1)) {
+			entity->doCollision(this);
+			this->doCollision(entity);
+		}
+	}
 }
 
 void Entity::startExplosion() {

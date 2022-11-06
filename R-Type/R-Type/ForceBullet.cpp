@@ -23,17 +23,19 @@ void ForceBullet::update(int deltaTime, SceneLevel* scene)
 	PassiveEntity::update(deltaTime);
 	if (state == ALIVE) {
 		// Collision with other entities
-		vector<pair<string, string>> collisions = scene->getCollisions(this);
-		for (pair<string, string> e : collisions) {
-			if (e.first == "RedPlane" || e.first == "SilverRobot" || e.first == "Turret" || e.first == "DragonFly") {
-				startExplosion();
-				break;
-			}
-		}
+		scene->doAllCollisions(this);
 	}
 }
 
 string ForceBullet::getType() const
 {
 	return "ForceBullet";
+}
+
+void ForceBullet::doCollision(Entity* entity)
+{
+	string type = entity->getType();
+	if (type == "RedPlane" || type == "SilverRobot" || type == "Turret" || type == "DragonFly") {
+		startExplosion();
+	}
 }

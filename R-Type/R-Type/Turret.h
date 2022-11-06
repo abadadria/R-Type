@@ -15,6 +15,7 @@ public:
 	void update(int deltaTime, SceneLevel* scene) override;
 
 	string getType() const override;
+	void doCollision(Entity* entity) override;
 
 private:
 	int shootingCounter;

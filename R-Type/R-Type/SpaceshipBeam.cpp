@@ -44,10 +44,16 @@ void SpaceshipBeam::init(ShaderProgram& shaderProgram, TileMap* tileMap, int lev
 void SpaceshipBeam::update(int deltaTime, SceneLevel* scene)
 {
 	PassiveEntity::update(deltaTime);
-	//TODO collision with entities logic
+	// Collision with other entities
+	scene->doAllCollisions(this);
+
 }
 
 string SpaceshipBeam::getType() const
 {
 	return "SpaceshipBeam";
+}
+
+void SpaceshipBeam::doCollision(Entity* entity)
+{
 }

@@ -19,8 +19,7 @@ public:
 	void render() override;
 
 	virtual string getType() const override;
-	//First is the result and second the getType() of the bullets
-	pair<bool, string> getBulletCollisions(Entity* entity) const;
+	void doBulletCollisions(Entity* entity);
 
 protected:
 	void addBullet(PassiveEntity* bullet);

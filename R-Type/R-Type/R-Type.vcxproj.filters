@@ -31,7 +31,7 @@
     <Filter Include="Archivos de encabezado\Pattern">
       <UniqueIdentifier>{7ca36094-b0a3-441b-822d-389aa7cc12e7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de código fuente\Patters">
+    <Filter Include="Archivos de código fuente\Pattern">
       <UniqueIdentifier>{a896653d-171e-4310-b31c-70a7adfbf3a8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -111,29 +111,14 @@
     <ClCompile Include="SpaceshipBullet.cpp">
       <Filter>Archivos de código fuente\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="SceneLevel.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="ForceCoin.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Force.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="ForceBullet.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="SilverRobot.cpp">
       <Filter>Archivos de código fuente\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="ForceMissile.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="PatternDiagonalBounce.cpp">
-      <Filter>Archivos de código fuente\Patters</Filter>
+      <Filter>Archivos de código fuente\Pattern</Filter>
     </ClCompile>
     <ClCompile Include="PatternStatic.cpp">
-      <Filter>Archivos de código fuente\Patters</Filter>
+      <Filter>Archivos de código fuente\Pattern</Filter>
     </ClCompile>
     <ClCompile Include="Turret.cpp">
       <Filter>Archivos de código fuente\Entity</Filter>
@@ -149,6 +134,24 @@
     </ClCompile>
     <ClCompile Include="DragonFlyBullet.cpp">
       <Filter>Archivos de código fuente\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="ForceMissile.cpp">
+      <Filter>Archivos de código fuente\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="ForceCoin.cpp">
+      <Filter>Archivos de código fuente\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="ForceBullet.cpp">
+      <Filter>Archivos de código fuente\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Force.cpp">
+      <Filter>Archivos de código fuente\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="PatternSin.cpp">
+      <Filter>Archivos de código fuente\Pattern</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneLevel.cpp">
+      <Filter>Archivos de código fuente\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

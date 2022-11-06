@@ -19,7 +19,7 @@ public:
 	virtual void render();
 	virtual void kill();
 
-	void setPosition(const glm::vec2& pos);
+	virtual void setPosition(const glm::vec2& pos);
 
 	virtual string getType() const;
 	glm::ivec2 getPosition() const;

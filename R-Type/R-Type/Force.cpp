@@ -69,9 +69,17 @@ void Force::update(int deltaTime, SceneLevel* scene)
 			sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 			// Shooting
 			shootingCounter += 1;
-			while (shootingCounter > 45) {
-				shootingCounter -= 45;
-				shoot(0);
+			if (currentLevel == 1) {
+				while (shootingCounter > 30) {
+					shootingCounter -= 30;
+					shoot(0);
+				}
+			}
+			else if (currentLevel == 2) {
+				while (shootingCounter > 70) {
+					shootingCounter -= 80;
+					shoot(0);
+				}
 			}
 			// Collisions
 		}
@@ -137,7 +145,7 @@ void Force::shoot(int level)
 			glm::ivec2 pos;
 			pos.x = posEntity.x + entitySize.x - 10;
 			pos.y = posEntity.y + entitySize.y / 2;
-			int distance = 40;
+			int distance = 60;
 			newBullet1->setPosition(glm::ivec2(pos.x, pos.y + distance / 2));
 			newBullet2->setPosition(glm::ivec2(pos.x, pos.y - distance / 2));
 			newBullet1->setMovementVector(glm::ivec2(12.f, 0.f));

@@ -18,7 +18,6 @@ void ForceMissile::init(ShaderProgram& shaderProgram, TileMap* tileMap)
 		sprite->addKeyframe(0, glm::vec2(0.f, 0.f));
 
 	sprite->changeAnimation(0);
-	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 
 	// Init flames
 	flamesSize = glm::ivec2(28, 24);
@@ -34,16 +33,18 @@ void ForceMissile::init(ShaderProgram& shaderProgram, TileMap* tileMap)
 			spriteFlames->addKeyframe(0, glm::vec2(0.125f * float(i), 0.f));
 
 	spriteFlames->changeAnimation(0);
-	glm::vec2 posFlames;
-	posFlames.x = float(posEntity.x - flamesSize.x);
-	posFlames.y = float(posEntity.y + entitySize.y / 2 - flamesSize.y / 2);
-	spriteFlames->setPosition(glm::vec2(float(posFlames.x), float(posFlames.y)));
-}
+} 
 
 void ForceMissile::update(int deltaTime, SceneLevel* scene)
 {
 	PassiveEntity::update(deltaTime);
 	if (state == ALIVE) {
+		spriteFlames->update(deltaTime);
+		glm::vec2 posFlames;
+		posFlames.x = float(posEntity.x - flamesSize.x);
+		posFlames.y = float(posEntity.y + entitySize.y / 2 - flamesSize.y / 2);
+		spriteFlames->setPosition(glm::vec2(float(posFlames.x), float(posFlames.y)));
+
 		// Collision with other entities
 		vector<pair<string, string>> collisions = scene->getCollisions(this);
 		for (pair<string, string> e : collisions) {
@@ -52,11 +53,6 @@ void ForceMissile::update(int deltaTime, SceneLevel* scene)
 				break;
 			}
 		}
-		spriteFlames->update(deltaTime);
-		glm::vec2 posFlames;
-		posFlames.x = float(posEntity.x - flamesSize.x);
-		posFlames.y = float(posEntity.y + entitySize.y / 2 - flamesSize.y / 2);
-		spriteFlames->setPosition(glm::vec2(float(posFlames.x), float(posFlames.y)));
 	}
 }
 
@@ -76,4 +72,14 @@ void ForceMissile::kill()
 string ForceMissile::getType() const
 {
 	return "ForceMissile";
+}
+
+void ForceMissile::setPosition(const glm::vec2& pos)
+{
+	posEntity = pos;
+	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
+	glm::vec2 posFlames;
+	posFlames.x = float(posEntity.x - flamesSize.x);
+	posFlames.y = float(posEntity.y + entitySize.y / 2 - flamesSize.y / 2);
+	spriteFlames->setPosition(posFlames);
 }

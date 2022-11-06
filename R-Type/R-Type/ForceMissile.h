@@ -10,6 +10,7 @@ public:
 	void kill() override;
 
 	string getType() const override;
+	void setPosition(const glm::vec2& pos) override;
 
 private:
 	glm::ivec2 flamesSize;

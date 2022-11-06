@@ -1,13 +1,13 @@
-#include "PatternDiagonal.h"
+#include "PatternDiagonalBounce.h"
 
-PatternDiagonal::PatternDiagonal(glm::ivec2 initialPos, glm::vec2 initialMovDir, glm::ivec2 entitySize, TileMap* tileMap) {
+PatternDiagonalBounce::PatternDiagonalBounce(glm::ivec2 initialPos, glm::vec2 initialMovDir, glm::ivec2 entitySize, TileMap* tileMap) {
     this->pos = initialPos;
     this->movDir = initialMovDir;
     this->map = tileMap;
     this->entitySize = entitySize;
 }
 
-glm::ivec2 PatternDiagonal::calcNewPosition(int deltaTime)
+glm::ivec2 PatternDiagonalBounce::calcNewPosition(int deltaTime)
 {
     glm::ivec2 provPosX = pos;
     provPosX.x = pos.x + movDir.x;

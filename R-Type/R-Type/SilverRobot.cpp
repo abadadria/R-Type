@@ -1,11 +1,11 @@
 #include "SilverRobot.h"
-#include "PatternDiagonal.h"
+#include "PatternDiagonalBounce.h"
 
 void SilverRobot::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos, int extra, bool drop)
 {
 	AutonomousEntity::init(shaderProgram, tileMap, drop);
 	entitySize = glm::ivec2(64, 64);
-	AutonomousEntity::setPattern(new PatternDiagonal(initialPos, glm::vec2(-2, -2),  entitySize, tileMap));
+	AutonomousEntity::setPattern(new PatternDiagonalBounce(initialPos, glm::vec2(-2, -2),  entitySize, tileMap));
 	spritesheet.loadFromFile("images/silverRobot.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(entitySize, glm::vec2(0.125f, 1.f), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(2);
@@ -55,7 +55,7 @@ void SilverRobot::update(int deltaTime, SceneLevel* scene)
 		//Collision with other Entities
 		vector<pair<string, string>> collisions = scene->getCollisions(this);
 		for (pair<string, string> e : collisions) {
-			if (e.first == "Player" || e.first == "SpaceshipBullet" || e.first == "SpaceshipBeam") { //a�adir force y force bullet
+			if (e.first == "Player" || e.first == "SpaceshipBullet" || e.first == "SpaceshipBeam" || e.first == "ForceBullet") {
 				scene->increaseScore(200);
 				startExplosion();
 				break;

@@ -129,7 +129,7 @@
     <ClCompile Include="PatternSin.cpp">
       <Filter>Archivos de código fuente\Patters</Filter>
     </ClCompile>
-    <ClCompile Include="PatternDiagonal.cpp">
+    <ClCompile Include="PatternDiagonalBounce.cpp">
       <Filter>Archivos de código fuente\Patters</Filter>
     </ClCompile>
   </ItemGroup>
@@ -233,10 +233,9 @@
     <ClInclude Include="PatternSin.h">
       <Filter>Archivos de encabezado\Pattern</Filter>
     </ClInclude>
-    <ClInclude Include="PatternDiagonal.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="PatternDiagonalBounce.h">
+      <Filter>Archivos de encabezado\Pattern</Filter>
     </ClInclude>
-
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

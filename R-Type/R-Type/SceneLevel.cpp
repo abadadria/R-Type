@@ -9,6 +9,7 @@
 #include "PatternSin.h"
 #include "RedPlane.h"
 #include "SilverRobot.h"
+#include "Turret.h"
 #include "ForceCoin.h"
 #include <map>
 
@@ -123,6 +124,9 @@ void SceneLevel::init() {
 					case 3:
 						enemy = new SilverRobot();
 						break;
+					case 4:
+						enemy = new Turret();
+						break;
 					default:
 						enemy = nullptr;
 				}
@@ -160,6 +164,9 @@ void SceneLevel::update(int deltaTime)
 						break;
 					case 3:
 						enemy = new SilverRobot();
+						break;
+					case 4:
+						enemy = new Turret();
 						break;
 					default:
 						enemy = nullptr;

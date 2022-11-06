@@ -63,7 +63,10 @@ void SceneLevel::init() {
 	player = Player::getInstance();
 	player->init(texProgram, map);
 	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
-	
+
+	force = new Force();
+	force->init(texProgram, map, player);
+
 	// TODO Remove hardcoded coin
 	PassiveEntity* coin = new ForceCoin();
 	coin->init(texProgram, map);
@@ -157,6 +160,7 @@ void SceneLevel::update(int deltaTime)
 
 		// Update all entities
 		player->update(deltaTime, this);
+		force->update(deltaTime, this);
 		// Update enemies
 		for (std::list<AutonomousEntity*>::iterator it = enemies.begin(); it != enemies.end();) {
 			int state = (*it)->getState();
@@ -264,6 +268,7 @@ void SceneLevel::render()
 	// Render other elements
 	Scene::render();
 	player->render();
+	force->render();
  	if (!playerDead) {
 		// Render enemies
 		for (AutonomousEntity* enemy : enemies) {
@@ -344,6 +349,8 @@ vector<pair<string, string>> SceneLevel::getCollisions(Entity* entity)
 	if (type != "Player") {
 		if (player->collision(entity))
 			collisions.push_back(make_pair(player->getType(), ""));
+		if (force->collision(entity))
+			collisions.push_back(make_pair(force->getType(), ""));
 		pair<bool, string> bullet_collision = player->getBulletCollisions(entity);
 		if (bullet_collision.first)
 			collisions.push_back(make_pair(bullet_collision.second, ""));

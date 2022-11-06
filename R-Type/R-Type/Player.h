@@ -14,8 +14,9 @@ public:
 	//~Player();
 
 	void init(ShaderProgram& shaderProgram, TileMap* tileMap) override;
-	void update(int deltaTime, SceneLevel* scene);
+	void update(int deltaTime, SceneLevel* scene) override;
 	void render() override;
+
 	int getBeamCharge();
 	void changeCollisionsActive();
 	bool getCollisionsActive();

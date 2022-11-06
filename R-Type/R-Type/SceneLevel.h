@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "PassiveEntity.h"
 #include "AutonomousEntity.h"
+#include "Force.h"
 
 #define NO_CHANGE 0
 #define GOTO_MENU 1
@@ -52,6 +53,7 @@ private:
 private:
 	TileMap* map;
 	Player* player;
+	Force* force;
 	std::list<AutonomousEntity*> enemies;
 	std::list<PassiveEntity*> powerUps;
 

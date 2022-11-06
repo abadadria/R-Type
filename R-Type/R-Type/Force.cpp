@@ -7,6 +7,7 @@ void Force::init(ShaderProgram& shaderProgram, TileMap* tileMap, Player* player)
 	this->attached = false;
 	this->unattachedMovementVec = glm::ivec2(5, 0);
 	this->player = player;
+	this->currentLevel = 1;
 	entitySize = glm::ivec2(40, 32);
 	spritesheet.loadFromFile("images/force1.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(entitySize, glm::vec2(0.125, 1.f), &spritesheet, &shaderProgram);
@@ -80,6 +81,35 @@ void Force::update(int deltaTime, SceneLevel* scene)
 string Force::getType() const
 {
 	return "Force";
+}
+
+void Force::levelUp()
+{
+	if (attached) {
+		if (currentLevel == 1) {
+			glm::ivec2 prevSize = entitySize;
+			delete sprite;
+			entitySize = glm::ivec2(54, 44);
+			spritesheet.loadFromFile("images/force2.png", TEXTURE_PIXEL_FORMAT_RGBA);
+			sprite = Sprite::createSprite(entitySize, glm::vec2(0.125, 1.f), &spritesheet, getShaderProgram());
+			sprite->setNumberAnimations(1);
+
+			int keyframesPerSec = 17;
+
+			sprite->setAnimationSpeed(0, keyframesPerSec);
+			sprite->setAnimationLooping(0, true);
+			for (int i = 0.f; i < 6; ++i)
+				sprite->addKeyframe(0, glm::vec2(0.125f * float(i), 0.f));
+
+			sprite->changeAnimation(0);
+
+			posEntity.y += (prevSize.y / 2 - entitySize.y / 2);
+			sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
+		}
+		else if (currentLevel == 2) {
+
+		}
+	}
 }
 
 void Force::shoot(int level)

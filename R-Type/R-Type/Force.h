@@ -15,12 +15,10 @@ protected:
 	void startExplosion() override;
 
 private:
-	void copyPosPlayer();
-
-private:
 	bool attached;
 	Player* player;
 	
 	int shootingCounter;
+	glm::ivec2 unattachedMovementVec;
 };
 

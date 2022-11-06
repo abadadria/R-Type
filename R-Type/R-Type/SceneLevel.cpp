@@ -343,8 +343,10 @@ void SceneLevel::changeCollisionsActivePlayer()
 
 void SceneLevel::spawnForce()
 {
-	force = new Force();
-	force->init(texProgram, map, player);
+	if (force == nullptr) {
+		force = new Force();
+		force->init(texProgram, map, player);
+	}
 }
 
 vector<pair<string, string>> SceneLevel::getCollisions(Entity* entity)

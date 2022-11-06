@@ -207,17 +207,16 @@ void Player::update(int deltaTime, SceneLevel* scene)
 		posEntity.x = float(float(posEntity.x) + mov.x);
 		posEntity.y = float(float(posEntity.y) + mov.y);
 
-		if (collisionsActive) {
-			// Add collision with other entities
-			vector<pair<string, string>> collisions = scene->getCollisions(this);
-			for (pair<string, string> e : collisions) {
-				if (e.first == "RedPlane" || e.first == "EnemyBullet") {
-					startExplosion();
-					break;
-				}
-				else if (e.first == "ForceCoin") {
-					scene->spawnForce();
-				}
+		// Add collision with other entities
+		vector<pair<string, string>> collisions = scene->getCollisions(this);
+		for (pair<string, string> e : collisions) {
+			if (collisionsActive &&
+				(e.first == "RedPlane" || e.first == "EnemyBullet")) {
+				startExplosion();
+				break;
+			}
+			else if (e.first == "ForceCoin") {
+				scene->spawnForce();
 			}
 		}		
 

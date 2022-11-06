@@ -141,6 +141,15 @@
     <ClCompile Include="PatternStatic.cpp">
       <Filter>Archivos de código fuente\Patters</Filter>
     </ClCompile>
+    <ClCompile Include="PatternDuel.cpp">
+      <Filter>Archivos de código fuente\Patters</Filter>
+    </ClCompile>
+    <ClCompile Include="DragonFly.cpp">
+      <Filter>Archivos de código fuente\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="DragonFlyBullet.cpp">
+      <Filter>Archivos de código fuente\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -253,6 +262,15 @@
     </ClInclude>
     <ClInclude Include="PatternStatic.h">
       <Filter>Archivos de encabezado\Pattern</Filter>
+    </ClInclude>
+    <ClInclude Include="PatternDuel.h">
+      <Filter>Archivos de encabezado\Pattern</Filter>
+    </ClInclude>
+    <ClInclude Include="DragonFly.h">
+      <Filter>Archivos de encabezado\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="DragonFlyBullet.h">
+      <Filter>Archivos de encabezado\Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

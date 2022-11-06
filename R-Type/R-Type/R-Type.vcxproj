@@ -14,6 +14,7 @@
     <ClCompile Include="AutonomousEntity.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DragonFly.cpp" />
+    <ClCompile Include="DragonFlyBullet.cpp" />
     <ClCompile Include="EnemyBullet.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Force.cpp" />
@@ -54,6 +55,7 @@
     <ClInclude Include="AutonomousEntity.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DragonFly.h" />
+    <ClInclude Include="DragonFlyBullet.h" />
     <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Force.h" />

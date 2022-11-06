@@ -1,6 +1,7 @@
 #include "AutonomousEntity.h"
 #include "Camera.h"
 #include "EnemyBullet.h"
+#include "DragonFlyBullet.h"
 #include "Player.h"
 
 
@@ -51,7 +52,9 @@ void AutonomousEntity::setPattern(Pattern* pattern) {
 
 void AutonomousEntity::shoot(int level)
 {
-	PassiveEntity* newBullet = new EnemyBullet();
+	PassiveEntity* newBullet = NULL;
+	if (level == 0) newBullet = new EnemyBullet();
+	else newBullet = new DragonFlyBullet();
 	newBullet->init(*texProgram, map);
 	glm::ivec2 bulletSize = newBullet->getSize();
 	glm::vec2 pos;

@@ -117,6 +117,21 @@ void Game::keyPressed(int key)
 		case 'g':
 			sceneLevel.changeCollisionsActivePlayer();
 			break;
+		case 'f':
+			sceneLevel.spawnForce();
+			break;
+		case '1':
+			sceneLevel.gotoCheckpoint(1);
+			break;
+		case '2':
+			sceneLevel.gotoCheckpoint(2);
+			break;
+		case '3':
+			sceneLevel.gotoCheckpoint(3);
+			break;
+		case '4':
+			sceneLevel.gotoCheckpoint(4);
+			break;
 	}
 	keys[key] = true;
 }

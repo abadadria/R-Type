@@ -280,7 +280,7 @@ void SceneLevel::render()
 	// Render other elements
 	Scene::render();
 	player->render();
-	if (force != nullptr)
+	if (force != nullptr && !playerDead)
 		force->render();
  	if (!playerDead) {
 		// Render enemies
@@ -351,6 +351,29 @@ void SceneLevel::changeShowCollisionBlock()
 void SceneLevel::changeCollisionsActivePlayer()
 {
 	player->changeCollisionsActive();
+}
+
+void SceneLevel::gotoCheckpoint(int checkpoint)
+{
+	Camera* cam = Camera::getInstance();
+	switch (checkpoint) {
+		case 1:
+			player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
+			camera->setPos(glm::vec2(0.f, 0.f));
+			break;
+		case 2: 
+			player->setPosition(glm::vec2(INIT_PLAYER_X + 2350, INIT_PLAYER_Y));
+			camera->setPos(glm::vec2(2350, 0.f));
+			break;
+		case 3:
+			player->setPosition(glm::vec2(INIT_PLAYER_X + 4500, INIT_PLAYER_Y));
+			camera->setPos(glm::vec2(4500, 0.f));
+			break;
+		case 4:
+			player->setPosition(glm::vec2(INIT_PLAYER_X + 6600, INIT_PLAYER_Y));
+			camera->setPos(glm::vec2(6600, 0.f));
+			break;
+	}
 }
 
 void SceneLevel::spawnForce()

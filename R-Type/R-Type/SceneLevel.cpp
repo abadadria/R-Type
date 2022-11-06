@@ -63,7 +63,9 @@ void SceneLevel::init() {
 	player = Player::getInstance();
 	player->init(texProgram, map);
 	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
-	
+
+	force = nullptr;
+
 	// TODO Remove hardcoded coin
 	PassiveEntity* coin = new ForceCoin();
 	coin->init(texProgram, map);
@@ -157,6 +159,8 @@ void SceneLevel::update(int deltaTime)
 
 		// Update all entities
 		player->update(deltaTime, this);
+		if (force != nullptr)
+			force->update(deltaTime, this);
 		// Update enemies
 		for (std::list<AutonomousEntity*>::iterator it = enemies.begin(); it != enemies.end();) {
 			int state = (*it)->getState();
@@ -264,6 +268,8 @@ void SceneLevel::render()
 	// Render other elements
 	Scene::render();
 	player->render();
+	if (force != nullptr)
+		force->render();
  	if (!playerDead) {
 		// Render enemies
 		for (AutonomousEntity* enemy : enemies) {
@@ -335,6 +341,14 @@ void SceneLevel::changeCollisionsActivePlayer()
 	player->changeCollisionsActive();
 }
 
+void SceneLevel::spawnForce()
+{
+	if (force == nullptr) {
+		force = new Force();
+		force->init(texProgram, map, player);
+	}
+}
+
 vector<pair<string, string>> SceneLevel::getCollisions(Entity* entity)
 {
 	string type = entity->getType();
@@ -344,11 +358,12 @@ vector<pair<string, string>> SceneLevel::getCollisions(Entity* entity)
 	if (type != "Player") {
 		if (player->collision(entity))
 			collisions.push_back(make_pair(player->getType(), ""));
+		if (force != nullptr && force->collision(entity))
+			collisions.push_back(make_pair(force->getType(), ""));
 		pair<bool, string> bullet_collision = player->getBulletCollisions(entity);
 		if (bullet_collision.first)
 			collisions.push_back(make_pair(bullet_collision.second, ""));
 	}
- 		
 
 	for (AutonomousEntity* enemy : enemies) {
 		if (enemy->collision(entity))
@@ -358,6 +373,10 @@ vector<pair<string, string>> SceneLevel::getCollisions(Entity* entity)
 			collisions.push_back(make_pair(bullet_collision.second, ""));
 	}
 
+	for (PassiveEntity* powerUp : powerUps) {
+		if (powerUp->collision(entity))
+			collisions.push_back(make_pair(powerUp->getType(), ""));
+	}
 	return collisions;
 }
 

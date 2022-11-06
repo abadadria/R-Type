@@ -26,7 +26,7 @@ void EnemyBullet::update(int deltaTime, SceneLevel* scene)
 		// Collision with other entities
 		vector<pair<string, string>> collisions = scene->getCollisions(this);
 		for (pair<string, string> e : collisions) {
-			if (e.first == "Player") {
+			if (e.first == "Player" || e.first == "Force") {
 				startExplosion();
 				break;
 			}

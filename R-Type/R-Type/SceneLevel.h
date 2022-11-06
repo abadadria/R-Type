@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "PassiveEntity.h"
 #include "AutonomousEntity.h"
+#include "Force.h"
 
 #define NO_CHANGE 0
 #define GOTO_MENU 1
@@ -43,6 +44,8 @@ public:
 	void changeShowCollisionBlock();
 	void changeCollisionsActivePlayer();
 
+	void spawnForce();
+
 	//First string is the getType(), second string is for extra information (e.g. direction of the bounce).
 	vector<pair<string, string>> getCollisions(Entity* entity);
 
@@ -52,6 +55,7 @@ private:
 private:
 	TileMap* map;
 	Player* player;
+	Force* force;
 	std::list<AutonomousEntity*> enemies;
 	std::list<PassiveEntity*> powerUps;
 

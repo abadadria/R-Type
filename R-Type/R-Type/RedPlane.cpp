@@ -31,6 +31,7 @@ void RedPlane::update(int deltaTime, SceneLevel* scene)
 	AutonomousEntity::update(deltaTime, scene);
 	if (state == ALIVE) {
 		// Shooting
+		// TODO it should only shoot when not attached
 		shootingCounter += 1;
 		while (shootingCounter > 80) {
 			shootingCounter -= 80;
@@ -40,7 +41,7 @@ void RedPlane::update(int deltaTime, SceneLevel* scene)
 		//Collision with other Entities
 		vector<pair<string, string>> collisions = scene->getCollisions(this);
 		for (pair<string, string> e : collisions) {
-			if (e.first == "Player" || e.first == "SpaceshipBullet" || e.first == "SpaceshipBeam") {
+			if (e.first == "Player" || e.first == "Force" || e.first == "SpaceshipBullet" || e.first == "SpaceshipBeam") {
 				scene->increaseScore(200);
 				startExplosion();
 				break;

@@ -15,7 +15,7 @@ public:
 
 	virtual void init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos, int extra, bool drop) = 0;
 	void init(ShaderProgram& shaderProgram, TileMap* tileMap, bool drop);
-	virtual void update(int deltaTime, SceneLevel* scene);
+	virtual void update(int deltaTime, SceneLevel* scene) override;
 
 	virtual string getType() const override;
 	bool getDropPowerUp();

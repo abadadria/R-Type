@@ -15,7 +15,7 @@ public:
 	~ShootingEntity();
 
 	virtual void init(ShaderProgram& shaderProgram, TileMap* tileMap);
-	void update(int deltaTime, SceneLevel* scene);
+	virtual void update(int deltaTime, SceneLevel* scene);
 	void render() override;
 
 	virtual string getType() const override;

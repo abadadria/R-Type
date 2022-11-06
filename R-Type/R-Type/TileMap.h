@@ -7,6 +7,7 @@
 #include <list>
 #include "Texture.h"
 #include "ShaderProgram.h"
+#include <map>
 
 
 // Class Tilemap is capable of loading a tile map from a text file in a very
@@ -32,7 +33,7 @@ public:
 	
 	int getTileSize() const { return tileSize; }
 
-	vector<pair<int,list<pair<int,int>>>> getEnemies(int tileMapColumn);
+	vector<pair<int,list<std::map<string, int>>>> getEnemies(int tileMapColumn);
 
 	bool collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) const;
 	bool collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) const;
@@ -57,7 +58,12 @@ private:
 	int tileSize;
 	Texture background, scenario, collisionBlock;
 	int* map;
-	vector<vector<list<pair<int,int>>>> mapEnemies;
+	// 2D Matrix. In each cell of it, it has a list of enemies.
+	// Enemies are represented as maps with the following keys:
+	//  * enemyType: number that represent each enemy type
+	//  * extraInfo: optional parameter/offset for enemies
+	//  * powerUp: whether drops or not a power up when dies
+	vector<vector<list<std::map<string, int>>>> mapEnemies;
 	vector<bool> spawnedColumns;
 	bool showCollisionBlock;
 };

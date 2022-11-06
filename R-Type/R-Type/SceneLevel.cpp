@@ -9,6 +9,7 @@
 #include "PatternSin.h"
 #include "RedPlane.h"
 #include "ForceCoin.h"
+#include <map>
 
 #define INIT_PLAYER_X 16
 #define INIT_PLAYER_Y 240
@@ -94,20 +95,20 @@ void SceneLevel::init() {
 	int initialTileCol = 21;
 	int tileCol = getEnemySpawnColumn();
 	for (int c = initialTileCol; c <= tileCol; ++c) {
-		vector<pair<int, list<pair<int, int>>>> enemiesToSpawn = map->getEnemies(c);
+		vector<pair<int, list<std::map<string, int>>>> enemiesToSpawn = map->getEnemies(c);
 		for (int i = 0; i < enemiesToSpawn.size(); ++i) {
 			int row = enemiesToSpawn[i].first;
-			list<pair<int, int>> list = enemiesToSpawn[i].second;
-			for (pair<int, int> p : list) {
+			list<std::map<string, int>> list = enemiesToSpawn[i].second;
+			for (std::map<string, int> e : list) {
 				AutonomousEntity* enemy;
-				switch (p.first) {
+				switch (e["enemyType"]) {
 					case 2:
 						enemy = new RedPlane();
 						break;
 					default:
 						enemy = nullptr;
 				}
-				enemy->init(texProgram, map, glm::ivec2(c * map->getTileSize(), row * map->getTileSize()), p.second);
+				enemy->init(texProgram, map, glm::ivec2(c * map->getTileSize(), row * map->getTileSize()), e["extraInfo"]);
 				enemies.push_back(enemy);
 			}
 		}
@@ -129,20 +130,20 @@ void SceneLevel::update(int deltaTime)
 
 		// Get new enemies to spawn
 		int tileCol = getEnemySpawnColumn();
-		vector<pair<int, list<pair<int, int>>>> enemiesToSpawn = map->getEnemies(tileCol);
+		vector<pair<int, list<std::map<string, int>>>> enemiesToSpawn = map->getEnemies(tileCol);
 		for (int i = 0; i < enemiesToSpawn.size(); ++i) {
 			int row = enemiesToSpawn[i].first;
-			list<pair<int, int>> list = enemiesToSpawn[i].second;
-			for (pair<int, int> p : list) {
+			list<std::map<string, int>> list = enemiesToSpawn[i].second;
+			for (std::map<string, int> e : list) {
 				AutonomousEntity* enemy;
-				switch (p.first) {
+				switch (e["enemyType"]) {
 					case 2:
 						enemy = new RedPlane();
 						break;
 					default:
 						enemy = nullptr;
 				}
-				enemy->init(texProgram, map, glm::ivec2(tileCol * map->getTileSize(), row * map->getTileSize()), p.second);
+				enemy->init(texProgram, map, glm::ivec2(tileCol * map->getTileSize(), row * map->getTileSize()), e["extraInfo"]);
 				enemies.push_back(enemy);
 			}
 		}

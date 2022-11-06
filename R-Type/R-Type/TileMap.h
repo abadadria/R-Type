@@ -32,15 +32,17 @@ public:
 	
 	int getTileSize() const { return tileSize; }
 
-	vector<pair<int, list<int>>> getEnemies(int tileMapColumn);
+	vector<pair<int,list<pair<int,int>>>> getEnemies(int tileMapColumn);
 
 	bool collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) const;
 	bool collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) const;
 	bool collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size) const;
 	bool collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size) const;
 	bool collision(const glm::ivec2& pos, const glm::ivec2& mov, const glm::ivec2& size) const;
+
 	bool getShowCollisionBlock();
 	void setShowCollisionBlock(bool newShowCollisionBlock);
+	void resetSpawnedEnemies();
 
 private:
 	bool loadLevel(const string &levelFile);
@@ -55,7 +57,7 @@ private:
 	int tileSize;
 	Texture background, scenario, collisionBlock;
 	int* map;
-	vector<vector<list<int>>> mapEnemies;
+	vector<vector<list<pair<int,int>>>> mapEnemies;
 	vector<bool> spawnedColumns;
 	bool showCollisionBlock;
 };

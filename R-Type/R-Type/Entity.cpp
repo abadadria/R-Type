@@ -24,6 +24,11 @@ void Entity::render()
 		sprite->render();
 }
 
+void Entity::kill()
+{
+	delete sprite;
+}
+
 void Entity::setPosition(const glm::vec2& pos)
 {
 	posEntity = pos;
@@ -52,8 +57,11 @@ int Entity::getState() const
 
 bool Entity::collision(Entity* entity)
 {
-	glm::ivec2 pos = entity->getPosition();
-	glm::ivec2 size = entity->getSize();
+	//if (!(this->state == ALIVE) || !(entity->state == ALIVE))
+	//	return false;
+
+	glm::ivec2 pos = entity->posEntity;
+	glm::ivec2 size = entity->entitySize;
 
 	int minx1 = posEntity.x;
 	int maxx1 = posEntity.x + entitySize.x;

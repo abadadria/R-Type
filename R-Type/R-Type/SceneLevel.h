@@ -26,6 +26,7 @@ public:
 	SceneLevel();
 	~SceneLevel();
 
+	void load();
 	void init() override;
 	void update(int deltaTime) override;
 	void render() override;
@@ -33,12 +34,19 @@ public:
 	int getChange();
 	int getLives();
 	void setLives(int newLives);
-	int getScore();
+
+	int getScore() const;
 	void setScore(int newScore);
+	void increaseScore(int score);
+	void decreaseScore(int score);
+
 	void changeShowCollisionBlock();
 
 	//First string is the getType(), second string is for extra information (e.g. direction of the bounce).
 	vector<pair<string, string>> getCollisions(Entity* entity);
+
+private:
+	int getEnemySpawnColumn() const;
 
 private:
 	TileMap* map;
@@ -48,7 +56,7 @@ private:
 	bool playerDead;
 	int change;
 
-	int score; // TODO implementar cuando haya colisiones entre entityes
+	int score;
 	int lives;
 
 	Text* text0;

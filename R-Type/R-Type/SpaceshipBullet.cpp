@@ -21,11 +21,15 @@ void SpaceshipBullet::init(ShaderProgram& shaderProgram, TileMap* tileMap)
 void SpaceshipBullet::update(int deltaTime, SceneLevel* scene)
 {
 	PassiveEntity::update(deltaTime);
-	// Collision with other entities
-	vector<pair<string, string>> collisions = scene->getCollisions(this);
-	for (pair<string, string> e : collisions) {
-		if (e.first == "RedPlane")
-			startExplosion();
+	if (state == ALIVE) {
+		// Collision with other entities
+		vector<pair<string, string>> collisions = scene->getCollisions(this);
+		for (pair<string, string> e : collisions) {
+			if (e.first == "RedPlane") {
+				startExplosion();
+				break;
+			}
+		}
 	}
 }
 

@@ -89,27 +89,32 @@ bool TileMap::loadLevel(const string &levelFile)
 	scenario.setMagFilter(GL_NEAREST);
 
 	// Load enemy definitions
-	std::map< char, list<int> > enemyDefs;
-	char nDefs, letter, nEnemies, enemy;
+	// char is ID, first int is enemyType, second int is extraInfo
+	std::map<char, vector<pair<int, int>>> enemyDefs;
+	int nDefs, nEnemies, enemyType, extraInfo;
+	char letter;
 	getline(fin, line);
 	if (line.compare(0, 9, "ENEMY_DEF") != 0)
 		return false;
 	getline(fin, line);
 	sstream.str(line);
 	sstream >> nDefs;
-	for (int i = 0; i < nDefs - '0'; ++i) {
+	// Get all enemy definitions
+	for (int i = 0; i < nDefs; ++i) {
+		getline(fin, line);
 		sstream.str(line);
-		sstream >> letter >> nEnemies;
-		for (int j = 0; j < nEnemies - '0'; ++j) {
-			sstream >> enemy;
-			enemyDefs[letter].push_back(enemy - '0');
+		sstream >> letter;
+		sstream >> nEnemies;
+		for (int j = 0; j < nEnemies; ++j) {
+			sstream >> enemyType >> extraInfo;
+			enemyDefs[letter].push_back(make_pair(enemyType, extraInfo));
 		}
 	}
 
 	// Load level map
 	map = new int[mapSize.x * mapSize.y];
 	spawnedColumns = vector<bool>(mapSize.x, false);
-	mapEnemies = vector<vector<list<int>>>(mapSize.y, vector<list<int>>(mapSize.x));
+	mapEnemies = vector<vector<list<pair<int,int>>>>(mapSize.y, vector<list<pair<int,int>>>(mapSize.x));
 	for (int j = 0; j < mapSize.y; j++) {
 		for (int i = 0; i < mapSize.x; i++) {
 			fin.get(tile);
@@ -118,13 +123,13 @@ bool TileMap::loadLevel(const string &levelFile)
 			else if (tile == '1')
 				map[j * mapSize.x + i] = 1;
 			else if (tile >= '2' && tile <= '9') { // Single enemy
-				mapEnemies[j][i].push_back(tile - '0');
+				mapEnemies[j][i].push_back(make_pair(tile - '0', 0));
 			}
 			else if (tile >= 'A' && tile <= 'Z') // Enemy definition
 				if (enemyDefs.find(tile) == enemyDefs.end())
 					return false;
-				for (int e : enemyDefs[tile])
-					mapEnemies[j][i].push_back(e);
+				for (pair<int,int> p : enemyDefs[tile])
+					mapEnemies[j][i].push_back(p);
 		}
 		fin.get(tile);
 #ifndef _WIN32
@@ -207,12 +212,12 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 	texCoordLocationCollisionBlocks = program.bindVertexAttribute("texCoord", 2, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 }
 
-vector<pair<int, list<int>>> TileMap::getEnemies(int tileMapColumn) { 
+vector<pair<int, list<pair<int,int>>>> TileMap::getEnemies(int tileMapColumn) { 
 	if (spawnedColumns[tileMapColumn])
-		return vector<pair<int, list<int>>>(0);
-	vector<pair<int, list<int>>> enemies;
+		return vector<pair<int, list<pair<int, int>>>>(0);
+	vector<pair<int, list<pair<int, int>>>> enemies;
 	for (int j = 0; j < mapSize.y; ++j) {
-		list<int> aux = mapEnemies[j][tileMapColumn];
+		list<pair<int, int>> aux = mapEnemies[j][tileMapColumn];
 		enemies.push_back(make_pair(j, aux));
 	}
 	spawnedColumns[tileMapColumn] = true;
@@ -296,4 +301,9 @@ bool TileMap::getShowCollisionBlock()
 void TileMap::setShowCollisionBlock(bool newShowCollisionBlock)
 {
 	showCollisionBlock = newShowCollisionBlock;
+}
+
+void TileMap::resetSpawnedEnemies()
+{
+	spawnedColumns = vector<bool>(mapSize.x, false);
 }

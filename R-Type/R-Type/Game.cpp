@@ -9,7 +9,7 @@ void Game::init()
 {
 	exit_game = false;
 	state = MAIN_MENU;
-	sceneLevel.init();
+	sceneLevel.load();
 	sceneMenu.init();
 	sceneInstructions.init();
 	sceneCredits.init();
@@ -30,7 +30,7 @@ bool Game::update(int deltaTime)
 			int score = sceneLevel.getScore();
 			sceneLevel.init();
 			sceneLevel.setLives(--lives);
-			sceneLevel.setScore(score - 10); // revisar este valor
+			sceneLevel.setScore(score - 100); // revisar este valor
 			mciSendString(TEXT("play sounds/retry.wav"), NULL, 0, NULL);
 		}
 		break;
@@ -44,7 +44,6 @@ bool Game::update(int deltaTime)
 		break;
 	}
 	return exit_game;
-
 }
 
 void Game::render()

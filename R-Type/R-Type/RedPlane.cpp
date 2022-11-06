@@ -1,10 +1,10 @@
 #include "RedPlane.h"
 #include "PatternSin.h"
 
-void RedPlane::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos)
+void RedPlane::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos, int extra)
 {
 	AutonomousEntity::init(shaderProgram, tileMap);
-	AutonomousEntity::setPattern(new PatternSin(initialPos, 0, 4, -1, 100));
+	AutonomousEntity::setPattern(new PatternSin(initialPos, extra, 4, -1, 100));
 	entitySize = glm::ivec2(64, 64);
 	spritesheet.loadFromFile("images/redplane.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(entitySize, glm::vec2(0.125, 0.5), &spritesheet, &shaderProgram);
@@ -35,6 +35,16 @@ void RedPlane::update(int deltaTime, SceneLevel* scene)
 		while (shootingCounter > 80) {
 			shootingCounter -= 80;
 			shoot(0);
+		}
+
+		//Collision with other Entities
+		vector<pair<string, string>> collisions = scene->getCollisions(this);
+		for (pair<string, string> e : collisions) {
+			if (e.first == "Player" || e.first == "SpaceshipBullet" || e.first == "SpaceshipBeam") {
+				scene->increaseScore(200);
+				startExplosion();
+				break;
+			}
 		}
 	}
 }

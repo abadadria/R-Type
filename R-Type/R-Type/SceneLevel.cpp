@@ -34,30 +34,10 @@ SceneLevel::~SceneLevel()
 }
 
 
-void SceneLevel::init()
+void SceneLevel::load()
 {
 	Scene::init();
 	map = TileMap::createTileMap("levels/level01.txt", glm::vec2(0, 0), texProgram);
-	player = Player::getInstance();
-	player->init(texProgram, map);
-	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
-
-	// TODO Spawn all enemies before tileCol
-	
-	score = 1000; // cambiar por 0, valor de prueba
-	lives = 3;
-	playerDead = false;
-	change = NO_CHANGE;
-
-	text0 = new Text();
-	if (!text0->init("fonts/dogica.ttf")) {
-		cout << "Could not load font!!!" << endl;
-	}
-
-	text1 = new Text();
-	if (!text1->init("fonts/dogicapixelbold.ttf")) {
-		cout << "Could not load font!!!" << endl;
-	}
 
 	spritesheetBeamStatus.loadFromFile("images/beamStatus.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	spriteBeamStatus = Sprite::createSprite(glm::ivec2(240, 32), glm::vec2(1, 1), &spritesheetBeamStatus, &texProgram);
@@ -73,6 +53,58 @@ void SceneLevel::init()
 	spritesheetBackHUDQuad.loadFromFile("images/backHUDQuad.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	spriteBackHUDQuad = Sprite::createSprite(glm::ivec2(640, 32), glm::vec2(1, 1), &spritesheetBackHUDQuad, &texProgram);
 	spriteBackHUDQuad->setPosition(glm::vec2(0, 512));
+}
+
+void SceneLevel::init() {
+	Scene::init();
+	map->resetSpawnedEnemies();
+	player = Player::getInstance();
+	player->init(texProgram, map);
+	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
+
+	score = 0;
+	lives = 3;
+	playerDead = false;
+	change = NO_CHANGE;
+
+	text0 = new Text();
+	if (!text0->init("fonts/dogica.ttf")) {
+		cout << "Could not load font!!!" << endl;
+	}
+
+	text1 = new Text();
+	if (!text1->init("fonts/dogicapixelbold.ttf")) {
+		cout << "Could not load font!!!" << endl;
+	}
+
+	// Clears all previous enemies and their bullets
+	for (std::list<AutonomousEntity*>::iterator it = enemies.begin(); it != enemies.end();) {
+		(*it)->kill();
+		delete (*it);
+		enemies.erase(it++);
+	}
+	// Spawn enemies before tileCol
+	int initialTileCol = 21;
+	int tileCol = getEnemySpawnColumn();
+	for (int c = initialTileCol; c <= tileCol; ++c) {
+		vector<pair<int, list<pair<int, int>>>> enemiesToSpawn = map->getEnemies(c);
+		for (int i = 0; i < enemiesToSpawn.size(); ++i) {
+			int row = enemiesToSpawn[i].first;
+			list<pair<int, int>> list = enemiesToSpawn[i].second;
+			for (pair<int, int> p : list) {
+				AutonomousEntity* enemy;
+				switch (p.first) {
+					case 2:
+						enemy = new RedPlane();
+						break;
+					default:
+						enemy = nullptr;
+				}
+				enemy->init(texProgram, map, glm::ivec2(c * map->getTileSize(), row * map->getTileSize()), p.second);
+				enemies.push_back(enemy);
+			}
+		}
+	}
 
 	mciSendString(TEXT("stop sounds/IntergalacticOdyssey.mp3"), NULL, 0, NULL);
 	mciSendString(TEXT("play sounds/Chiptronical.mp3 repeat"), NULL, 0, NULL);
@@ -87,25 +119,21 @@ void SceneLevel::update(int deltaTime)
 		projection = camera->update();
 
 		// Get new enemies to spawn
-		glm::ivec2 camPos, camSize;
-		camPos = cam->getPos();
-		camSize = cam->getSize();
-		int cameraRightLimit = camPos.x + camSize.x;
-		int tileCol = cameraRightLimit / map->getTileSize();
-		vector<pair<int, list<int>>> enemiesToSpawn = map->getEnemies(tileCol);
+		int tileCol = getEnemySpawnColumn();
+		vector<pair<int, list<pair<int, int>>>> enemiesToSpawn = map->getEnemies(tileCol);
 		for (int i = 0; i < enemiesToSpawn.size(); ++i) {
 			int row = enemiesToSpawn[i].first;
-			list<int> list = enemiesToSpawn[i].second;
-			for (int e : list) {
+			list<pair<int, int>> list = enemiesToSpawn[i].second;
+			for (pair<int, int> p : list) {
 				AutonomousEntity* enemy;
-				switch (e) {
+				switch (p.first) {
 					case 2:
 						enemy = new RedPlane();
 						break;
 					default:
 						enemy = nullptr;
 				}
-				enemy->init(texProgram, map, glm::ivec2(tileCol * map->getTileSize(), row * map->getTileSize()));
+				enemy->init(texProgram, map, glm::ivec2(tileCol * map->getTileSize(), row * map->getTileSize()), p.second);
 				enemies.push_back(enemy);
 			}
 		}
@@ -150,16 +178,17 @@ void SceneLevel::update(int deltaTime)
 
 void SceneLevel::render()
 {
-	spriteBackground->render();
 
+	spriteBackground->render();
 	spriteBackHUDQuad->render();
 
 	Scene::render();
 	map->render();
 
+
 	if (playerDead) spriteAuxQuad->render();
 
-	// no necesitan update de la pos
+	// Render HUD text
 	text1->render("Lifes: ", posLifes, textSize, textColor);
 	text0->render(std::to_string(lives), glm::ivec2(posLifes.x + 90, posLifes.y), textSize, textColor);
 	text1->render("Score: ", posScore, textSize, textColor);
@@ -179,14 +208,17 @@ void SceneLevel::render()
 		}
 	}
 
+	// Render other elements
 	Scene::render();
 	player->render();
-	if (!playerDead) {
+ 	if (!playerDead) {
+		// Render enemies
 		for (AutonomousEntity* enemy : enemies) {
 			enemy->render();
 		}
 	}
 
+	// Render Beam charge bar
 	Camera* cam = Camera::getInstance();
 	glm::ivec2 posCamera = cam->getPos();
 	spriteBeamStatus->setPosition(glm::vec2(posBeamStatus.x + posCamera.x, posBeamStatus.y));
@@ -216,7 +248,7 @@ void SceneLevel::setLives(int newLives)
 	lives = newLives;
 }
 
-int SceneLevel::getScore()
+int SceneLevel::getScore() const
 {
 	return score;
 }
@@ -224,6 +256,16 @@ int SceneLevel::getScore()
 void SceneLevel::setScore(int newScore)
 {
 	score = newScore;
+}
+
+void SceneLevel::increaseScore(int score)
+{
+	this->score += score;
+}
+
+void SceneLevel::decreaseScore(int score)
+{
+	this->score -= score;
 }
 
 void SceneLevel::changeShowCollisionBlock() 
@@ -256,5 +298,15 @@ vector<pair<string, string>> SceneLevel::getCollisions(Entity* entity)
 	}
 
 	return collisions;
+}
+
+int SceneLevel::getEnemySpawnColumn() const
+{
+	Camera* cam = Camera::getInstance();
+	glm::ivec2 camPos, camSize;
+	camPos = cam->getPos();
+	camSize = cam->getSize();
+	int cameraRightLimit = camPos.x + camSize.x;
+	return cameraRightLimit / map->getTileSize() + 1;
 }
 

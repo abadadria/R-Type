@@ -24,13 +24,6 @@ void AutonomousEntity::update(int deltaTime, SceneLevel* scene)
 			startDying();
 		}
 		sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
-
-		//Collision with other Entities
-		vector<pair<string, string>> collisions = scene->getCollisions(this);
-		for (pair<string, string> e : collisions) {
-			if (e.first == "Player" || e.first == "SpaceshipBullet" || e.first == "SpaceshipBeam")
-				startExplosion();
-		}
 	}
 	else if (state == EXPLODING) {
 		ShootingEntity::explode();

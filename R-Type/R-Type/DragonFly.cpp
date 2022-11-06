@@ -5,7 +5,7 @@ void DragonFly::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 
 {
 	AutonomousEntity::init(shaderProgram, tileMap, drop);
 	entitySize = glm::ivec2(68, 68);
-	AutonomousEntity::setPattern(new PatternDuel(initialPos, glm::vec2(-1, 0), entitySize));
+	AutonomousEntity::setPattern(new PatternDuel(initialPos, glm::vec2(-1, 0), entitySize, 2));
 	spritesheet.loadFromFile("images/dragonFly.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(entitySize, glm::vec2(0.5f, 1.f), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(2);

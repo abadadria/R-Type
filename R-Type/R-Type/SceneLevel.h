@@ -53,6 +53,7 @@ private:
 	TileMap* map;
 	Player* player;
 	std::list<AutonomousEntity*> enemies;
+	std::list<PassiveEntity*> powerUps;
 
 	bool playerDead;
 	int change;

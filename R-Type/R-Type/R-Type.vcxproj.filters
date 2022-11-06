@@ -114,6 +114,9 @@
     <ClCompile Include="SceneLevel.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
+    <ClCompile Include="ForceCoin.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -198,6 +201,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="SceneLevel.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ForceCoin.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">

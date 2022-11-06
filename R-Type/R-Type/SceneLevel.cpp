@@ -8,6 +8,7 @@
 #include <GL/freeglut_std.h>
 #include "PatternSin.h"
 #include "RedPlane.h"
+#include "ForceCoin.h"
 
 #define INIT_PLAYER_X 16
 #define INIT_PLAYER_Y 240
@@ -61,6 +62,12 @@ void SceneLevel::init() {
 	player = Player::getInstance();
 	player->init(texProgram, map);
 	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
+	
+	PassiveEntity* coin = new ForceCoin();
+	coin->init(texProgram, map);
+	coin->setPosition(glm::ivec2(300.f, 200.f));
+	coin->setMovementVector(glm::ivec2(0.f, 0.f));
+	powerUps.push_back(coin);
 
 	score = 0;
 	lives = 3;
@@ -153,6 +160,17 @@ void SceneLevel::update(int deltaTime)
 				++it;
 			}
 		}
+		for (std::list<PassiveEntity*>::iterator it = powerUps.begin(); it != powerUps.end();) {
+			int state = (*it)->getState();
+			if (state == COMPLETELY_DEAD) {
+				delete (*it);
+				powerUps.erase(it++);
+			}
+			else {
+				(*it)->update(deltaTime, this);
+				++it;
+			}
+		}
 		change = NO_CHANGE;
 	}
 	else {
@@ -223,6 +241,9 @@ void SceneLevel::render()
 		// Render enemies
 		for (AutonomousEntity* enemy : enemies) {
 			enemy->render();
+		}
+		for (PassiveEntity* p : powerUps) {
+			p->render();
 		}
 	}
 

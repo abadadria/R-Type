@@ -13,7 +13,7 @@ class AutonomousEntity : public ShootingEntity
 public:
 	~AutonomousEntity();
 
-	virtual void init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos) = 0;
+	virtual void init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos, int extra) = 0;
 	void init(ShaderProgram& shaderProgram, TileMap* tileMap);
 	virtual void update(int deltaTime, SceneLevel* scene);
 

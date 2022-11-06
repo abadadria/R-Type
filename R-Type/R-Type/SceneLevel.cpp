@@ -87,20 +87,20 @@ void SceneLevel::init() {
 	int initialTileCol = 21;
 	int tileCol = getEnemySpawnColumn();
 	for (int c = initialTileCol; c <= tileCol; ++c) {
-		vector<pair<int, list<int>>> enemiesToSpawn = map->getEnemies(c);
+		vector<pair<int, list<pair<int, int>>>> enemiesToSpawn = map->getEnemies(c);
 		for (int i = 0; i < enemiesToSpawn.size(); ++i) {
 			int row = enemiesToSpawn[i].first;
-			list<int> list = enemiesToSpawn[i].second;
-			for (int e : list) {
+			list<pair<int, int>> list = enemiesToSpawn[i].second;
+			for (pair<int, int> p : list) {
 				AutonomousEntity* enemy;
-				switch (e) {
-				case 2:
-					enemy = new RedPlane();
-					break;
-				default:
-					enemy = nullptr;
+				switch (p.first) {
+					case 2:
+						enemy = new RedPlane();
+						break;
+					default:
+						enemy = nullptr;
 				}
-				enemy->init(texProgram, map, glm::ivec2(c * map->getTileSize(), row * map->getTileSize()));
+				enemy->init(texProgram, map, glm::ivec2(c * map->getTileSize(), row * map->getTileSize()), p.second);
 				enemies.push_back(enemy);
 			}
 		}
@@ -120,20 +120,20 @@ void SceneLevel::update(int deltaTime)
 
 		// Get new enemies to spawn
 		int tileCol = getEnemySpawnColumn();
-		vector<pair<int, list<int>>> enemiesToSpawn = map->getEnemies(tileCol);
+		vector<pair<int, list<pair<int, int>>>> enemiesToSpawn = map->getEnemies(tileCol);
 		for (int i = 0; i < enemiesToSpawn.size(); ++i) {
 			int row = enemiesToSpawn[i].first;
-			list<int> list = enemiesToSpawn[i].second;
-			for (int e : list) {
+			list<pair<int, int>> list = enemiesToSpawn[i].second;
+			for (pair<int, int> p : list) {
 				AutonomousEntity* enemy;
-				switch (e) {
+				switch (p.first) {
 					case 2:
 						enemy = new RedPlane();
 						break;
 					default:
 						enemy = nullptr;
 				}
-				enemy->init(texProgram, map, glm::ivec2(tileCol * map->getTileSize(), row * map->getTileSize()));
+				enemy->init(texProgram, map, glm::ivec2(tileCol * map->getTileSize(), row * map->getTileSize()), p.second);
 				enemies.push_back(enemy);
 			}
 		}

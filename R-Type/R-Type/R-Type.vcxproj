@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="AutonomousEntity.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DragonFly.cpp" />
     <ClCompile Include="EnemyBullet.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Force.cpp" />
@@ -23,6 +24,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PassiveEntity.cpp" />
     <ClCompile Include="PatternDiagonalBounce.cpp" />
+    <ClCompile Include="PatternDuel.cpp" />
     <ClCompile Include="PatternSin.cpp" />
     <ClCompile Include="PatternStatic.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -51,6 +53,7 @@
     <ClInclude Include="AnimKeyframes.h" />
     <ClInclude Include="AutonomousEntity.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="DragonFly.h" />
     <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Force.h" />
@@ -61,6 +64,7 @@
     <ClInclude Include="PassiveEntity.h" />
     <ClInclude Include="Pattern.h" />
     <ClInclude Include="PatternDiagonalBounce.h" />
+    <ClInclude Include="PatternDuel.h" />
     <ClInclude Include="PatternSin.h" />
     <ClInclude Include="PatternStatic.h" />
     <ClInclude Include="Player.h" />

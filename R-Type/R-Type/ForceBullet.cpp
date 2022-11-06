@@ -25,7 +25,7 @@ void ForceBullet::update(int deltaTime, SceneLevel* scene)
 		// Collision with other entities
 		vector<pair<string, string>> collisions = scene->getCollisions(this);
 		for (pair<string, string> e : collisions) {
-			if (e.first == "RedPlane" || e.first == "SilverRobot" || e.first == "Turret") {
+			if (e.first == "RedPlane" || e.first == "SilverRobot" || e.first == "Turret" || e.first == "DragonFly") {
 				startExplosion();
 				break;
 			}

@@ -70,8 +70,3 @@ void ShootingEntity::explode() {
 	if (state == DEAD && passiveEntities.size() == 0)
 		state = COMPLETELY_DEAD;
 }
-
-void ShootingEntity::die() {
-	if (state == DEAD && passiveEntities.size() == 0)
-		state = COMPLETELY_DEAD;
-}

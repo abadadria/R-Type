@@ -8,9 +8,10 @@ AutonomousEntity::~AutonomousEntity() {
 	delete movementPattern;
 }
 
-void AutonomousEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap)
+void AutonomousEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap, bool drop)
 {
 	ShootingEntity::init(shaderProgram, tileMap);
+	this->dropPowerUp = drop;
 }
 
 void AutonomousEntity::update(int deltaTime, SceneLevel* scene)
@@ -21,15 +22,12 @@ void AutonomousEntity::update(int deltaTime, SceneLevel* scene)
 		posEntity = movementPattern->calcNewPosition(deltaTime);
 		Camera* cam = Camera::getInstance();
 		if (cam->collision(posEntity, entitySize, 100.f)) {
-			startDying();
+			startExplosion();
 		}
 		sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 	}
-	else if (state == EXPLODING) {
-		ShootingEntity::explode();
-	}
-	else if (state == DEAD) {
-		ShootingEntity::die();
+	else if (state == EXPLODING || state == DEAD) {
+  		ShootingEntity::explode();
 	}
 }
 
@@ -99,9 +97,4 @@ void AutonomousEntity::startExplosion()
 		posEntity.y = posEntity.y + float(diffSize.y / 2);
 	}
 	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
-}
-
-void AutonomousEntity::startDying() {
-	Entity::startDying();
-	delete sprite;
 }

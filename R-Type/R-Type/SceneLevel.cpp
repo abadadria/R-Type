@@ -108,7 +108,7 @@ void SceneLevel::init() {
 					default:
 						enemy = nullptr;
 				}
-				enemy->init(texProgram, map, glm::ivec2(c * map->getTileSize(), row * map->getTileSize()), e["extraInfo"]);
+				enemy->init(texProgram, map, glm::ivec2(c * map->getTileSize(), row * map->getTileSize()), e["extraInfo"], e["powerUp"]);
 				enemies.push_back(enemy);
 			}
 		}
@@ -143,7 +143,7 @@ void SceneLevel::update(int deltaTime)
 					default:
 						enemy = nullptr;
 				}
-				enemy->init(texProgram, map, glm::ivec2(tileCol * map->getTileSize(), row * map->getTileSize()), e["extraInfo"]);
+				enemy->init(texProgram, map, glm::ivec2(tileCol * map->getTileSize(), row * map->getTileSize()), e["extraInfo"], e["powerUp"]);
 				enemies.push_back(enemy);
 			}
 		}

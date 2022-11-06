@@ -200,9 +200,34 @@
     <ClInclude Include="SceneLevel.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="R-Type.rc">
+      <Filter>Archivos de recursos</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\sprites\fileIcon.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="icon1.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="..\..\sprites\fileIcon.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="images\fileIcon.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="images\fileIcon.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -52,6 +52,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="RedPlane.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneCredits.h" />
     <ClInclude Include="SceneInstructions.h" />
@@ -72,6 +73,16 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="R-Type.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\sprites\fileIcon.ico" />
+    <Image Include="..\..\sprites\fileIcon.png" />
+    <Image Include="icon1.ico" />
+    <Image Include="images\fileIcon.ico" />
+    <Image Include="images\fileIcon.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5BE6CA2A-E5A8-40CC-9015-047CE0C78036}</ProjectGuid>

@@ -215,6 +215,9 @@ void Player::update(int deltaTime, SceneLevel* scene)
 					startExplosion();
 					break;
 				}
+				else if (e.first == "ForceCoin") {
+					scene->spawnForce();
+				}
 			}
 		}		
 

@@ -10,7 +10,7 @@ class RedPlane : public AutonomousEntity
 {
 
 public:
-	void init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos, int extra) override;
+	void init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos, int extra, bool drop) override;
 	void update(int deltaTime, SceneLevel* scene) override;
 
 	string getType() const override;

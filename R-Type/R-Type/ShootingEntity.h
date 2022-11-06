@@ -27,7 +27,6 @@ protected:
 	virtual void shoot(int level) = 0;
 
 	virtual void explode();
-	virtual void die();
 
 protected:
 	ShaderProgram* texProgram;

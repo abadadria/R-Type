@@ -8,6 +8,8 @@
 #include <GL/freeglut_std.h>
 #include "PatternSin.h"
 #include "RedPlane.h"
+#include "ForceCoin.h"
+#include <map>
 
 #define INIT_PLAYER_X 16
 #define INIT_PLAYER_Y 240
@@ -61,6 +63,13 @@ void SceneLevel::init() {
 	player = Player::getInstance();
 	player->init(texProgram, map);
 	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
+	
+	// TODO Remove hardcoded coin
+	PassiveEntity* coin = new ForceCoin();
+	coin->init(texProgram, map);
+	coin->setPosition(glm::ivec2(300.f, 200.f));
+	coin->setMovementVector(glm::ivec2(0.f, 0.f));
+	powerUps.push_back(coin);
 
 	score = 0;
 	lives = 3;
@@ -83,24 +92,30 @@ void SceneLevel::init() {
 		delete (*it);
 		enemies.erase(it++);
 	}
+	// Clears all previous powerups
+	for (std::list<PassiveEntity*>::iterator it = powerUps.begin(); it != powerUps.end();) {
+		(*it)->kill();
+		delete (*it);
+		powerUps.erase(it++);
+	}
 	// Spawn enemies before tileCol
 	int initialTileCol = 21;
 	int tileCol = getEnemySpawnColumn();
 	for (int c = initialTileCol; c <= tileCol; ++c) {
-		vector<pair<int, list<pair<int, int>>>> enemiesToSpawn = map->getEnemies(c);
+		vector<pair<int, list<std::map<string, int>>>> enemiesToSpawn = map->getEnemies(c);
 		for (int i = 0; i < enemiesToSpawn.size(); ++i) {
 			int row = enemiesToSpawn[i].first;
-			list<pair<int, int>> list = enemiesToSpawn[i].second;
-			for (pair<int, int> p : list) {
+			list<std::map<string, int>> list = enemiesToSpawn[i].second;
+			for (std::map<string, int> e : list) {
 				AutonomousEntity* enemy;
-				switch (p.first) {
+				switch (e["enemyType"]) {
 					case 2:
 						enemy = new RedPlane();
 						break;
 					default:
 						enemy = nullptr;
 				}
-				enemy->init(texProgram, map, glm::ivec2(c * map->getTileSize(), row * map->getTileSize()), p.second);
+				enemy->init(texProgram, map, glm::ivec2(c * map->getTileSize(), row * map->getTileSize()), e["extraInfo"], e["powerUp"]);
 				enemies.push_back(enemy);
 			}
 		}
@@ -122,31 +137,61 @@ void SceneLevel::update(int deltaTime)
 
 		// Get new enemies to spawn
 		int tileCol = getEnemySpawnColumn();
-		vector<pair<int, list<pair<int, int>>>> enemiesToSpawn = map->getEnemies(tileCol);
+		vector<pair<int, list<std::map<string, int>>>> enemiesToSpawn = map->getEnemies(tileCol);
 		for (int i = 0; i < enemiesToSpawn.size(); ++i) {
 			int row = enemiesToSpawn[i].first;
-			list<pair<int, int>> list = enemiesToSpawn[i].second;
-			for (pair<int, int> p : list) {
+			list<std::map<string, int>> list = enemiesToSpawn[i].second;
+			for (std::map<string, int> e : list) {
 				AutonomousEntity* enemy;
-				switch (p.first) {
+				switch (e["enemyType"]) {
 					case 2:
 						enemy = new RedPlane();
 						break;
 					default:
 						enemy = nullptr;
 				}
-				enemy->init(texProgram, map, glm::ivec2(tileCol * map->getTileSize(), row * map->getTileSize()), p.second);
+				enemy->init(texProgram, map, glm::ivec2(tileCol * map->getTileSize(), row * map->getTileSize()), e["extraInfo"], e["powerUp"]);
 				enemies.push_back(enemy);
 			}
 		}
 
 		// Update all entities
 		player->update(deltaTime, this);
+		// Update enemies
 		for (std::list<AutonomousEntity*>::iterator it = enemies.begin(); it != enemies.end();) {
+			int state = (*it)->getState();
+			if (state == DEAD && (*it)->getDropPowerUp()) {
+				(*it)->update(deltaTime, this);
+				
+				PassiveEntity* coin = new ForceCoin();
+				coin->init(texProgram, map);
+
+				// Center coin on the space where the enemy was
+				glm::ivec2 enemyPos = (*it)->getPosition();
+				glm::ivec2 enemySize = (*it)->getSize();
+				glm::ivec2 coinSize = coin->getSize();
+				glm::ivec2 coinPos = enemyPos + enemySize / 2 - coinSize / 2;
+				coin->setPosition(coinPos);
+				coin->setMovementVector(glm::ivec2(0.f, 0.f));
+				powerUps.push_back(coin);
+
+				++it;
+			} 
+			else if (state == COMPLETELY_DEAD)  {
+				delete (*it);
+				enemies.erase(it++);
+			}
+			else {
+				(*it)->update(deltaTime, this);
+				++it;
+			}
+		}
+		// Update power ups
+		for (std::list<PassiveEntity*>::iterator it = powerUps.begin(); it != powerUps.end();) {
 			int state = (*it)->getState();
 			if (state == COMPLETELY_DEAD) {
 				delete (*it);
-				enemies.erase(it++);
+				powerUps.erase(it++);
 			}
 			else {
 				(*it)->update(deltaTime, this);
@@ -223,6 +268,9 @@ void SceneLevel::render()
 		// Render enemies
 		for (AutonomousEntity* enemy : enemies) {
 			enemy->render();
+		}
+		for (PassiveEntity* p : powerUps) {
+			p->render();
 		}
 	}
 

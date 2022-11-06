@@ -15,6 +15,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="EnemyBullet.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="ForceCoin.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PassiveEntity.cpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="ForceCoin.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="PassiveEntity.h" />
     <ClInclude Include="Pattern.h" />

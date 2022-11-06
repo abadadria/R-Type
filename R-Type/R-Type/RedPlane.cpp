@@ -1,9 +1,9 @@
 #include "RedPlane.h"
 #include "PatternSin.h"
 
-void RedPlane::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos, int extra)
+void RedPlane::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos, int extra, bool drop)
 {
-	AutonomousEntity::init(shaderProgram, tileMap);
+	AutonomousEntity::init(shaderProgram, tileMap, drop);
 	AutonomousEntity::setPattern(new PatternSin(initialPos, extra, 4, -1, 100));
 	entitySize = glm::ivec2(64, 64);
 	spritesheet.loadFromFile("images/redplane.png", TEXTURE_PIXEL_FORMAT_RGBA);

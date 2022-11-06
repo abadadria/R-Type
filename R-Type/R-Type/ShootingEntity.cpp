@@ -67,11 +67,6 @@ void ShootingEntity::explode() {
 	}
 	// Check if there are missing bullets
 	// If not set state to COMPLETELY_DEAD for the parent scope to delete the object
-	if (state == DEAD && passiveEntities.size() == 0)
-		state = COMPLETELY_DEAD;
-}
-
-void ShootingEntity::die() {
-	if (state == DEAD && passiveEntities.size() == 0)
+	else if (state == DEAD && passiveEntities.size() == 0)
 		state = COMPLETELY_DEAD;
 }

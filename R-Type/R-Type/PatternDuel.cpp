@@ -17,6 +17,7 @@ glm::ivec2 PatternDuel::calcNewPosition(int deltaTime)
     newPos.x = pos.x + movDir.x;
     newPos.y = pos.y + movDir.y;
 
+    return pos;
     pos = newPos;
-    return newPos;
+    //return newPos;
 }

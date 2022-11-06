@@ -73,6 +73,10 @@ void AutonomousEntity::shoot(int level)
 	movementVector.x = float(dir.x * 6.f);
 	movementVector.y = float(dir.y * 6.f);
 	newBullet->setMovementVector(movementVector);
+	if (level == 1) {
+		newBullet->setMovementVector(glm::ivec2(-4, 0));
+		newBullet->setPosition(glm::ivec2(int(pos.x) - 16, int(pos.y) - 8));
+	}
 	addBullet(newBullet);
 }
 

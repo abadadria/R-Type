@@ -3,12 +3,12 @@
 void DragonFlyBullet::init(ShaderProgram& shaderProgram, TileMap* tileMap)
 {
 	PassiveEntity::init(shaderProgram, tileMap);
-	entitySize = glm::ivec2(64, 16);
+	entitySize = glm::ivec2(96, 24);
 	spritesheet.loadFromFile("images/dragonFly_bullet.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(entitySize, glm::vec2(0.5f, 1.f), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(1);
 
-	int keyframesPerSec = 25;
+	int keyframesPerSec = 40;
 
 	sprite->setAnimationSpeed(0, keyframesPerSec);
 	sprite->setAnimationLooping(0, true);

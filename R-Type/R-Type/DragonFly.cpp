@@ -4,10 +4,10 @@
 void DragonFly::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos, int extra, bool drop)
 {
 	AutonomousEntity::init(shaderProgram, tileMap, drop);
-	entitySize = glm::ivec2(55, 55);
+	entitySize = glm::ivec2(68, 68);
 	AutonomousEntity::setPattern(new PatternDuel(initialPos, glm::vec2(-1, 0), entitySize));
 	spritesheet.loadFromFile("images/dragonFly.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(entitySize, glm::vec2(0.125f, 1.f), &spritesheet, &shaderProgram);
+	sprite = Sprite::createSprite(entitySize, glm::vec2(0.5f, 1.f), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(2);
 
 	int keyframesPerSec = 2;
@@ -42,8 +42,7 @@ void DragonFly::update(int deltaTime, SceneLevel* scene)
 		shootingCounter += 1;
 		while (shootingCounter > 180) {
 			shootingCounter -= 180;
-			// sera shoot(1), modificar autonomousEntity::shoot y crear nueva clase parecida a EnemyBullet
-			shoot(0);
+			shoot(1);
 		}
 
 		//Collision with other Entities

@@ -128,15 +128,12 @@ void Player::update(int deltaTime, SceneLevel* scene)
 			else {
 				if (beamCharger > 70) {
 					shoot(5);
-					mciSendString(TEXT("play sounds/basicShot.mp3"), NULL, 0, NULL);
 				}
 				else if (beamCharger > 60) {
 					shoot(4);
-					mciSendString(TEXT("play sounds/basicShot.mp3"), NULL, 0, NULL);
 				}
 				else if (beamCharger > 50) {
 					shoot(3);
-					mciSendString(TEXT("play sounds/basicShot.mp3"), NULL, 0, NULL);
 				}
 				else if (beamCharger > 40){
 					shoot(2);

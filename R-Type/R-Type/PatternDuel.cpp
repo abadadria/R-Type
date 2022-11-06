@@ -13,9 +13,9 @@ glm::ivec2 PatternDuel::calcNewPosition(int deltaTime)
     player = Player::getInstance();
     glm::vec2 posPlayer = player->getPosition();
 
-    if (posPlayer.y > pos.y) movDir.y = speed / 2;
+    if (posPlayer.y > pos.y) movDir.y = speed;
     else if (posPlayer.y == pos.y) movDir.y = 0;
-    else movDir.y = -speed/2;
+    else movDir.y = -speed;
 
     movementCounter += speed;
     while (movementCounter > 60) {

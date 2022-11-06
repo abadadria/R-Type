@@ -92,6 +92,12 @@ void SceneLevel::init() {
 		delete (*it);
 		enemies.erase(it++);
 	}
+	// Clears all previous powerups
+	for (std::list<PassiveEntity*>::iterator it = powerUps.begin(); it != powerUps.end();) {
+		(*it)->kill();
+		delete (*it);
+		powerUps.erase(it++);
+	}
 	// Spawn enemies before tileCol
 	int initialTileCol = 21;
 	int tileCol = getEnemySpawnColumn();

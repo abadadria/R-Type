@@ -64,6 +64,11 @@ void SceneLevel::init() {
 	player->init(texProgram, map);
 	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
 
+	//If it existed, delete it
+	if (force != nullptr) {
+		force->kill();
+		delete force;
+	}
 	force = nullptr;
 
 	// TODO Remove hardcoded coin
@@ -356,13 +361,21 @@ vector<pair<string, string>> SceneLevel::getCollisions(Entity* entity)
 	vector<pair<string, string>> collisions;
 
 	if (type != "Player") {
+		// Check collisions with player and bullets
 		if (player->collision(entity))
 			collisions.push_back(make_pair(player->getType(), ""));
-		if (force != nullptr && force->collision(entity))
-			collisions.push_back(make_pair(force->getType(), ""));
 		pair<bool, string> bullet_collision = player->getBulletCollisions(entity);
 		if (bullet_collision.first)
 			collisions.push_back(make_pair(bullet_collision.second, ""));
+
+		// Check collisions with Force and bullets
+		if (force != nullptr) {
+			if (force->collision(entity))
+				collisions.push_back(make_pair(force->getType(), ""));
+			bullet_collision = force->getBulletCollisions(entity);
+			if (bullet_collision.first)
+				collisions.push_back(make_pair(bullet_collision.second, ""));
+		}
 	}
 
 	for (AutonomousEntity* enemy : enemies) {

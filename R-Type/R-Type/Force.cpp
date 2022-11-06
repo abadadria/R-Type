@@ -66,6 +66,11 @@ void Force::update(int deltaTime, SceneLevel* scene)
 			posEntity.y = posPlayer.y;
 			sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 			// Shooting
+			shootingCounter += 1;
+			while (shootingCounter > 20) {
+				shootingCounter -= 20;
+				shoot(0);
+			}
 			// Collisions
 		}
 		

@@ -31,6 +31,9 @@
     <Filter Include="Archivos de encabezado\Pattern">
       <UniqueIdentifier>{7ca36094-b0a3-441b-822d-389aa7cc12e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\Patters">
+      <UniqueIdentifier>{a896653d-171e-4310-b31c-70a7adfbf3a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -93,9 +96,6 @@
     <ClCompile Include="PassiveEntity.cpp">
       <Filter>Archivos de código fuente\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="PatternSin.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="AutonomousEntity.cpp">
       <Filter>Archivos de código fuente\Entity</Filter>
     </ClCompile>
@@ -122,6 +122,15 @@
     </ClCompile>
     <ClCompile Include="ForceBullet.cpp">
       <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="SilverRobot.cpp">
+      <Filter>Archivos de código fuente\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="PatternSin.cpp">
+      <Filter>Archivos de código fuente\Patters</Filter>
+    </ClCompile>
+    <ClCompile Include="PatternDiagonal.cpp">
+      <Filter>Archivos de código fuente\Patters</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -188,14 +197,8 @@
     <ClInclude Include="Pattern.h">
       <Filter>Archivos de encabezado\Pattern</Filter>
     </ClInclude>
-    <ClInclude Include="PatternSin.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="AutonomousEntity.h">
       <Filter>Archivos de encabezado\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="RedPlane.h">
-      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="SpaceshipBullet.h">
       <Filter>Archivos de encabezado</Filter>
@@ -215,12 +218,25 @@
     <ClInclude Include="resource.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Force.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="ForceBullet.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Force.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="SilverRobot.h">
+      <Filter>Archivos de encabezado\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="RedPlane.h">
+      <Filter>Archivos de encabezado\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="PatternSin.h">
+      <Filter>Archivos de encabezado\Pattern</Filter>
+    </ClInclude>
+    <ClInclude Include="PatternDiagonal.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

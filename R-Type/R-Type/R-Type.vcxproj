@@ -21,6 +21,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PassiveEntity.cpp" />
+    <ClCompile Include="PatternDiagonal.cpp" />
     <ClCompile Include="PatternSin.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Quad.cpp" />
@@ -33,6 +34,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="ShootingEntity.cpp" />
+    <ClCompile Include="SilverRobot.cpp" />
     <ClCompile Include="SpaceshipBeam.cpp" />
     <ClCompile Include="SpaceshipBullet.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -54,6 +56,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="PassiveEntity.h" />
     <ClInclude Include="Pattern.h" />
+    <ClInclude Include="PatternDiagonal.h" />
     <ClInclude Include="PatternSin.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Quad.h" />
@@ -67,6 +70,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="ShootingEntity.h" />
+    <ClInclude Include="SilverRobot.h" />
     <ClInclude Include="SpaceshipBeam.h" />
     <ClInclude Include="SpaceshipBullet.h" />
     <ClInclude Include="Sprite.h" />

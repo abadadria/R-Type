@@ -8,6 +8,7 @@
 #include <GL/freeglut_std.h>
 #include "PatternSin.h"
 #include "RedPlane.h"
+#include "SilverRobot.h"
 #include "ForceCoin.h"
 #include <map>
 
@@ -119,6 +120,9 @@ void SceneLevel::init() {
 					case 2:
 						enemy = new RedPlane();
 						break;
+					case 3:
+						enemy = new SilverRobot();
+						break;
 					default:
 						enemy = nullptr;
 				}
@@ -153,6 +157,9 @@ void SceneLevel::update(int deltaTime)
 				switch (e["enemyType"]) {
 					case 2:
 						enemy = new RedPlane();
+						break;
+					case 3:
+						enemy = new SilverRobot();
 						break;
 					default:
 						enemy = nullptr;

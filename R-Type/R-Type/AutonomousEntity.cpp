@@ -36,6 +36,15 @@ string AutonomousEntity::getType() const
 	return "AutonomousEntity";
 }
 
+bool AutonomousEntity::getDropPowerUp()
+{
+	if (dropPowerUp) {
+		dropPowerUp = false;
+		return true;
+	}
+	else return false;
+}
+
 void AutonomousEntity::setPattern(Pattern* pattern) {
 	this->movementPattern = pattern;
 }

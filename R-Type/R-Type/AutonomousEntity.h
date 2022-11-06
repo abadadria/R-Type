@@ -18,6 +18,7 @@ public:
 	virtual void update(int deltaTime, SceneLevel* scene);
 
 	virtual string getType() const override;
+	bool getDropPowerUp();
 
 protected:
 	void setPattern(Pattern* pattern);

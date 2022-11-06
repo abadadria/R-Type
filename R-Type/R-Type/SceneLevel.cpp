@@ -64,6 +64,7 @@ void SceneLevel::init() {
 	player->init(texProgram, map);
 	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
 	
+	// TODO Remove hardcoded coin
 	PassiveEntity* coin = new ForceCoin();
 	coin->init(texProgram, map);
 	coin->setPosition(glm::ivec2(300.f, 200.f));
@@ -150,9 +151,27 @@ void SceneLevel::update(int deltaTime)
 
 		// Update all entities
 		player->update(deltaTime, this);
+		// Update enemies
 		for (std::list<AutonomousEntity*>::iterator it = enemies.begin(); it != enemies.end();) {
 			int state = (*it)->getState();
-			if (state == COMPLETELY_DEAD) {
+			if (state == DEAD && (*it)->getDropPowerUp()) {
+				(*it)->update(deltaTime, this);
+				
+				PassiveEntity* coin = new ForceCoin();
+				coin->init(texProgram, map);
+
+				// Center coin on the space where the enemy was
+				glm::ivec2 enemyPos = (*it)->getPosition();
+				glm::ivec2 enemySize = (*it)->getSize();
+				glm::ivec2 coinSize = coin->getSize();
+				glm::ivec2 coinPos = enemyPos + enemySize / 2 - coinSize / 2;
+				coin->setPosition(coinPos);
+				coin->setMovementVector(glm::ivec2(0.f, 0.f));
+				powerUps.push_back(coin);
+
+				++it;
+			} 
+			else if (state == COMPLETELY_DEAD)  {
 				delete (*it);
 				enemies.erase(it++);
 			}
@@ -161,6 +180,7 @@ void SceneLevel::update(int deltaTime)
 				++it;
 			}
 		}
+		// Update power ups
 		for (std::list<PassiveEntity*>::iterator it = powerUps.begin(); it != powerUps.end();) {
 			int state = (*it)->getState();
 			if (state == COMPLETELY_DEAD) {

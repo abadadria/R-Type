@@ -389,6 +389,9 @@ void SceneLevel::spawnForce()
 		force = new Force();
 		force->init(texProgram, map, player);
 	}
+	else {
+		force->levelUp();
+	}
 }
 
 vector<pair<string, string>> SceneLevel::getCollisions(Entity* entity)

@@ -126,10 +126,13 @@
     <ClCompile Include="SilverRobot.cpp">
       <Filter>Archivos de código fuente\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="PatternSin.cpp">
-      <Filter>Archivos de código fuente\Patters</Filter>
+    <ClCompile Include="ForceMissile.cpp">
+      <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="PatternDiagonalBounce.cpp">
+      <Filter>Archivos de código fuente\Patters</Filter>
+    </ClCompile>
+    <ClCompile Include="PatternStatic.cpp">
       <Filter>Archivos de código fuente\Patters</Filter>
     </ClCompile>
     <ClCompile Include="Turret.cpp">
@@ -224,9 +227,6 @@
     <ClInclude Include="resource.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="ForceBullet.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Force.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -241,6 +241,12 @@
     </ClInclude>
     <ClInclude Include="PatternDiagonalBounce.h">
       <Filter>Archivos de encabezado\Pattern</Filter>
+    </ClInclude>
+    <ClInclude Include="ForceMissile.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ForceBullet.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Turret.h">
       <Filter>Archivos de encabezado</Filter>

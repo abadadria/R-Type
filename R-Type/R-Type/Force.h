@@ -9,6 +9,7 @@ public:
 	void update(int deltaTime, SceneLevel* scene) override;
 
 	string getType() const override;
+	void levelUp();
 
 protected:
 	void shoot(int level) override;
@@ -17,8 +18,9 @@ protected:
 private:
 	bool attached;
 	Player* player;
-	
+
 	int shootingCounter;
 	glm::ivec2 unattachedMovementVec;
+	int currentLevel; // From 1 to 3
 };
 

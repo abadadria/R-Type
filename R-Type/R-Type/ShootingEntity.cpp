@@ -70,3 +70,8 @@ void ShootingEntity::explode() {
 	else if (state == DEAD && passiveEntities.size() == 0)
 		state = COMPLETELY_DEAD;
 }
+
+ShaderProgram* ShootingEntity::getShaderProgram() const
+{
+	return texProgram;
+}

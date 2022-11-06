@@ -1,5 +1,6 @@
 #include "Force.h"
 #include "ForceBullet.h"
+#include "ForceMissile.h"
 
 void Force::init(ShaderProgram& shaderProgram, TileMap* tileMap, Player* player)
 {
@@ -7,6 +8,7 @@ void Force::init(ShaderProgram& shaderProgram, TileMap* tileMap, Player* player)
 	this->attached = false;
 	this->unattachedMovementVec = glm::ivec2(5, 0);
 	this->player = player;
+	this->currentLevel = 1;
 	entitySize = glm::ivec2(40, 32);
 	spritesheet.loadFromFile("images/force1.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(entitySize, glm::vec2(0.125, 1.f), &spritesheet, &shaderProgram);
@@ -67,9 +69,17 @@ void Force::update(int deltaTime, SceneLevel* scene)
 			sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 			// Shooting
 			shootingCounter += 1;
-			while (shootingCounter > 20) {
-				shootingCounter -= 20;
-				shoot(0);
+			if (currentLevel == 1) {
+				while (shootingCounter > 30) {
+					shootingCounter -= 30;
+					shoot(0);
+				}
+			}
+			else if (currentLevel == 2) {
+				while (shootingCounter > 70) {
+					shootingCounter -= 80;
+					shoot(0);
+				}
 			}
 			// Collisions
 		}
@@ -82,17 +92,71 @@ string Force::getType() const
 	return "Force";
 }
 
+void Force::levelUp()
+{
+	if (attached) {
+		if (currentLevel == 1) {
+			glm::ivec2 prevSize = entitySize;
+			delete sprite;
+			entitySize = glm::ivec2(54, 44);
+			spritesheet.loadFromFile("images/force2.png", TEXTURE_PIXEL_FORMAT_RGBA);
+			sprite = Sprite::createSprite(entitySize, glm::vec2(0.125, 1.f), &spritesheet, getShaderProgram());
+			sprite->setNumberAnimations(1);
+
+			int keyframesPerSec = 17;
+
+			sprite->setAnimationSpeed(0, keyframesPerSec);
+			sprite->setAnimationLooping(0, true);
+			for (int i = 0.f; i < 6; ++i)
+				sprite->addKeyframe(0, glm::vec2(0.125f * float(i), 0.f));
+
+			sprite->changeAnimation(0);
+
+			posEntity.y += (prevSize.y / 2 - entitySize.y / 2);
+			sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
+			currentLevel++;
+		}
+		else if (currentLevel == 2) {
+
+		}
+	}
+}
+
 void Force::shoot(int level)
 {
-	PassiveEntity* newBullet = new ForceBullet();
-	newBullet->init(*texProgram, map);
-	glm::ivec2 bulletSize = newBullet->getSize();
-	glm::ivec2 pos;
-	pos.x = posEntity.x + entitySize.x - 10;
-	pos.y = posEntity.y + entitySize.y / 2;
-	newBullet->setPosition(pos);
-	newBullet->setMovementVector(glm::ivec2(20.f, 0.f));
-	addBullet(newBullet);
+	switch (currentLevel) {
+		case 1:
+			{PassiveEntity* newBullet = new ForceBullet();
+			newBullet->init(*texProgram, map);
+			glm::ivec2 bulletSize = newBullet->getSize();
+			glm::ivec2 pos;
+			pos.x = posEntity.x + entitySize.x - 10;
+			pos.y = posEntity.y + entitySize.y / 2;
+			newBullet->setPosition(pos);
+			newBullet->setMovementVector(glm::ivec2(20.f, 0.f));
+			addBullet(newBullet); }
+			break;
+		case 2:
+			{PassiveEntity* newBullet1 = new ForceMissile();
+			PassiveEntity* newBullet2 = new ForceMissile();
+			newBullet1->init(*texProgram, map);
+			newBullet2->init(*texProgram, map);
+			glm::ivec2 bulletSize = newBullet1->getSize();
+			glm::ivec2 pos;
+			pos.x = posEntity.x + entitySize.x - 10;
+			pos.y = posEntity.y + entitySize.y / 2;
+			int distance = 60;
+			newBullet1->setPosition(glm::ivec2(pos.x, pos.y + distance / 2));
+			newBullet2->setPosition(glm::ivec2(pos.x, pos.y - distance / 2));
+			newBullet1->setMovementVector(glm::ivec2(12.f, 0.f));
+			newBullet2->setMovementVector(glm::ivec2(12.f, 0.f));
+			addBullet(newBullet1);
+			addBullet(newBullet2); }
+			break;
+		case 3:
+			break;
+	}
+	
 }
 
 void Force::startExplosion()

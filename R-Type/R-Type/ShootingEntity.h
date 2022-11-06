@@ -28,6 +28,8 @@ protected:
 
 	virtual void explode();
 
+	ShaderProgram* getShaderProgram() const;
+
 protected:
 	ShaderProgram* texProgram;
 

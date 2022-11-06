@@ -51,6 +51,6 @@ string PassiveEntity::getType() const
 
 void PassiveEntity::startExplosion() {
 	Entity::startExplosion();
-  	delete sprite;
+	this->kill();
 	state = COMPLETELY_DEAD;
 }

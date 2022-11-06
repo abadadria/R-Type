@@ -132,6 +132,12 @@
     <ClCompile Include="PatternDiagonalBounce.cpp">
       <Filter>Archivos de código fuente\Patters</Filter>
     </ClCompile>
+    <ClCompile Include="Turret.cpp">
+      <Filter>Archivos de código fuente\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="PatternStatic.cpp">
+      <Filter>Archivos de código fuente\Patters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -234,6 +240,12 @@
       <Filter>Archivos de encabezado\Pattern</Filter>
     </ClInclude>
     <ClInclude Include="PatternDiagonalBounce.h">
+      <Filter>Archivos de encabezado\Pattern</Filter>
+    </ClInclude>
+    <ClInclude Include="Turret.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="PatternStatic.h">
       <Filter>Archivos de encabezado\Pattern</Filter>
     </ClInclude>
   </ItemGroup>

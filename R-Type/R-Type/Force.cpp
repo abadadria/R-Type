@@ -1,5 +1,6 @@
 #include "Force.h"
 #include "ForceBullet.h"
+#include "ForceMissile.h"
 
 void Force::init(ShaderProgram& shaderProgram, TileMap* tileMap, Player* player)
 {
@@ -68,8 +69,8 @@ void Force::update(int deltaTime, SceneLevel* scene)
 			sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 			// Shooting
 			shootingCounter += 1;
-			while (shootingCounter > 20) {
-				shootingCounter -= 20;
+			while (shootingCounter > 45) {
+				shootingCounter -= 45;
 				shoot(0);
 			}
 			// Collisions
@@ -105,6 +106,7 @@ void Force::levelUp()
 
 			posEntity.y += (prevSize.y / 2 - entitySize.y / 2);
 			sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
+			currentLevel++;
 		}
 		else if (currentLevel == 2) {
 
@@ -114,15 +116,39 @@ void Force::levelUp()
 
 void Force::shoot(int level)
 {
-	PassiveEntity* newBullet = new ForceBullet();
-	newBullet->init(*texProgram, map);
-	glm::ivec2 bulletSize = newBullet->getSize();
-	glm::ivec2 pos;
-	pos.x = posEntity.x + entitySize.x - 10;
-	pos.y = posEntity.y + entitySize.y / 2;
-	newBullet->setPosition(pos);
-	newBullet->setMovementVector(glm::ivec2(20.f, 0.f));
-	addBullet(newBullet);
+	switch (currentLevel) {
+		case 1:
+			{PassiveEntity* newBullet = new ForceBullet();
+			newBullet->init(*texProgram, map);
+			glm::ivec2 bulletSize = newBullet->getSize();
+			glm::ivec2 pos;
+			pos.x = posEntity.x + entitySize.x - 10;
+			pos.y = posEntity.y + entitySize.y / 2;
+			newBullet->setPosition(pos);
+			newBullet->setMovementVector(glm::ivec2(20.f, 0.f));
+			addBullet(newBullet); }
+			break;
+		case 2:
+			{PassiveEntity* newBullet1 = new ForceMissile();
+			PassiveEntity* newBullet2 = new ForceMissile();
+			newBullet1->init(*texProgram, map);
+			newBullet2->init(*texProgram, map);
+			glm::ivec2 bulletSize = newBullet1->getSize();
+			glm::ivec2 pos;
+			pos.x = posEntity.x + entitySize.x - 10;
+			pos.y = posEntity.y + entitySize.y / 2;
+			int distance = 40;
+			newBullet1->setPosition(glm::ivec2(pos.x, pos.y + distance / 2));
+			newBullet2->setPosition(glm::ivec2(pos.x, pos.y - distance / 2));
+			newBullet1->setMovementVector(glm::ivec2(12.f, 0.f));
+			newBullet2->setMovementVector(glm::ivec2(12.f, 0.f));
+			addBullet(newBullet1);
+			addBullet(newBullet2); }
+			break;
+		case 3:
+			break;
+	}
+	
 }
 
 void Force::startExplosion()

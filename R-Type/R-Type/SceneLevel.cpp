@@ -64,6 +64,11 @@ void SceneLevel::init() {
 	player->init(texProgram, map);
 	player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
 
+	//If it existed, delete it
+	if (force != nullptr) {
+		force->kill();
+		delete force;
+	}
 	force = nullptr;
 
 	// TODO Remove hardcoded coin

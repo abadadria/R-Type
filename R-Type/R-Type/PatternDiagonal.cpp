@@ -1,18 +1,32 @@
 #include "PatternDiagonal.h"
 
-PatternDiagonal::PatternDiagonal(glm::ivec2 initialPos, int initialAngle, int angleStep, int xSpeed, int amplitude) {
+PatternDiagonal::PatternDiagonal(glm::ivec2 initialPos, glm::vec2 initialMovDir, glm::ivec2 entitySize, TileMap* tileMap) {
     this->pos = initialPos;
-    this->currentAngle = initialAngle;
-    this->angleStep = angleStep;
-    this->xSpeed = xSpeed;
-    this->amplitude = amplitude;
+    this->movDir = initialMovDir;
+    this->map = tileMap;
+    this->entitySize = entitySize;
 }
 
 glm::ivec2 PatternDiagonal::calcNewPosition(int deltaTime)
 {
+    glm::ivec2 provPosX = pos;
+    provPosX.x = pos.x + movDir.x;
+    
+    glm::ivec2 provPosY = pos;
+    provPosY.y = pos.y + movDir.y;
+
+    if (map->collisionMoveDown(provPosY, entitySize) || map->collisionMoveUp(provPosY, entitySize)) {
+        movDir.y *= -1;
+    }
+
+    if ((map->collisionMoveLeft(provPosX, entitySize) || map->collisionMoveRight(provPosX, entitySize))) {
+        movDir.x *= -1;
+    }
+
     glm::ivec2 newPos;
-    currentAngle += angleStep;
-    newPos.x = pos.x = pos.x + xSpeed;
-    newPos.y = int(pos.y + (amplitude / 2.f) * sin(3.14159f * currentAngle / 180.f));
+    newPos.x = pos.x + movDir.x;
+    newPos.y = pos.y + movDir.y;
+
+    pos = newPos;
     return newPos;
 }

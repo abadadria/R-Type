@@ -10,6 +10,7 @@
 #include "RedPlane.h"
 #include "SilverRobot.h"
 #include "Turret.h"
+#include "DragonFly.h"
 #include "ForceCoin.h"
 #include <map>
 
@@ -127,6 +128,9 @@ void SceneLevel::init() {
 					case 4:
 						enemy = new Turret();
 						break;
+					case 5:
+						enemy = new DragonFly();
+						break;
 					default:
 						enemy = nullptr;
 				}
@@ -167,6 +171,9 @@ void SceneLevel::update(int deltaTime)
 						break;
 					case 4:
 						enemy = new Turret();
+						break;
+					case 5:
+						enemy = new DragonFly();
 						break;
 					default:
 						enemy = nullptr;

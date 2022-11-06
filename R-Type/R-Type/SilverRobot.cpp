@@ -7,7 +7,7 @@ void SilverRobot::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec
 	AutonomousEntity::setPattern(new PatternSin(initialPos, extra, 4, -1, 100));
 	entitySize = glm::ivec2(68, 68);
 	spritesheet.loadFromFile("images/silverRobot.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(entitySize, glm::vec2(0.17, 0), &spritesheet, &shaderProgram);
+	sprite = Sprite::createSprite(entitySize, glm::vec2(0.125, 0.f), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(2);
 
 	int keyframesPerSec = 17;
@@ -18,7 +18,7 @@ void SilverRobot::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec
 	sprite->setAnimationSpeed(1, keyframesPerSec);
 	sprite->setAnimationLooping(1, true);
 	for (int i = 0; i < 3; ++i)
-		sprite->addKeyframe(1, glm::vec2(0.17f * float(i), 0.f));
+		sprite->addKeyframe(1, glm::vec2(0.125f * float(i), 0.f));
 	sprite->changeAnimation(1);
 	/*
 	int keyframesPerSec = 10;

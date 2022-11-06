@@ -117,6 +117,9 @@ void Game::keyPressed(int key)
 		case 'g':
 			sceneLevel.changeCollisionsActivePlayer();
 			break;
+		case 'f':
+			sceneLevel.spawnForce();
+			break;
 		case '1':
 			
 			break;

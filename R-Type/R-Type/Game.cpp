@@ -114,6 +114,9 @@ void Game::keyPressed(int key)
 		case 'o':
 			sceneLevel.changeShowCollisionBlock();
 			break;
+		case 'g':
+			sceneLevel.changeCollisionsActivePlayer();
+			break;
 	}
 	keys[key] = true;
 }

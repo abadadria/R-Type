@@ -17,6 +17,8 @@ public:
 	void update(int deltaTime, SceneLevel* scene);
 	void render() override;
 	int getBeamCharge();
+	void changeCollisionsActive();
+	bool getCollisionsActive();
 
 	string getType() const override;
 
@@ -29,6 +31,8 @@ private:
 
 private:
 	static Player* instance;
+
+	bool collisionsActive;
 
 	const glm::ivec2 movVecShooting = glm::ivec2(10, 0);
 	int beamCharger;

@@ -106,6 +106,8 @@ void SceneLevel::init() {
 		}
 	}
 
+	textColor = glm::vec4(1.f, 1.f, 1.f, 1);
+
 	mciSendString(TEXT("stop sounds/IntergalacticOdyssey.mp3"), NULL, 0, NULL);
 	mciSendString(TEXT("play sounds/Chiptronical.mp3 repeat"), NULL, 0, NULL);
 }
@@ -188,6 +190,12 @@ void SceneLevel::render()
 
 	if (playerDead) spriteAuxQuad->render();
 
+	if (player->getCollisionsActive()) {
+		textColor = glm::vec4(1.f, 1.f, 1.f, 1);
+	}
+	else {
+		textColor = glm::vec4(1.f, 0.1, 0.1, 1);
+	}
 	// Render HUD text
 	text1->render("Lifes: ", posLifes, textSize, textColor);
 	text0->render(std::to_string(lives), glm::ivec2(posLifes.x + 90, posLifes.y), textSize, textColor);
@@ -272,6 +280,11 @@ void SceneLevel::changeShowCollisionBlock()
 {
 	bool showCollisionBlock = map->getShowCollisionBlock();
 	map->setShowCollisionBlock(!showCollisionBlock);
+}
+
+void SceneLevel::changeCollisionsActivePlayer()
+{
+	player->changeCollisionsActive();
 }
 
 vector<pair<string, string>> SceneLevel::getCollisions(Entity* entity)

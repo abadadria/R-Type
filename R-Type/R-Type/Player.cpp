@@ -74,6 +74,7 @@ void Player::init(ShaderProgram &shaderProgram, TileMap* tileMap)
 	beamCharger = 0;
 	resetBeamCharge = true;
 	state = ALIVE;
+	collisionsActive = true;;
 }
 
 void Player::render() {
@@ -107,6 +108,16 @@ string Player::getType() const
 int Player::getBeamCharge()
 {
 	return beamCharger;
+}
+
+void Player::changeCollisionsActive()
+{
+	collisionsActive = !collisionsActive;
+}
+
+bool Player::getCollisionsActive()
+{
+	return collisionsActive;
 }
 
 void Player::update(int deltaTime, SceneLevel* scene)
@@ -191,26 +202,28 @@ void Player::update(int deltaTime, SceneLevel* scene)
 		mov.y = float(mov.y * speed);
 
 		if (map->collision(posEntity, glm::ivec2(int(mov.x), int(mov.y)), entitySize))
-			startExplosion();
-
+			if (collisionsActive) startExplosion();
+		
 		posEntity.x = float(float(posEntity.x) + mov.x);
 		posEntity.y = float(float(posEntity.y) + mov.y);
 
-		// Add collision with other entities
-		vector<pair<string, string>> collisions = scene->getCollisions(this);
-		for (pair<string, string> e : collisions) {
-			if (e.first == "RedPlane" || e.first == "EnemyBullet") {
-				startExplosion();
-				break;
+		if (collisionsActive) {
+			// Add collision with other entities
+			vector<pair<string, string>> collisions = scene->getCollisions(this);
+			for (pair<string, string> e : collisions) {
+				if (e.first == "RedPlane" || e.first == "EnemyBullet") {
+					startExplosion();
+					break;
+				}
 			}
-		}
+		}		
 
 		// Adapt to camera movement
 		posEntity += cam->getSpeed();
 		if (cam->collisionRight(posEntity, entitySize, 0.f))
 			posEntity -= cam->getSpeed();
 		if (map->collisionMoveRight(posEntity, entitySize))
-			startExplosion();
+			if (collisionsActive) startExplosion();
 
 		sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 	}

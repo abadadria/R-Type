@@ -76,7 +76,7 @@ void Turret::doCollision(Entity* entity, SceneLevel* scene)
 {
 	string type = entity->getType();
 	if (type == "Player" || type == "SpaceshipBullet" || type == "SpaceshipBeam" ||
-		type == "Force" || type == "ForceBullet" || type == "ForceMissile") {
+		type == "Force" || type == "ForceBullet" || type == "ForceMissile" || type == "ForceRay") {
 		reduceLifePoints(entity->getDamage());
 		if (getLifePoints() <= 0) {
 			scene->increaseScore(400);

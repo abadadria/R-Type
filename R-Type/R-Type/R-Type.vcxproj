@@ -24,6 +24,7 @@
     <ClCompile Include="ForceBullet.cpp" />
     <ClCompile Include="ForceCoin.cpp" />
     <ClCompile Include="ForceMissile.cpp" />
+    <ClCompile Include="ForceRay.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PassiveEntity.cpp" />
@@ -68,6 +69,7 @@
     <ClInclude Include="ForceBullet.h" />
     <ClInclude Include="ForceCoin.h" />
     <ClInclude Include="ForceMissile.h" />
+    <ClInclude Include="ForceRay.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="PassiveEntity.h" />
     <ClInclude Include="Pattern.h" />

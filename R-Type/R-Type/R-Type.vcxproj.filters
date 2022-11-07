@@ -141,9 +141,6 @@
     <ClCompile Include="PatternStatic.cpp">
       <Filter>Archivos de código fuente\Patters</Filter>
     </ClCompile>
-    <ClCompile Include="PatternDuel.cpp">
-      <Filter>Archivos de código fuente\Patters</Filter>
-    </ClCompile>
     <ClCompile Include="DragonFly.cpp">
       <Filter>Archivos de código fuente\Entity</Filter>
     </ClCompile>
@@ -161,6 +158,18 @@
     </ClCompile>
     <ClCompile Include="FinalBossBullet2.cpp">
       <Filter>Archivos de código fuente\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="PatternSin.cpp">
+      <Filter>Archivos de código fuente\Pattern</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneLevel.cpp">
+      <Filter>Archivos de código fuente\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="PatternDuel.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="ForceRay.cpp">
+      <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="DragonFlyBullet.h">
       <Filter>Archivos de encabezado\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="ForceRay.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Turret.h">
       <Filter>Archivos de encabezado\Entity</Filter>

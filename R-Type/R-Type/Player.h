@@ -4,6 +4,7 @@
 
 #include "ShootingEntity.h"
 
+class Force;
 class SceneLevel; // To fix compilation due to circular includes
 
 class Player : public ShootingEntity
@@ -24,6 +25,8 @@ public:
 	string getType() const override;
 	void doCollision(Entity* entity, SceneLevel* scene);
 
+	void attach(Force* force);
+
 private:
 	Player();
 
@@ -33,6 +36,9 @@ private:
 
 private:
 	static Player* instance;
+
+	Force* force;
+	int attached;
 
 	bool collisionsActive;
 

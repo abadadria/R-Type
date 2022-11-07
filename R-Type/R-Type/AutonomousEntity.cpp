@@ -93,24 +93,21 @@ void AutonomousEntity::startExplosion()
 	entitySize = glm::ivec2(64, 64);
 	spritesheet.loadFromFile("images/enemy_explosion.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(entitySize, glm::vec2(0.25, 0.5), &spritesheet, texProgram);
-	sprite->setNumberAnimations(2);
+	sprite->setNumberAnimations(1);
 
-	int keyframesPerSec = 40;
+		int keyframesPerSec = 40;
 
-	sprite->setAnimationSpeed(0, keyframesPerSec);
-	sprite->addKeyframe(0, glm::vec2(0.f, 0.f));
-
-	sprite->setAnimationSpeed(1, keyframesPerSec);
-	sprite->setAnimationLooping(1, false);
-	sprite->addKeyframe(1, glm::vec2(0.25f , 0.5f));
-	sprite->addKeyframe(1, glm::vec2(0.f , 0.5f));
-	sprite->addKeyframe(1, glm::vec2(0.75f , 0.f));
-	sprite->addKeyframe(1, glm::vec2(0.5f , 0.f));
-	sprite->addKeyframe(1, glm::vec2(0.25f , 0.f));
-	sprite->addKeyframe(1, glm::vec2(0.f , 0.f));
+		sprite->setAnimationSpeed(0, keyframesPerSec);
+		sprite->setAnimationLooping(0, false);
+		sprite->addKeyframe(0, glm::vec2(0.25f, 0.5f));
+		sprite->addKeyframe(0, glm::vec2(0.f, 0.5f));
+		sprite->addKeyframe(0, glm::vec2(0.75f, 0.f));
+		sprite->addKeyframe(0, glm::vec2(0.5f, 0.f));
+		sprite->addKeyframe(0, glm::vec2(0.25f, 0.f));
+		sprite->addKeyframe(0, glm::vec2(0.f, 0.f));
 
 
-	sprite->changeAnimation(1);
+	sprite->changeAnimation(0);
 	if (prevEntitySize != entitySize) {
 		// Adjust entity position for the different in size between ALIVE sprite and EXPLODING sprite.
 		glm::ivec2 diffSize = prevEntitySize - entitySize;

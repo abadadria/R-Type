@@ -2,6 +2,8 @@
 #include "ForceBullet.h"
 #include "ForceMissile.h"
 #include "ForceRay.h"
+#include <Windows.h>
+#include <mmsystem.h>
 
 void Force::init(ShaderProgram& shaderProgram, TileMap* tileMap, Player* player)
 {
@@ -31,6 +33,7 @@ void Force::init(ShaderProgram& shaderProgram, TileMap* tileMap, Player* player)
 	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 
 	shootingCounter = 0;
+	mciSendString(TEXT("play sounds/upLevel1.wav"), NULL, 0, NULL);
 }
 
 void Force::update(int deltaTime, SceneLevel* scene)
@@ -185,19 +188,25 @@ void Force::levelUp()
 	if (attached) {
 		if (currentLevel == 1) {
 			setLevel2();
+			mciSendString(TEXT("play sounds/upLevel2.wav"), NULL, 0, NULL);
 		}
 		else if (currentLevel == 2) {
 			setLevel3();
+			mciSendString(TEXT("play sounds/upLevel3.wav"), NULL, 0, NULL);
 		}
 	}
 }
 
 void Force::levelDown()
 {
-	if (currentLevel == 2)
+	if (currentLevel == 2) {
 		setLevel1();
-	else if (currentLevel == 3)
+		mciSendString(TEXT("play sounds/downLevel1.wav"), NULL, 0, NULL);
+	}
+	else if (currentLevel == 3) {
 		setLevel2();
+		mciSendString(TEXT("play sounds/downLevel2.wav"), NULL, 0, NULL);
+	}
 }
 
 int Force::getLevel() const

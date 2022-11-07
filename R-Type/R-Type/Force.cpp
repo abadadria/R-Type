@@ -1,6 +1,7 @@
 #include "Force.h"
 #include "ForceBullet.h"
 #include "ForceMissile.h"
+#include "ForceRay.h"
 
 void Force::init(ShaderProgram& shaderProgram, TileMap* tileMap, Player* player)
 {
@@ -65,15 +66,25 @@ void Force::update(int deltaTime, SceneLevel* scene)
 			sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 			// Shooting
 			shootingCounter += 1;
+			int framesPerShot;
 			if (currentLevel == 1) {
-				while (shootingCounter > 20) {
-					shootingCounter -= 20;
+				framesPerShot = 20;
+				while (shootingCounter > framesPerShot) {
+					shootingCounter -= framesPerShot;
 					shoot(0);
 				}
 			}
 			else if (currentLevel == 2) {
-				while (shootingCounter > 70) {
-					shootingCounter -= 80;
+				framesPerShot = 70;
+				while (shootingCounter > framesPerShot) {
+					shootingCounter -= framesPerShot;
+					shoot(0);
+				}
+			}
+			else if (currentLevel == 3) {
+				framesPerShot = 30;
+				while (shootingCounter > framesPerShot) {
+					shootingCounter -= framesPerShot;
 					shoot(0);
 				}
 			}
@@ -176,6 +187,15 @@ void Force::shoot(int level)
 			addBullet(newBullet2); }
 			break;
 		case 3:
+			{PassiveEntity* newBullet = new ForceRay();
+			newBullet->init(*texProgram, map);
+			glm::ivec2 bulletSize = newBullet->getSize();
+			glm::ivec2 pos;
+			pos.x = posEntity.x + entitySize.x - 10;
+			pos.y = posEntity.y + entitySize.y / 2 - bulletSize.y / 2;
+			newBullet->setPosition(pos);
+			newBullet->setMovementVector(glm::ivec2(20.f, 0.f));
+			addBullet(newBullet); }
 			break;
 	}
 	

@@ -18,6 +18,7 @@ public:
 
 private:
 	int shootingCounter;
+	int actualAnimation;
 };
 
 #endif _FINAL_BOSS_INCLUDE

@@ -3,7 +3,7 @@
 
 void FinalBoss::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos, int extra, bool drop)
 {
-	AutonomousEntity::init(shaderProgram, tileMap, 20000, drop);
+	AutonomousEntity::init(shaderProgram, tileMap, 40000, drop);
 	//entitySize = glm::ivec2(155, 246); // original size
 	//entitySize = glm::ivec2(168, 455); // funciona
 	entitySize = glm::ivec2(175, 455); //
@@ -17,10 +17,10 @@ void FinalBoss::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 
 		sprite->setAnimationSpeed(i, keyframesPerSec);
 		sprite->setAnimationLooping(i, true);
 		for (int j = 0; j < 3; ++j)
-			sprite->addKeyframe(i, glm::vec2(0.25f * float(j), 0.125f * float(j)));
+			sprite->addKeyframe(i, glm::vec2(0.25f * float(j), 0.125f * float(i)));
 	}
-
-	sprite->changeAnimation(0);
+	actualAnimation = 0;
+	sprite->changeAnimation(actualAnimation);
 
 	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 
@@ -31,7 +31,20 @@ void FinalBoss::update(int deltaTime, SceneLevel* scene)
 {
 	AutonomousEntity::update(deltaTime, scene);
 	if (state == ALIVE) {
+		int prevAnimation = actualAnimation;
+		int life = getLifePoints();
+		if (life > 17500*2) actualAnimation = 0;
+		else if (life > 15000*2) actualAnimation = 1;
+		else if (life > 12500*2) actualAnimation = 2;
+		else if (life > 10000*2) actualAnimation = 3;
+		else if (life > 7500*2) actualAnimation = 4;
+		else if (life > 5000*2) actualAnimation = 5;
+		else if (life > 2500*2) actualAnimation = 6;
+		else actualAnimation = 7;
 
+		if (prevAnimation != actualAnimation)
+			sprite->changeAnimation(actualAnimation);
+		
 		// Shooting
 		shootingCounter += 1;
 		while (shootingCounter > 50) {

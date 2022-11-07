@@ -156,6 +156,12 @@
     <ClCompile Include="FinalBoss.cpp">
       <Filter>Archivos de código fuente\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="FinalBossBullet1.cpp">
+      <Filter>Archivos de código fuente\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="FinalBossBullet2.cpp">
+      <Filter>Archivos de código fuente\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -280,6 +286,12 @@
     </ClInclude>
     <ClInclude Include="FinalBoss.h">
       <Filter>Archivos de encabezado\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="FinalBossBullet1.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="FinalBossBullet2.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

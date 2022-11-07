@@ -17,7 +17,8 @@ public:
 	void doCollision(Entity* entity, SceneLevel* scene);
 
 private:
-	int shootingCounter;
+	int shootingCounter1;
+	int shootingCounter2;
 	int actualAnimation;
 };
 

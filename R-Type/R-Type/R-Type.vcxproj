@@ -18,6 +18,8 @@
     <ClCompile Include="EnemyBullet.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FinalBoss.cpp" />
+    <ClCompile Include="FinalBossBullet1.cpp" />
+    <ClCompile Include="FinalBossBullet2.cpp" />
     <ClCompile Include="Force.cpp" />
     <ClCompile Include="ForceBullet.cpp" />
     <ClCompile Include="ForceCoin.cpp" />
@@ -60,6 +62,8 @@
     <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="FinalBoss.h" />
+    <ClInclude Include="FinalBossBullet1.h" />
+    <ClInclude Include="FinalBossBullet2.h" />
     <ClInclude Include="Force.h" />
     <ClInclude Include="ForceBullet.h" />
     <ClInclude Include="ForceCoin.h" />

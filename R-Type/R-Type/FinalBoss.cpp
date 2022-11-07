@@ -6,7 +6,7 @@ void FinalBoss::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 
 	AutonomousEntity::init(shaderProgram, tileMap, 40000, drop);
 	//entitySize = glm::ivec2(155, 246); // original size
 	//entitySize = glm::ivec2(168, 455); // funciona
-	entitySize = glm::ivec2(175, 455); //
+	entitySize = glm::ivec2(175, 455);
 	AutonomousEntity::setPattern(new PatternStatic(initialPos, entitySize));
 	spritesheet.loadFromFile("images/bossFinal.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(entitySize, glm::vec2(0.25f, 0.125f), &spritesheet, &shaderProgram);
@@ -22,9 +22,10 @@ void FinalBoss::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 
 	actualAnimation = 0;
 	sprite->changeAnimation(actualAnimation);
 
-	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
+	sprite->setPosition(glm::vec2(float(posEntity.x - 400), float(posEntity.y)));
 
-	shootingCounter = 0;
+	shootingCounter1 = 0;
+	shootingCounter2 = 0;
 }
 
 void FinalBoss::update(int deltaTime, SceneLevel* scene)
@@ -46,10 +47,16 @@ void FinalBoss::update(int deltaTime, SceneLevel* scene)
 			sprite->changeAnimation(actualAnimation);
 		
 		// Shooting
-		shootingCounter += 1;
-		while (shootingCounter > 50) {
-			shootingCounter -= 50;
-			shoot(0);
+		shootingCounter1 += 1;
+		while (shootingCounter1 > 20) {
+			shootingCounter1 -= 20;
+			shoot(2);
+		}
+
+		shootingCounter2 += 1;
+		while (shootingCounter2 > 30) {
+			shootingCounter2 -=30;
+			shoot(3);
 		}
 
 		//Collision with other Entities

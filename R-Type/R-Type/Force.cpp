@@ -59,7 +59,9 @@ void Force::update(int deltaTime, SceneLevel* scene)
 			glm::ivec2 posPlayer = player->getPosition();
 			glm::ivec2 sizePlayer = player->getSize();
 			posEntity.x = posPlayer.x + sizePlayer.x;
-			posEntity.y = posPlayer.y;
+			if (currentLevel == 3)
+				posEntity.x = posPlayer.x + sizePlayer.x - 10;
+			posEntity.y = posPlayer.y + 18 - entitySize.y / 2;
 			sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 			// Shooting
 			shootingCounter += 1;
@@ -75,7 +77,6 @@ void Force::update(int deltaTime, SceneLevel* scene)
 					shoot(0);
 				}
 			}
-			// Collisions
 		}
 		
 	}
@@ -119,7 +120,26 @@ void Force::levelUp()
 			currentLevel++;
 		}
 		else if (currentLevel == 2) {
+			glm::ivec2 prevSize = entitySize;
+			delete sprite;
+			entitySize = glm::ivec2(62, 56);
+			spritesheet.loadFromFile("images/force3.png", TEXTURE_PIXEL_FORMAT_RGBA);
+			sprite = Sprite::createSprite(entitySize, glm::vec2(0.25, 1.f), &spritesheet, getShaderProgram());
+			sprite->setNumberAnimations(1);
 
+			int keyframesPerSec = 17;
+
+			sprite->setAnimationSpeed(0, keyframesPerSec);
+			sprite->setAnimationLooping(0, true);
+			for (int i = 0.f; i < 4; ++i)
+				sprite->addKeyframe(0, glm::vec2(0.25f * float(i), 0.f));
+
+			sprite->changeAnimation(0);
+
+			posEntity.x -= 12;
+			posEntity.y += (prevSize.y / 2 - entitySize.y / 2);
+			sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
+			currentLevel++;
 		}
 	}
 }

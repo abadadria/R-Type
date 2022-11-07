@@ -98,4 +98,5 @@ void Entity::startDying() {
 }
 
 Entity::~Entity() {
+	spritesheet.free();
 }

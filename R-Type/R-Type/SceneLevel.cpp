@@ -326,6 +326,7 @@ void SceneLevel::render()
 	int size = player->getBeamCharge();
 	// ensure max sixe of beam
 	if (size > 70) size = 70;
+	delete spriteBeamStatusBar;
 	spriteBeamStatusBar = Sprite::createSprite(glm::ivec2((size * 230 / 70), 22), glm::vec2(1, 1), &spritesheetBeamStatusBar, &texProgram);
 	spriteBeamStatusBar->setPosition(glm::vec2(posBeamStatusBar.x + posCamera.x, posBeamStatusBar.y));
 	spriteBeamStatusBar->render();

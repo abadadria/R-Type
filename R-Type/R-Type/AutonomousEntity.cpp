@@ -2,6 +2,8 @@
 #include "Camera.h"
 #include "EnemyBullet.h"
 #include "DragonFlyBullet.h"
+#include "FinalBossBullet1.h"
+#include "FinalBossBullet2.h"
 #include "Player.h"
 
 
@@ -55,7 +57,9 @@ void AutonomousEntity::shoot(int level)
 {
 	PassiveEntity* newBullet = NULL;
 	if (level == 0) newBullet = new EnemyBullet();
-	else newBullet = new DragonFlyBullet();
+	else if (level == 1) newBullet = new DragonFlyBullet();
+	else if (level == 2) newBullet = new FinalBossBullet1();
+	else newBullet = new FinalBossBullet2();
 	newBullet->init(*texProgram, map);
 	glm::ivec2 bulletSize = newBullet->getSize();
 	glm::vec2 pos;

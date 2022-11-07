@@ -15,11 +15,14 @@ public:
 
 	string getType() const override;
 	void doCollision(Entity* entity, SceneLevel* scene);
+	void startExplosion() override;
 
 private:
 	int shootingCounter1;
 	int shootingCounter2;
 	int actualAnimation;
+	glm::ivec2 spriteSize;
+	int initialLife;
 };
 
 #endif _FINAL_BOSS_INCLUDE

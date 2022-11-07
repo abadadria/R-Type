@@ -86,7 +86,7 @@ void ForceMissile::setPosition(const glm::vec2& pos)
 void ForceMissile::doCollision(Entity* entity, SceneLevel* scene)
 {
 	string type = entity->getType();
-	if (type == "RedPlane" || type == "SilverRobot" || type == "Turret") {
+	if (type == "RedPlane" || type == "SilverRobot" || type == "Turret" || type == "DragonFly" || type == "FinalBoss") {
 		startExplosion();
 	}
 }

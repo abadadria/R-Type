@@ -11,9 +11,11 @@ public:
 	string getType() const override;
 	void doCollision(Entity* entity, SceneLevel* scene);
 	void levelUp();
+	int getLevel() const;
+
+	void shoot(int level) override;
 
 protected:
-	void shoot(int level) override;
 	void startExplosion() override;
 
 private:

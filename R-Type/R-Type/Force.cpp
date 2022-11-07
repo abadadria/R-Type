@@ -81,13 +81,13 @@ void Force::update(int deltaTime, SceneLevel* scene)
 					shoot(0);
 				}
 			}
-			else if (currentLevel == 3) {
-				framesPerShot = 30;
-				while (shootingCounter > framesPerShot) {
-					shootingCounter -= framesPerShot;
-					shoot(0);
-				}
-			}
+			//else if (currentLevel == 3) {
+			//	framesPerShot = 30;
+			//	while (shootingCounter > framesPerShot) {
+			//		shootingCounter -= framesPerShot;
+			//		shoot(0);
+			//	}
+			//}
 		}
 		
 	}
@@ -103,6 +103,7 @@ void Force::doCollision(Entity* entity, SceneLevel* scene)
 	string type = entity->getType();
 	if (type == "Player") {
 		attached = true;
+		player->attach(this);
 	}
 }
 
@@ -153,6 +154,11 @@ void Force::levelUp()
 			currentLevel++;
 		}
 	}
+}
+
+int Force::getLevel() const
+{
+	return currentLevel;
 }
 
 void Force::shoot(int level)

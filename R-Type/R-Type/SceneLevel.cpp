@@ -86,6 +86,7 @@ void SceneLevel::init() {
 	lives = 3;
 	playerDead = false;
 	change = NO_CHANGE;
+	checkpoint = 0;
 
 	text0 = new Text();
 	if (!text0->init("fonts/dogica.ttf")) {
@@ -238,9 +239,6 @@ void SceneLevel::update(int deltaTime)
 		change = NO_CHANGE;
 	}
 	else {
-		// render el spirte que diga retry o go back to menu
-		// obtener que tecla se pulsa (como se hace en player)
-		// cambiar estado a lo que corresponda GOTO_MENU o RETRY
 		glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
 		if (Game::instance().getKey(27)) change = GOTO_MENU; // ESC key
 		else if (Game::instance().getKey(13)) { // ENTER key
@@ -383,13 +381,15 @@ void SceneLevel::changeCollisionsActivePlayer()
 
 void SceneLevel::gotoCheckpoint(int checkpoint)
 {
-	Camera* cam = Camera::getInstance();
-	switch (checkpoint) {
+	if (!playerDead) {
+		this->checkpoint = checkpoint;
+		Camera* cam = Camera::getInstance();
+		switch (this->checkpoint) {
 		case 1:
 			player->setPosition(glm::vec2(INIT_PLAYER_X, INIT_PLAYER_Y));
 			camera->setPos(glm::vec2(0.f, 0.f));
 			break;
-		case 2: 
+		case 2:
 			player->setPosition(glm::vec2(INIT_PLAYER_X + 2350, INIT_PLAYER_Y));
 			camera->setPos(glm::vec2(2350, 0.f));
 			break;
@@ -401,7 +401,13 @@ void SceneLevel::gotoCheckpoint(int checkpoint)
 			player->setPosition(glm::vec2(INIT_PLAYER_X + 6600, INIT_PLAYER_Y));
 			camera->setPos(glm::vec2(6600, 0.f));
 			break;
+		}
 	}
+}
+
+int SceneLevel::getCheckpoint()
+{
+	return checkpoint;
 }
 
 void SceneLevel::spawnForce()

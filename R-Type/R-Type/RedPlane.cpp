@@ -47,12 +47,12 @@ string RedPlane::getType() const
 	return "RedPlane";
 }
 
-void RedPlane::doCollision(Entity* entity)
+void RedPlane::doCollision(Entity* entity, SceneLevel* scene)
 {
 	string type = entity->getType();
 	if (type == "Player" || type == "SpaceshipBullet" || type == "SpaceshipBeam" ||
 		type == "Force" || type == "ForceBullet" || type == "ForceMissile") {
-		// TODO score
+		scene->increaseScore(200);
 		startExplosion();
 	}
 }

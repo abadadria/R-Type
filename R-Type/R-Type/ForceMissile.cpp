@@ -78,7 +78,7 @@ void ForceMissile::setPosition(const glm::vec2& pos)
 	spriteFlames->setPosition(posFlames);
 }
 
-void ForceMissile::doCollision(Entity* entity)
+void ForceMissile::doCollision(Entity* entity, SceneLevel* scene)
 {
 	string type = entity->getType();
 	if (type == "RedPlane" || type == "SilverRobot" || type == "Turret") {

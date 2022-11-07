@@ -54,6 +54,6 @@ string SpaceshipBeam::getType() const
 	return "SpaceshipBeam";
 }
 
-void SpaceshipBeam::doCollision(Entity* entity)
+void SpaceshipBeam::doCollision(Entity* entity, SceneLevel* scene)
 {
 }

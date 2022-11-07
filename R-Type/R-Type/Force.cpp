@@ -86,7 +86,7 @@ string Force::getType() const
 	return "Force";
 }
 
-void Force::doCollision(Entity* entity)
+void Force::doCollision(Entity* entity, SceneLevel* scene)
 {
 	string type = entity->getType();
 	if (type == "Player") {

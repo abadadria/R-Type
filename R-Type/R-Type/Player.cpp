@@ -105,7 +105,7 @@ string Player::getType() const
 	return "Player";
 }
 
-void Player::doCollision(Entity* entity)
+void Player::doCollision(Entity* entity, SceneLevel* scene)
 {
 	string type = entity->getType();
 	if (collisionsActive &&
@@ -114,7 +114,7 @@ void Player::doCollision(Entity* entity)
 		startExplosion();
 	}
 	else if (type == "ForceCoin") {
-		// TODO scene->spawnForce();
+		scene->spawnForce();
 	}
 }
 

@@ -19,7 +19,7 @@ public:
 	void render() override;
 
 	virtual string getType() const override;
-	void doBulletCollisions(Entity* entity);
+	void doBulletCollisions(Entity* entity, SceneLevel* scene);
 
 protected:
 	void addBullet(PassiveEntity* bullet);

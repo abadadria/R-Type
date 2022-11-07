@@ -45,10 +45,10 @@ string ShootingEntity::getType() const
 	return "ShootingEntity";
 }
 
-void ShootingEntity::doBulletCollisions(Entity* entity)
+void ShootingEntity::doBulletCollisions(Entity* entity, SceneLevel* scene)
 {
 	for (PassiveEntity* bullet : passiveEntities)
-		bullet->collision(entity);
+		bullet->collision(entity, scene);
 }
 
 void ShootingEntity::addBullet(PassiveEntity* bullet)

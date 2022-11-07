@@ -405,24 +405,24 @@ void SceneLevel::doAllCollisions(Entity* entity)
 {
 	if (entity->getState() == ALIVE) {
 		// Check collisions with player and bullets
-		player->collision(entity);
-		player->doBulletCollisions(entity);
+		player->collision(entity, this);
+		player->doBulletCollisions(entity, this);
 
 		// Check collisions with Force and bullets
 		if (force != nullptr) {
-			force->collision(entity);
-			force->doBulletCollisions(entity);
+			force->collision(entity, this);
+			force->doBulletCollisions(entity, this);
 		}
 
 		// Check collisions with enemies and bullets
 		for (AutonomousEntity* enemy : enemies) {
-			enemy->collision(entity);
-			enemy->doBulletCollisions(entity);
+			enemy->collision(entity, this);
+			enemy->doBulletCollisions(entity, this);
 		}
 
 		// Check collisions with power ups
 		for (PassiveEntity* powerUp : powerUps) {
-			powerUp->collision(entity);
+			powerUp->collision(entity, this);
 		}
 	}
 }

@@ -33,7 +33,7 @@ string EnemyBullet::getType() const
 	return "EnemyBullet";
 }
 
-void EnemyBullet::doCollision(Entity* entity)
+void EnemyBullet::doCollision(Entity* entity, SceneLevel* scene)
 {
 	string type = entity->getType();
 	if (type == "Player" || type == "Force") {

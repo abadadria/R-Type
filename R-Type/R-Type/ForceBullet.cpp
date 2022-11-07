@@ -32,7 +32,7 @@ string ForceBullet::getType() const
 	return "ForceBullet";
 }
 
-void ForceBullet::doCollision(Entity* entity)
+void ForceBullet::doCollision(Entity* entity, SceneLevel* scene)
 {
 	string type = entity->getType();
 	if (type == "RedPlane" || type == "SilverRobot" || type == "Turret" || type == "DragonFly") {

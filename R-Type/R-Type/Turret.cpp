@@ -72,12 +72,12 @@ string Turret::getType() const
 	return "Turret";
 }
 
-void Turret::doCollision(Entity* entity)
+void Turret::doCollision(Entity* entity, SceneLevel* scene)
 {
 	string type = entity->getType();
 	if (type == "Player" || type == "SpaceshipBullet" || type == "SpaceshipBeam" ||
 		type == "Force" || type == "ForceBullet" || type == "ForceMissile") {
-		// TODO score
+		scene->increaseScore(400);
 		startExplosion();
 	}
 }

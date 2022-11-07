@@ -55,7 +55,7 @@ int Entity::getState() const
 	return state;
 }
 
-void Entity::collision(Entity* entity)
+void Entity::collision(Entity* entity, SceneLevel* scene)
 {
 	if ((this->state == ALIVE) && (entity->state == ALIVE)) {
 		glm::ivec2 pos = entity->posEntity;
@@ -72,8 +72,8 @@ void Entity::collision(Entity* entity)
 		int maxy2 = pos.y + size.y;
 
 		if ((minx1 < maxx2) && (minx2 < maxx1) && (miny1 < maxy2) && (miny2 < maxy1)) {
-			entity->doCollision(this);
-			this->doCollision(entity);
+			entity->doCollision(this, scene);
+			this->doCollision(entity, scene);
 		}
 	}
 }

@@ -22,7 +22,7 @@ void AutonomousEntity::update(int deltaTime, SceneLevel* scene)
 		// Movement
 		posEntity = movementPattern->calcNewPosition(deltaTime);
 		Camera* cam = Camera::getInstance();
-		if (cam->collision(posEntity, entitySize, 100.f)) {
+		if (cam->collision(posEntity, entitySize, 200.f)) {
 			startExplosion();
 		}
 		sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));

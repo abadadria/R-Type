@@ -3,7 +3,7 @@
 void DragonFlyBullet::init(ShaderProgram& shaderProgram, TileMap* tileMap)
 {
 	PassiveEntity::init(shaderProgram, tileMap);
-	entitySize = glm::ivec2(96, 24);
+	entitySize = glm::ivec2(128, 32);
 	spritesheet.loadFromFile("images/dragonFly_bullet.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(entitySize, glm::vec2(0.5f, 1.f), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(1);

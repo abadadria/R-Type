@@ -105,61 +105,99 @@ void Force::doCollision(Entity* entity, SceneLevel* scene)
 
 void Force::setLevel1()
 {
+	glm::ivec2 prevSize = entitySize;
+	entitySize = glm::ivec2(40, 32);
+	delete sprite;
+	spritesheet.loadFromFile("images/force1.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite = Sprite::createSprite(entitySize, glm::vec2(0.125, 1.f), &spritesheet, getShaderProgram());
+	sprite->setNumberAnimations(1);
+
+		int keyframesPerSec = 17;
+
+		sprite->setAnimationSpeed(0, keyframesPerSec);
+		sprite->setAnimationLooping(0, true);
+		for (int i = 0.f; i < 6; ++i)
+			sprite->addKeyframe(0, glm::vec2(0.125f * float(i), 0.f));
+
+	sprite->changeAnimation(0);
+	
+	posEntity.y += (prevSize.y / 2 - entitySize.y / 2);
+	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
+
+	currentLevel = 1;
+
+	shootingCounter = 0;
+}
+
+void Force::setLevel2()
+{
+	glm::ivec2 prevSize = entitySize;
+	delete sprite;
+	entitySize = glm::ivec2(54, 44);
+	spritesheet.loadFromFile("images/force2.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite = Sprite::createSprite(entitySize, glm::vec2(0.125, 1.f), &spritesheet, getShaderProgram());
+	sprite->setNumberAnimations(1);
+
+		int keyframesPerSec = 17;
+
+		sprite->setAnimationSpeed(0, keyframesPerSec);
+		sprite->setAnimationLooping(0, true);
+		for (int i = 0.f; i < 6; ++i)
+			sprite->addKeyframe(0, glm::vec2(0.125f * float(i), 0.f));
+
+	sprite->changeAnimation(0);
+
+	posEntity.y += (prevSize.y / 2 - entitySize.y / 2);
+	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
+	currentLevel = 2;
+	levelDownTimer = 60 * 25; // 60 fps * 25 s
+	shootingCounter = 0;
+}
+
+void Force::setLevel3()
+{
+	glm::ivec2 prevSize = entitySize;
+	delete sprite;
+	entitySize = glm::ivec2(62, 56);
+	spritesheet.loadFromFile("images/force3.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite = Sprite::createSprite(entitySize, glm::vec2(0.25, 1.f), &spritesheet, getShaderProgram());
+	sprite->setNumberAnimations(1);
+
+		int keyframesPerSec = 17;
+
+		sprite->setAnimationSpeed(0, keyframesPerSec);
+		sprite->setAnimationLooping(0, true);
+		for (int i = 0.f; i < 4; ++i)
+			sprite->addKeyframe(0, glm::vec2(0.25f * float(i), 0.f));
+
+	sprite->changeAnimation(0);
+
+	posEntity.x -= 12;
+	posEntity.y += (prevSize.y / 2 - entitySize.y / 2);
+	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
+	currentLevel = 3;
+	levelDownTimer = 60 * 15; // 60 fps * 15 s
+	shootingCounter = 0;
 }
 
 void Force::levelUp()
 {
 	if (attached) {
 		if (currentLevel == 1) {
-			glm::ivec2 prevSize = entitySize;
-			delete sprite;
-			entitySize = glm::ivec2(54, 44);
-			spritesheet.loadFromFile("images/force2.png", TEXTURE_PIXEL_FORMAT_RGBA);
-			sprite = Sprite::createSprite(entitySize, glm::vec2(0.125, 1.f), &spritesheet, getShaderProgram());
-			sprite->setNumberAnimations(1);
-
-			int keyframesPerSec = 17;
-
-			sprite->setAnimationSpeed(0, keyframesPerSec);
-			sprite->setAnimationLooping(0, true);
-			for (int i = 0.f; i < 6; ++i)
-				sprite->addKeyframe(0, glm::vec2(0.125f * float(i), 0.f));
-
-			sprite->changeAnimation(0);
-
-			posEntity.y += (prevSize.y / 2 - entitySize.y / 2);
-			sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
-			currentLevel++;
-			levelDownTimer = 60 * 30;
+			setLevel2();
 		}
 		else if (currentLevel == 2) {
-			glm::ivec2 prevSize = entitySize;
-			delete sprite;
-			entitySize = glm::ivec2(62, 56);
-			spritesheet.loadFromFile("images/force3.png", TEXTURE_PIXEL_FORMAT_RGBA);
-			sprite = Sprite::createSprite(entitySize, glm::vec2(0.25, 1.f), &spritesheet, getShaderProgram());
-			sprite->setNumberAnimations(1);
-
-			int keyframesPerSec = 17;
-
-			sprite->setAnimationSpeed(0, keyframesPerSec);
-			sprite->setAnimationLooping(0, true);
-			for (int i = 0.f; i < 4; ++i)
-				sprite->addKeyframe(0, glm::vec2(0.25f * float(i), 0.f));
-
-			sprite->changeAnimation(0);
-
-			posEntity.x -= 12;
-			posEntity.y += (prevSize.y / 2 - entitySize.y / 2);
-			sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
-			currentLevel++;
-			levelDownTimer = 60 * 20;
+			setLevel3();
 		}
 	}
 }
 
 void Force::levelDown()
 {
+	if (currentLevel == 2)
+		setLevel1();
+	else if (currentLevel == 3)
+		setLevel2();
 }
 
 int Force::getLevel() const

@@ -21,6 +21,11 @@ protected:
 	void startExplosion() override;
 
 private:
+	void setLevel1();
+	void setLevel2();
+	void setLevel3();
+
+private:
 	bool attached;
 	Player* player;
 

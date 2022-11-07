@@ -40,7 +40,7 @@ int SpaceshipBullet::getDamage() const
 void SpaceshipBullet::doCollision(Entity* entity, SceneLevel* scene)
 {
 	string type = entity->getType();
-	if (type == "RedPlane" || type == "SilverRobot" || type == "Turret" || type == "DragonFly") {
+	if (type == "RedPlane" || type == "SilverRobot" || type == "Turret" || type == "DragonFly" || type == "FinalBoss") {
 		startExplosion();
 	}
 }

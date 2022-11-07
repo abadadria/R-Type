@@ -110,7 +110,8 @@ void Player::doCollision(Entity* entity, SceneLevel* scene)
 	string type = entity->getType();
 	if (collisionsActive &&
 		(type == "RedPlane" || type == "EnemyBullet" || type == "SilverRobot" ||
-		 type == "Turret") || type == "DragonFly" || type == "DragonFlyBullet") {
+		 type == "Turret") || type == "DragonFly" || type == "DragonFlyBullet" ||
+		 type == "FinalBoss") { // TODO añadir bullets boss
 		startExplosion();
 	}
 	else if (type == "ForceCoin") {

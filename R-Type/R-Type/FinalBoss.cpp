@@ -3,7 +3,7 @@
 
 void FinalBoss::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos, int extra, bool drop)
 {
-	AutonomousEntity::init(shaderProgram, tileMap, drop);
+	AutonomousEntity::init(shaderProgram, tileMap, 20000, drop);
 	//entitySize = glm::ivec2(155, 246); // original size
 	//entitySize = glm::ivec2(168, 455); // funciona
 	entitySize = glm::ivec2(175, 455); //
@@ -54,7 +54,11 @@ void FinalBoss::doCollision(Entity* entity, SceneLevel* scene)
 	string type = entity->getType();
 	if (type == "Player" || type == "SpaceshipBullet" || type == "SpaceshipBeam" ||
 		type == "Force" || type == "ForceBullet" || type == "ForceMissile") {
-		scene->increaseScore(400);
-		startExplosion();
+		int damage = entity->getDamage();
+		reduceLifePoints(damage);
+		if (getLifePoints() <= 0) {
+			scene->increaseScore(9500);
+			startExplosion();
+		}
 	}
 }

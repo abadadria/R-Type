@@ -1,12 +1,12 @@
-#ifndef _TURRET_INCLUDE
-#define _TURRET_INCLUDE
+#ifndef _FINAL_BOSS_INCLUDE
+#define _FINAL_BOSS_INCLUDE
 
 
 #include "AutonomousEntity.h"
 #include "SceneLevel.h"
 
 
-class Turret : public AutonomousEntity
+class FinalBoss : public AutonomousEntity
 {
 
 public:
@@ -14,10 +14,10 @@ public:
 	void update(int deltaTime, SceneLevel* scene) override;
 
 	string getType() const override;
+	void doCollision(Entity* entity, SceneLevel* scene);
 
 private:
 	int shootingCounter;
-	Player* player;
 };
 
-#endif _TURRET_INCLUDE
+#endif _FINAL_BOSS_INCLUDE

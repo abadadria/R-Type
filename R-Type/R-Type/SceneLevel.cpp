@@ -11,6 +11,7 @@
 #include "SilverRobot.h"
 #include "Turret.h"
 #include "DragonFly.h"
+#include "FinalBoss.h"
 #include "ForceCoin.h"
 #include <map>
 
@@ -131,6 +132,9 @@ void SceneLevel::init() {
 					case 5:
 						enemy = new DragonFly();
 						break;
+					case 6:
+						enemy = new FinalBoss();
+						break;
 					default:
 						enemy = nullptr;
 				}
@@ -174,6 +178,9 @@ void SceneLevel::update(int deltaTime)
 						break;
 					case 5:
 						enemy = new DragonFly();
+						break;
+					case 6:
+						enemy = new FinalBoss();
 						break;
 					default:
 						enemy = nullptr;
@@ -248,6 +255,10 @@ void SceneLevel::update(int deltaTime)
 		playerDead = true;
 	}
 	else playerDead = false;
+
+	if (posCamera.x >= 7505) {
+		cam->setSpeed(glm::vec2(0,0));
+	}
 	
 	spriteAuxQuad->setPosition(glm::ivec2(posCamera.x + SCREEN_WIDTH/2 - 175, posCamera.y + SCREEN_HEIGHT / 2 - 125));
 	spriteBackHUDQuad->setPosition(glm::ivec2(posCamera.x, 512));

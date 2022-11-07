@@ -3,7 +3,7 @@
 
 void DragonFly::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos, int extra, bool drop)
 {
-	AutonomousEntity::init(shaderProgram, tileMap, 250, drop);
+	AutonomousEntity::init(shaderProgram, tileMap, 600, drop);
 	entitySize = glm::ivec2(110, 110);
 	AutonomousEntity::setPattern(new PatternDuel(initialPos, glm::vec2(-1, 0), entitySize, 2, tileMap));
 	spritesheet.loadFromFile("images/dragonFly.png", TEXTURE_PIXEL_FORMAT_RGBA);

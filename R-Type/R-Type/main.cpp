@@ -2,7 +2,6 @@
 #include <GL/glut.h>
 #include "Game.h"
 
-
 //Remove console (only works in Visual Studio)
 #pragma comment(linker, "/subsystem:\"windows\" /entry:\"mainCRTStartup\"")
 
@@ -115,7 +114,7 @@ int main(int argc, char **argv)
 	// GLEW will take care of OpenGL extension functions
 	glewExperimental = GL_TRUE;
 	glewInit();
-	
+
 	// Game instance initialization
 	Game::instance().init();
 	prevTime = glutGet(GLUT_ELAPSED_TIME);

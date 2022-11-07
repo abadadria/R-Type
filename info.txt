@@ -1,0 +1,25 @@
+Nom i cognom dels integrants del grup:
+- ADRIÀ ABAD MORENO
+- RAÜL SAMPIETRO GUTIÉRREZ
+
+Funcionalitats implementades:
+- Pantalles:
+  - Pantalla de menú principal
+  - Pantalla d'instruccions
+  - Pantalla de crèdits
+  - Pantalla de jugar
+  - Pantalla de game over
+  - Pantalla de passar-se el joc
+
+- Efectes de so:
+  - Música de menús (principal, instruccions i crèdits)
+  - Efecte de transició navegar entre menús 
+  - Efecte de transició en començar a jugar
+  - Efecte de mort del jugador
+  - Música durant el progrés del nivell (diferent de la del menú)
+
+- Nivells:
+  - 
+
+
+

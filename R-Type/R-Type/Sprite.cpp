@@ -56,6 +56,11 @@ void Sprite::continueAnimation(int deltaTime, bool ascending, bool loop) {
 	texCoordDispl = animations[currentAnimation].keyframeDispl[currentKeyframe];
 }
 
+Sprite::~Sprite()
+{
+	free();
+}
+
 void Sprite::update(int deltaTime)
 {
 	if (currentAnimation >= 0)

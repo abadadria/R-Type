@@ -35,6 +35,8 @@ public:
 	void setMagFilter(GLint value);
 	
 	void use() const;
+
+	void free();
 	
 	int width() const { return widthTex; }
 	int height() const { return heightTex; }

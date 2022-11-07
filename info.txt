@@ -2,6 +2,7 @@ Nom i cognom dels integrants del grup:
 - ADRIÀ ABAD MORENO
 - RAÜL SAMPIETRO GUTIÉRREZ
 
+
 Funcionalitats implementades:
 - Pantalles:
   - Pantalla de menú principal
@@ -21,21 +22,41 @@ Funcionalitats implementades:
 
 - Nivells:
   - Nivell variat amb boss final
+  -
 
 - Player:
   - Dispara de forma normal
   - Dispara un atac carregat més poderós que fa més mal i travesa els enemics
   - Adquireix el dispositiu Force (comportament com al joc original)
+  - Té animació de moviment
+  - Té animació de mort
 
 - Force:
   - Implementa 3 nivells, el bàsic i dos que s'obtenen recollint objectes
+  - Cada nivell té una animació diferent i un tipus de tret diferent
+  - Es van perdent els nivells si no es recullen els objectes de millora
 
 - Enemics:
   - Implementa 4 tipus d'enemics a part del boss final:
     - RedPlane: Nau vermella que es mou de dalt a baix i dispara un tret bàsic
     - SilverRobot: Robot platejat que es mou en diagonal rebotant contra el mapa i dispara un tret bàsic
     - Turret: Torreta que es troba a les parets del mapa i dispara un tret bàsic
-    - DragonFly: Libèl·lula verda que s'enfronta al player i dispara un tret especific més poderós.
+    - DragonFly: Libèl·lula verda que s'enfronta al player i dispara un tret especific més poderós
+  - Tots els enemics tenen animació de moviment i de mort
+
+- Boss final:
+  - Comportament similar al del joc original, implementa dos tipus diferents de trets
+  - Té animació segons la vida que li queda
+
+- Tecles per saltar contingut:
+  - Invulnerabilitat amb la tecla G
+  - Afegir dispositiu force i els seus nivells amb la tecla F
+  - Salts a punts en concret del nivell amb les tecles 1,2,3,4
+  - Mostrar els tiles de colisions per sobre del mapa amb la tecla O
+
+
+Instruccions del joc:
+
 
 
 

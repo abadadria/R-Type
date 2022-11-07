@@ -45,6 +45,7 @@ public:
 	void changeCollisionsActivePlayer();
 
 	void gotoCheckpoint(int checkpoint);
+	int getCheckpoint();
 
 	void spawnForce();
 
@@ -65,6 +66,7 @@ private:
 
 	int score;
 	int lives;
+	int checkpoint;
 
 	Text* text0;
 	Text* text1;

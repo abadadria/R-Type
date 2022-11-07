@@ -24,13 +24,14 @@ bool Game::update(int deltaTime)
 
 	case PLAYING:
 		sceneLevel.update(deltaTime);
-		if (sceneLevel.getChange() == RETRY) { // init pero sin resetear variables
-			// get lives y restar 1
+		if (sceneLevel.getChange() == RETRY) {
 			int lives = sceneLevel.getLives();
 			int score = sceneLevel.getScore();
+			int checkpoint = sceneLevel.getCheckpoint();
 			sceneLevel.init();
+			sceneLevel.gotoCheckpoint(checkpoint);
 			sceneLevel.setLives(--lives);
-			sceneLevel.setScore(score - 100); // revisar este valor
+			sceneLevel.setScore(score - 100);
 			mciSendString(TEXT("play sounds/retry.wav"), NULL, 0, NULL);
 		}
 		break;

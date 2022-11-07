@@ -13,6 +13,7 @@ public:
 	void update(int deltaTime, SceneLevel* scene) override;
 
 	string getType() const override;
+	int getDamage() const override;
 	void doCollision(Entity* entity, SceneLevel* scene);
 };
 

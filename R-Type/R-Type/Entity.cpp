@@ -40,6 +40,11 @@ string Entity::getType() const
 	return "Entity";
 }
 
+int Entity::getDamage() const
+{
+	return 10;
+}
+
 glm::ivec2 Entity::getPosition() const
 {
 	return posEntity;

@@ -54,6 +54,11 @@ string SpaceshipBeam::getType() const
 	return "SpaceshipBeam";
 }
 
+int SpaceshipBeam::getDamage() const
+{
+	return (level + 1) / 2;
+}
+
 void SpaceshipBeam::doCollision(Entity* entity, SceneLevel* scene)
 {
 }

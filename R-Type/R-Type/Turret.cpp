@@ -3,7 +3,7 @@
 
 void Turret::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos, int extra, bool drop)
 {
-	AutonomousEntity::init(shaderProgram, tileMap, drop);
+	AutonomousEntity::init(shaderProgram, tileMap, 10, drop);
 	entitySize = glm::ivec2(32, 32);
 	AutonomousEntity::setPattern(new PatternStatic(initialPos, entitySize));
 	spritesheet.loadFromFile("images/turret.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -77,7 +77,10 @@ void Turret::doCollision(Entity* entity, SceneLevel* scene)
 	string type = entity->getType();
 	if (type == "Player" || type == "SpaceshipBullet" || type == "SpaceshipBeam" ||
 		type == "Force" || type == "ForceBullet" || type == "ForceMissile") {
-		scene->increaseScore(400);
-		startExplosion();
+		reduceLifePoints(entity->getDamage());
+		if (getLifePoints() <= 0) {
+			scene->increaseScore(400);
+			startExplosion();
+		}
 	}
 }

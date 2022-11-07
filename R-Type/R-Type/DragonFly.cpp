@@ -3,7 +3,7 @@
 
 void DragonFly::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos, int extra, bool drop)
 {
-	AutonomousEntity::init(shaderProgram, tileMap, drop);
+	AutonomousEntity::init(shaderProgram, tileMap, 250, drop);
 	entitySize = glm::ivec2(110, 110);
 	AutonomousEntity::setPattern(new PatternDuel(initialPos, glm::vec2(-1, 0), entitySize, 2));
 	spritesheet.loadFromFile("images/dragonFly.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -60,7 +60,11 @@ void DragonFly::doCollision(Entity* entity, SceneLevel* scene)
 	string type = entity->getType();
 	if (type == "Player" || type == "SpaceshipBullet" || type == "SpaceshipBeam" ||
 		type == "Force" || type == "ForceBullet" || type == "ForceMissile") {
-		scene->increaseScore(1500);
-		startExplosion();
+		int damage = entity->getDamage();
+     		reduceLifePoints(damage);
+		if (getLifePoints() <= 0) {
+			scene->increaseScore(1500);
+			startExplosion();
+		}
 	}
 }

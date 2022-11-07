@@ -32,6 +32,11 @@ string ForceBullet::getType() const
 	return "ForceBullet";
 }
 
+int ForceBullet::getDamage() const
+{
+	return 5;
+}
+
 void ForceBullet::doCollision(Entity* entity, SceneLevel* scene)
 {
 	string type = entity->getType();

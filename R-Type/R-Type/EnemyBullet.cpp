@@ -33,6 +33,11 @@ string EnemyBullet::getType() const
 	return "EnemyBullet";
 }
 
+int EnemyBullet::getDamage() const
+{
+	return 10;
+}
+
 void EnemyBullet::doCollision(Entity* entity, SceneLevel* scene)
 {
 	string type = entity->getType();

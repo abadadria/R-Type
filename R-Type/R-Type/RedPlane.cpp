@@ -3,7 +3,7 @@
 
 void RedPlane::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos, int extra, bool drop)
 {
-	AutonomousEntity::init(shaderProgram, tileMap, drop);
+	AutonomousEntity::init(shaderProgram, tileMap, 10, drop);
 	AutonomousEntity::setPattern(new PatternSin(initialPos, extra, 4, -1, 100));
 	entitySize = glm::ivec2(64, 64);
 	spritesheet.loadFromFile("images/redplane.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -52,7 +52,10 @@ void RedPlane::doCollision(Entity* entity, SceneLevel* scene)
 	string type = entity->getType();
 	if (type == "Player" || type == "SpaceshipBullet" || type == "SpaceshipBeam" ||
 		type == "Force" || type == "ForceBullet" || type == "ForceMissile") {
-		scene->increaseScore(200);
-		startExplosion();
+		reduceLifePoints(entity->getDamage());
+		if (getLifePoints() <= 0) {
+			scene->increaseScore(200);
+			startExplosion();
+		}
 	}
 }

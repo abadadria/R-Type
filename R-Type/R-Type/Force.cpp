@@ -64,8 +64,8 @@ void Force::update(int deltaTime, SceneLevel* scene)
 			// Shooting
 			shootingCounter += 1;
 			if (currentLevel == 1) {
-				while (shootingCounter > 30) {
-					shootingCounter -= 30;
+				while (shootingCounter > 20) {
+					shootingCounter -= 20;
 					shoot(0);
 				}
 			}

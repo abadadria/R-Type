@@ -34,6 +34,11 @@ string DragonFlyBullet::getType() const
 	return "DragonFlyBullet";
 }
 
+int DragonFlyBullet::getDamage() const
+{
+	return 10;
+}
+
 void DragonFlyBullet::doCollision(Entity* entity, SceneLevel* scene)
 {
 	string type = entity->getType();

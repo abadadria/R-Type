@@ -18,7 +18,6 @@ public:
 
 private:
 	int shootingCounter;
-	int live;
 };
 
 #endif _GRAGON_FLY_INCLUDE

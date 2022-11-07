@@ -3,6 +3,7 @@
 
 
 #include "Pattern.h"
+#include "TileMap.h"
 #include "Player.h"
 
 
@@ -10,7 +11,7 @@ class PatternDuel : public Pattern
 {
 
 public:
-	PatternDuel(glm::ivec2 initialPos, glm::vec2 initialMovDir, glm::ivec2 entitySize, int speed);
+	PatternDuel(glm::ivec2 initialPos, glm::vec2 initialMovDir, glm::ivec2 entitySize, int speed, TileMap* tileMap);
 
 	glm::ivec2 calcNewPosition(int deltaTime) override;
 
@@ -22,6 +23,7 @@ private:
 	Player* player;
 	int movementCounter;
 	int speed;
+	TileMap* map;
 };
 
 #endif _PATTERN_DUEL_INCLUDE

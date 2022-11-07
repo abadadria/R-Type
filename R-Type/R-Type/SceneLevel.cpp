@@ -356,6 +356,7 @@ int SceneLevel::getScore() const
 void SceneLevel::setScore(int newScore)
 {
 	score = newScore;
+	if (score < 0) score = 0;
 }
 
 void SceneLevel::increaseScore(int score)
@@ -366,6 +367,7 @@ void SceneLevel::increaseScore(int score)
 void SceneLevel::decreaseScore(int score)
 {
 	this->score -= score;
+	if (score < 0) score = 0;
 }
 
 void SceneLevel::changeShowCollisionBlock() 

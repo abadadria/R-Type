@@ -147,9 +147,6 @@
     <ClCompile Include="DragonFlyBullet.cpp">
       <Filter>Archivos de código fuente\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="PatternSin.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="FinalBoss.cpp">
       <Filter>Archivos de código fuente\Entity</Filter>
     </ClCompile>
@@ -165,11 +162,14 @@
     <ClCompile Include="SceneLevel.cpp">
       <Filter>Archivos de código fuente\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="PatternDuel.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="ForceRay.cpp">
       <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="PatternDuel.cpp">
+      <Filter>Archivos de código fuente\Patters</Filter>
+    </ClCompile>
+    <ClCompile Include="PatternSin.cpp">
+      <Filter>Archivos de código fuente\Patters</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

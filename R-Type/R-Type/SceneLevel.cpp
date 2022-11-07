@@ -257,6 +257,15 @@ void SceneLevel::update(int deltaTime)
 	if (posCamera.x >= 7505) {
 		cam->setSpeed(glm::vec2(0,0));
 	}
+	else if (posCamera.x == 2350) {
+		checkpoint = 2;
+	}
+	else if (posCamera.x == 4500) {
+		checkpoint = 3;
+	}
+	else if (posCamera.x == 6600) {
+		checkpoint = 4;
+	}
 	
 	spriteAuxQuad->setPosition(glm::ivec2(posCamera.x + SCREEN_WIDTH/2 - 175, posCamera.y + SCREEN_HEIGHT / 2 - 125));
 	spriteBackHUDQuad->setPosition(glm::ivec2(posCamera.x, 512));

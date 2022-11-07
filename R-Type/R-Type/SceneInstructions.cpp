@@ -56,10 +56,12 @@ void SceneInstructions::render()
 	text1->render("-[SPACE_BAR]: Shoot normal shot", posElem + glm::vec2(0, 120), textElemSize, textElemColor);
 	text1->render("-[SPACE_BAR](HOLD): Shoot special shot", posElem + glm::vec2(0, 150), textElemSize, textElemColor);
 	text1->render("-[ESC]: Go back", posElem + glm::vec2(0, 180), textElemSize, textElemColor);
-	text1->render("-[G]: Activate invulnerability", posElem + glm::vec2(0, 210), textElemSize, textElemColor);
-	text1->render("-[F]: Activate Force", posElem + glm::vec2(0, 240), textElemSize, textElemColor);
-	text1->render("-[O]: Activate collission overlay", posElem + glm::vec2(0, 270), textElemSize, textElemColor);
-	text1->render("-[1..4]: Skip sections", posElem + glm::vec2(0, 300), textElemSize, textElemColor);
+	text1->render("-[ENTER]: Navigate", posElem + glm::vec2(0, 210), textElemSize, textElemColor);
+	text1->render("-[G]: Activate invulnerability", posElem + glm::vec2(0, 240), textElemSize, textElemColor);
+	text1->render("-[F]: Activate Force", posElem + glm::vec2(0, 270), textElemSize, textElemColor);
+	text1->render("-[O]: Activate collission overlay", posElem + glm::vec2(0, 300), textElemSize, textElemColor);
+	text1->render("-[1..4]: Skip sections", posElem + glm::vec2(0, 330), textElemSize, textElemColor);
+	
 
 	Scene::render();
 }

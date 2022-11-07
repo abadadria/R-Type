@@ -150,12 +150,18 @@ void Player::update(int deltaTime, SceneLevel* scene)
 		// Shooting and Beam
 		glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
 		if (Game::instance().getKey(' ')) {
-			beamCharger += 1;
-			spriteBeamCharge->update(deltaTime);
-			if (!attached)
-				spriteBeamCharge->setPosition(glm::ivec2(posEntity.x + entitySize.x, posEntity.y + 5));
-			else
-				spriteBeamCharge->setPosition(glm::ivec2(posEntity.x + entitySize.x + force->getSize().x, posEntity.y + 5));
+			if (attached && force->getLevel() == 3) {
+				if (beamCharger == 0)
+					beamCharger = 1;
+			}
+			else {
+				beamCharger += 1;
+				spriteBeamCharge->update(deltaTime);
+				if (!attached)
+					spriteBeamCharge->setPosition(glm::ivec2(posEntity.x + entitySize.x, posEntity.y + 5));
+				else
+					spriteBeamCharge->setPosition(glm::ivec2(posEntity.x + entitySize.x + force->getSize().x, posEntity.y + 5));
+			}
 		}
 		else if (beamCharger != 0) {
 			glm::ivec2 posShoot(posEntity.x, posEntity.y);
@@ -181,6 +187,9 @@ void Player::update(int deltaTime, SceneLevel* scene)
 			}
 			beamCharger = 0;
 			resetBeamCharge = true;
+		}
+		if (attached && force->getLevel() == 3 && Game::instance().getKey(' ') && beamCharger != 0) {
+			force->shoot(0);
 		}
 
 		// Movement

@@ -23,18 +23,20 @@ void EnemyBullet::update(int deltaTime, SceneLevel* scene)
 {
 	PassiveEntity::update(deltaTime);
 	if (state == ALIVE) {
-		// Collision with other entities
-		vector<pair<string, string>> collisions = scene->getCollisions(this);
-		for (pair<string, string> e : collisions) {
-			if (e.first == "Player" || e.first == "Force") {
-				startExplosion();
-				break;
-			}
-		}
+		// Collisions
+		scene->doAllCollisions(this);
 	}
 }
 
 string EnemyBullet::getType() const
 {
 	return "EnemyBullet";
+}
+
+void EnemyBullet::doCollision(Entity* entity, SceneLevel* scene)
+{
+	string type = entity->getType();
+	if (type == "Player" || type == "Force") {
+		startExplosion();
+	}
 }

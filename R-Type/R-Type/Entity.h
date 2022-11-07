@@ -10,6 +10,8 @@
 #define DEAD 2
 #define COMPLETELY_DEAD 3
 
+class SceneLevel;
+
 class Entity
 {
 
@@ -26,7 +28,8 @@ public:
 	glm::ivec2 getSize() const;
 	int getState() const;
 
-	bool collision(Entity* entity);
+	void collision(Entity* entity, SceneLevel* Scene);
+	virtual void doCollision(Entity* entity, SceneLevel* scene) = 0;
 
 	~Entity();
 

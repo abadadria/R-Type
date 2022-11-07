@@ -51,13 +51,7 @@ void Force::update(int deltaTime, SceneLevel* scene)
 				shoot(0);
 			}
 			// Collisions
-			vector<pair<string, string>> collisions = scene->getCollisions(this);
-			for (pair<string, string> e : collisions) {
-				if (e.first == "Player") {
-					attached = true;
-					break;
-				}
-			}
+			scene->doAllCollisions(this);
 		}
 		else {
 			// Movement
@@ -90,6 +84,14 @@ void Force::update(int deltaTime, SceneLevel* scene)
 string Force::getType() const
 {
 	return "Force";
+}
+
+void Force::doCollision(Entity* entity, SceneLevel* scene)
+{
+	string type = entity->getType();
+	if (type == "Player") {
+		attached = true;
+	}
 }
 
 void Force::levelUp()

@@ -53,19 +53,21 @@ void SilverRobot::update(int deltaTime, SceneLevel* scene)
 		}
 
 		//Collision with other Entities
-		vector<pair<string, string>> collisions = scene->getCollisions(this);
-		for (pair<string, string> e : collisions) {
-			if (e.first == "Player" || e.first == "SpaceshipBullet" || e.first == "SpaceshipBeam" || 
-				e.first == "Force" || e.first == "ForceBullet" || e.first == "ForceMissile") {
-				scene->increaseScore(200);
-				startExplosion();
-				break;
-			}
-		}
+		scene->doAllCollisions(this);
 	}
 }
 
 string SilverRobot::getType() const
 {
 	return "SilverRobot";
+}
+
+void SilverRobot::doCollision(Entity* entity, SceneLevel* scene)
+{
+	string type = entity->getType();
+	if (type == "Player" || type == "SpaceshipBullet" || type == "SpaceshipBeam" ||
+		type == "Force" || type == "ForceBullet" || type == "ForceMissile") {
+		scene->increaseScore(300);
+		startExplosion();
+	}
 }

@@ -62,6 +62,31 @@ bool Camera::collisionRight(glm::vec2 entityPos, glm::vec2 entitySize, float mar
     return entityPos.x + entitySize.x >= (cameraPos.x + cameraSize.x + margin);
 }
 
+bool Camera::inFrameUp(glm::vec2 entityPos, glm::vec2 entitySize) const {
+    return entityPos.y + entitySize.y > (cameraPos.y);
+}
+
+bool Camera::inFrameDown(glm::vec2 entityPos, glm::vec2 entitySize) const {
+    return entityPos.y < (cameraPos.y + cameraSize.y - 32.f);
+}
+
+bool Camera::inFrameLeft(glm::vec2 entityPos, glm::vec2 entitySize) const {
+    return entityPos.x + entitySize.x > (cameraPos.x);
+}
+
+bool Camera::inFrameRight(glm::vec2 entityPos, glm::vec2 entitySize) const {
+    return entityPos.x < (cameraPos.x + cameraSize.x);
+}
+
+bool Camera::inFrame(glm::vec2 entityPos, glm::vec2 entitySize) const
+{
+    return
+        inFrameRight(entityPos, entitySize) ||
+        inFrameLeft(entityPos, entitySize) ||
+        inFrameDown(entityPos, entitySize) ||
+        inFrameUp(entityPos, entitySize);
+}
+
 bool Camera::collision(glm::vec2 entityPos, glm::vec2 entitySize, float margin) const {
     return
         collisionRight(entityPos, entitySize, margin) ||

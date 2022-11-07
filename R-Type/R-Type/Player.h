@@ -22,6 +22,7 @@ public:
 	bool getCollisionsActive();
 
 	string getType() const override;
+	void doCollision(Entity* entity, SceneLevel* scene);
 
 private:
 	Player();

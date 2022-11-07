@@ -28,6 +28,12 @@ public:
 	bool collisionLeft(glm::vec2 entityPos, glm::vec2 entitySize, float margin) const;
 	bool collisionRight(glm::vec2 entityPos, glm::vec2 entitySize, float margin) const;
 
+	bool inFrameRight(glm::vec2 entityPos, glm::vec2 entitySize) const;
+	bool inFrameLeft(glm::vec2 entityPos, glm::vec2 entitySize) const;
+	bool inFrameDown(glm::vec2 entityPos, glm::vec2 entitySize) const;
+	bool inFrameUp(glm::vec2 entityPos, glm::vec2 entitySize) const;
+	bool inFrame(glm::vec2 entityPos, glm::vec2 entitySize) const;
+
 	Camera(Camera& other) = delete;
 	void operator=(const Camera&) = delete;
 

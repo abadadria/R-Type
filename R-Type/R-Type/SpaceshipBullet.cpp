@@ -23,17 +23,19 @@ void SpaceshipBullet::update(int deltaTime, SceneLevel* scene)
 	PassiveEntity::update(deltaTime);
 	if (state == ALIVE) {
 		// Collision with other entities
-		vector<pair<string, string>> collisions = scene->getCollisions(this);
-		for (pair<string, string> e : collisions) {
-			if (e.first == "RedPlane" || e.first == "SilverRobot" || e.first == "Turret" || e.first == "DragonFly") {
-				startExplosion();
-				break;
-			}
-		}
+		scene->doAllCollisions(this);
 	}
 }
 
 string SpaceshipBullet::getType() const
 {
 	return "SpaceshipBullet";
+}
+
+void SpaceshipBullet::doCollision(Entity* entity, SceneLevel* scene)
+{
+	string type = entity->getType();
+	if (type == "RedPlane" || type == "SilverRobot" || type == "Turret" || type == "DragonFly") {
+		startExplosion();
+	}
 }

@@ -55,26 +55,33 @@ int Entity::getState() const
 	return state;
 }
 
-bool Entity::collision(Entity* entity)
+void Entity::collision(Entity* entity, SceneLevel* scene)
 {
-	//if (!(this->state == ALIVE) || !(entity->state == ALIVE))
-	//	return false;
+	Camera* cam = Camera::getInstance();
 
-	glm::ivec2 pos = entity->posEntity;
-	glm::ivec2 size = entity->entitySize;
+	// To collision, both entities must be ALIVE and visible in the camera frame
+	if ((this->state == ALIVE) && (entity->state == ALIVE) &&
+		(cam->inFrame(this->posEntity, this->entitySize)) &&
+		(cam->inFrame(entity->posEntity, entity->entitySize))) {
 
-	int minx1 = posEntity.x;
-	int maxx1 = posEntity.x + entitySize.x;
-	int minx2 = pos.x;
-	int maxx2 = pos.x + size.x;
+		glm::ivec2 pos = entity->posEntity;
+		glm::ivec2 size = entity->entitySize;
 
-	int miny1 = posEntity.y;
-	int maxy1 = posEntity.y + entitySize.y;
-	int miny2 = pos.y;
-	int maxy2 = pos.y + size.y;
+		int minx1 = posEntity.x;
+		int maxx1 = posEntity.x + entitySize.x;
+		int minx2 = pos.x;
+		int maxx2 = pos.x + size.x;
 
-	return (minx1 < maxx2) && (minx2 < maxx1) &&
-		   (miny1 < maxy2) && (miny2 < maxy1);
+		int miny1 = posEntity.y;
+		int maxy1 = posEntity.y + entitySize.y;
+		int miny2 = pos.y;
+		int maxy2 = pos.y + size.y;
+
+		if ((minx1 < maxx2) && (minx2 < maxx1) && (miny1 < maxy2) && (miny2 < maxy1)) {
+			entity->doCollision(this, scene);
+			this->doCollision(entity, scene);
+		}
+	}
 }
 
 void Entity::startExplosion() {

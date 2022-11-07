@@ -401,43 +401,30 @@ void SceneLevel::spawnForce()
 	}
 }
 
-vector<pair<string, string>> SceneLevel::getCollisions(Entity* entity)
+void SceneLevel::doAllCollisions(Entity* entity)
 {
-	string type = entity->getType();
-
-	vector<pair<string, string>> collisions;
-
-	if (type != "Player") {
+	if (entity->getState() == ALIVE) {
 		// Check collisions with player and bullets
-		if (player->collision(entity))
-			collisions.push_back(make_pair(player->getType(), ""));
-		pair<bool, string> bullet_collision = player->getBulletCollisions(entity);
-		if (bullet_collision.first)
-			collisions.push_back(make_pair(bullet_collision.second, ""));
+		player->collision(entity, this);
+		player->doBulletCollisions(entity, this);
 
 		// Check collisions with Force and bullets
 		if (force != nullptr) {
-			if (force->collision(entity))
-				collisions.push_back(make_pair(force->getType(), ""));
-			bullet_collision = force->getBulletCollisions(entity);
-			if (bullet_collision.first)
-				collisions.push_back(make_pair(bullet_collision.second, ""));
+			force->collision(entity, this);
+			force->doBulletCollisions(entity, this);
+		}
+
+		// Check collisions with enemies and bullets
+		for (AutonomousEntity* enemy : enemies) {
+			enemy->collision(entity, this);
+			enemy->doBulletCollisions(entity, this);
+		}
+
+		// Check collisions with power ups
+		for (PassiveEntity* powerUp : powerUps) {
+			powerUp->collision(entity, this);
 		}
 	}
-
-	for (AutonomousEntity* enemy : enemies) {
-		if (enemy->collision(entity))
-			collisions.push_back(make_pair(enemy->getType(), ""));
-		pair<bool, string> bullet_collision = enemy->getBulletCollisions(entity);
-		if (bullet_collision.first)
-			collisions.push_back(make_pair(bullet_collision.second, ""));
-	}
-
-	for (PassiveEntity* powerUp : powerUps) {
-		if (powerUp->collision(entity))
-			collisions.push_back(make_pair(powerUp->getType(), ""));
-	}
-	return collisions;
 }
 
 int SceneLevel::getEnemySpawnColumn() const

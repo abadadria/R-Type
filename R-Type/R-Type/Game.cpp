@@ -122,16 +122,28 @@ void Game::keyPressed(int key)
 			if (state == PLAYING) sceneLevel.spawnForce();
 			break;
 		case '1':
-			if (state == PLAYING) sceneLevel.gotoCheckpoint(1);
+			if (state == PLAYING) {
+				sceneLevel.init();
+				sceneLevel.gotoCheckpoint(1);
+			}
 			break;
 		case '2':
-			if (state == PLAYING) sceneLevel.gotoCheckpoint(2);
+			if (state == PLAYING) {
+				sceneLevel.init();
+				sceneLevel.gotoCheckpoint(2);
+			}
 			break;
 		case '3':
-			if (state == PLAYING) sceneLevel.gotoCheckpoint(3);
+			if (state == PLAYING) {
+				sceneLevel.init();
+				sceneLevel.gotoCheckpoint(3);
+			}
 			break;
 		case '4':
-			if (state == PLAYING) sceneLevel.gotoCheckpoint(4);
+			if (state == PLAYING) {
+				sceneLevel.init();
+				sceneLevel.gotoCheckpoint(4);
+			}
 			break;
 	}
 	keys[key] = true;

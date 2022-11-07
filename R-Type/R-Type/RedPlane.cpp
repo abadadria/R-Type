@@ -1,10 +1,11 @@
 #include "RedPlane.h"
 #include "PatternSin.h"
+#include <random>
 
 void RedPlane::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos, int extra, bool drop)
 {
 	AutonomousEntity::init(shaderProgram, tileMap, 10, drop);
-	AutonomousEntity::setPattern(new PatternSin(initialPos, extra, 4, -1, 100));
+	AutonomousEntity::setPattern(new PatternSin(initialPos, extra, 4, -2, 100));
 	entitySize = glm::ivec2(64, 64);
 	spritesheet.loadFromFile("images/redplane.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(entitySize, glm::vec2(0.125, 0.5), &spritesheet, &shaderProgram);
@@ -31,11 +32,11 @@ void RedPlane::update(int deltaTime, SceneLevel* scene)
 	AutonomousEntity::update(deltaTime, scene);
 	if (state == ALIVE) {
 		// Shooting
-		shootingCounter += 1;
-		while (shootingCounter > 80) {
-			shootingCounter -= 80;
-			shoot(0);
-		}
+		//shootingCounter += 1;
+		//while (shootingCounter > 140) {
+		//	shootingCounter -= 140;
+		//	shoot(0);
+		//}
 
 		//Collision with other Entities
 		scene->doAllCollisions(this);

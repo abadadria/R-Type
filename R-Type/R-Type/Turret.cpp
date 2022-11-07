@@ -57,8 +57,8 @@ void Turret::update(int deltaTime, SceneLevel* scene)
 
 		// Shooting
 		shootingCounter += 1;
-		while (shootingCounter > 50) {
-			shootingCounter -= 50;
+		while (shootingCounter > 120) {
+			shootingCounter -= 120;
 			if (posPlayer.x < posEntity.x) shoot(0);
 		}
 

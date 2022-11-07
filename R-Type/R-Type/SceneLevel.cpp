@@ -87,6 +87,7 @@ void SceneLevel::init() {
 	playerDead = false;
 	change = NO_CHANGE;
 	checkpoint = 0;
+	stateBoss = 0;
 
 	text0 = new Text();
 	if (!text0->init("fonts/dogica.ttf")) {
@@ -256,6 +257,7 @@ void SceneLevel::update(int deltaTime)
 
 	if (posCamera.x >= 7505) {
 		cam->setSpeed(glm::vec2(0,0));
+		if (stateBoss != 2) stateBoss = 1;
 	}
 	else if (posCamera.x == 2350) {
 		checkpoint = 2;
@@ -307,6 +309,18 @@ void SceneLevel::render()
 			text0->render("NO MORE LIVES", glm::vec2(190, 270), 20, textColor);
 			text0->render("[ESC] MAIN MENU", glm::vec2(165, 340), 20, textColor);
 		}
+	}
+
+	// Check if boss defeated
+	if (stateBoss == 1) { // Fighting the boss
+		if (enemies.size() == 0)  // Boss dead
+			stateBoss = 2;
+	}
+	else if (stateBoss == 2) {
+		text1->render("YOU HAVE WON!!", glm::vec2(85, 210), 40, glm::vec4(1.f, 1.f, 1.f, 1));
+		text1->render("CONGRATULATIONS PILOT", glm::vec2(30, 320), 30, glm::vec4(1.f, 1.f, 1.f, 1));
+		text0->render("THANKS FOR PLAYING", glm::vec2(145, 360), 20, glm::vec4(1.f, 1.f, 1.f, 1));
+		text0->render("PRESS [ESC] TO EXIT", glm::vec2(140, 400), 20, glm::vec4(1.f, 1.f, 1.f, 1));
 	}
 
 	// Render other elements

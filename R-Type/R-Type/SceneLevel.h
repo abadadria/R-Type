@@ -68,6 +68,8 @@ private:
 	int lives;
 	int checkpoint;
 
+	int stateBoss;
+
 	Text* text0;
 	Text* text1;
 	const glm::vec2 posScore = glm::vec2(140, 544 - 10);

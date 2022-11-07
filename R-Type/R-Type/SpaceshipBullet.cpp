@@ -35,7 +35,7 @@ string SpaceshipBullet::getType() const
 void SpaceshipBullet::doCollision(Entity* entity, SceneLevel* scene)
 {
 	string type = entity->getType();
-	if (type == "RedPlane" || type == "SilverRobot" || type == "Turret" || e.first == "DragonFly") {
+	if (type == "RedPlane" || type == "SilverRobot" || type == "Turret" || type == "DragonFly") {
 		startExplosion();
 	}
 }

@@ -313,8 +313,10 @@ void SceneLevel::render()
 
 	// Check if boss defeated
 	if (stateBoss == 1) { // Fighting the boss
-		if (enemies.size() == 0)  // Boss dead
+		if (enemies.size() == 0) {  // Boss dead
+			if (stateBoss == 1) mciSendString(TEXT("play sounds/bossDefeated.wav"), NULL, 0, NULL);
 			stateBoss = 2;
+		}
 	}
 	else if (stateBoss == 2) {
 		text1->render("YOU HAVE WON!!", glm::vec2(85, 210), 40, glm::vec4(1.f, 1.f, 1.f, 1));

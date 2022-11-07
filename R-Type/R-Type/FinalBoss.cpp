@@ -12,13 +12,26 @@ void FinalBoss::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 
 	sprite = Sprite::createSprite(entitySize, glm::vec2(0.25f, 0.125f), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(8);
 
-	int keyframesPerSec = 1;
-	for (int i = 0; i < 8; ++i) {
+	int keyframesPerSec = 10;
+	for (int i = 0; i < 6; ++i) {
 		sprite->setAnimationSpeed(i, keyframesPerSec);
 		sprite->setAnimationLooping(i, true);
 		for (int j = 0; j < 3; ++j)
 			sprite->addKeyframe(i, glm::vec2(0.25f * float(j), 0.125f * float(i)));
 	}
+
+	keyframesPerSec = 15;
+	sprite->setAnimationSpeed(6, keyframesPerSec);
+	sprite->setAnimationLooping(6, true);
+	for (int j = 0; j < 3; ++j)
+		sprite->addKeyframe(6, glm::vec2(0.25f * float(j), 0.125f * float(6)));
+
+	keyframesPerSec = 20;
+	sprite->setAnimationSpeed(7, keyframesPerSec);
+	sprite->setAnimationLooping(7, true);
+	for (int j = 0; j < 3; ++j)
+		sprite->addKeyframe(7, glm::vec2(0.25f * float(j), 0.125f * float(7)));
+
 	actualAnimation = 0;
 	sprite->changeAnimation(actualAnimation);
 
@@ -73,7 +86,7 @@ void FinalBoss::doCollision(Entity* entity, SceneLevel* scene)
 {
 	string type = entity->getType();
 	if (type == "Player" || type == "SpaceshipBullet" || type == "SpaceshipBeam" ||
-		type == "Force" || type == "ForceBullet" || type == "ForceMissile") {
+		type == "Force" || type == "ForceBullet" || type == "ForceMissile" || type == "ForceRay") {
 		int damage = entity->getDamage();
 		reduceLifePoints(damage);
 		if (getLifePoints() <= 0) {

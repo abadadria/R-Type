@@ -57,7 +57,13 @@ int Entity::getState() const
 
 void Entity::collision(Entity* entity, SceneLevel* scene)
 {
-	if ((this->state == ALIVE) && (entity->state == ALIVE)) {
+	Camera* cam = Camera::getInstance();
+
+	// To collision, both entities must be ALIVE and visible in the camera frame
+	if ((this->state == ALIVE) && (entity->state == ALIVE) &&
+		(cam->inFrame(this->posEntity, this->entitySize)) &&
+		(cam->inFrame(entity->posEntity, entity->entitySize))) {
+
 		glm::ivec2 pos = entity->posEntity;
 		glm::ivec2 size = entity->entitySize;
 

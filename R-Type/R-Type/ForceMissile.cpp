@@ -68,6 +68,11 @@ string ForceMissile::getType() const
 	return "ForceMissile";
 }
 
+int ForceMissile::getDamage() const
+{
+	return 30;
+}
+
 void ForceMissile::setPosition(const glm::vec2& pos)
 {
 	posEntity = pos;

@@ -32,6 +32,11 @@ string SpaceshipBullet::getType() const
 	return "SpaceshipBullet";
 }
 
+int SpaceshipBullet::getDamage() const
+{
+	return 10;
+}
+
 void SpaceshipBullet::doCollision(Entity* entity, SceneLevel* scene)
 {
 	string type = entity->getType();

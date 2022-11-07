@@ -33,6 +33,11 @@ string ForceCoin::getType() const
 	return "ForceCoin";
 }
 
+int ForceCoin::getDamage() const
+{
+	return 10;
+}
+
 void ForceCoin::doCollision(Entity* entity, SceneLevel* scene)
 {
 	string type = entity->getType();

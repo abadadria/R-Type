@@ -24,6 +24,8 @@ public:
 	virtual void setPosition(const glm::vec2& pos);
 
 	virtual string getType() const;
+	virtual int getDamage() const;
+
 	glm::ivec2 getPosition() const;
 	glm::ivec2 getSize() const;
 	int getState() const;

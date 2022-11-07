@@ -10,6 +10,7 @@ public:
 	void kill() override;
 
 	string getType() const override;
+	int getDamage() const override;
 	void setPosition(const glm::vec2& pos) override;
 	void doCollision(Entity* entity, SceneLevel* scene);
 

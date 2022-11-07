@@ -9,10 +9,11 @@ AutonomousEntity::~AutonomousEntity() {
 	delete movementPattern;
 }
 
-void AutonomousEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap, bool drop)
+void AutonomousEntity::init(ShaderProgram& shaderProgram, TileMap* tileMap, int life, bool drop)
 {
 	ShootingEntity::init(shaderProgram, tileMap);
 	this->dropPowerUp = drop;
+	this->lifePoints = life;
 }
 
 void AutonomousEntity::update(int deltaTime, SceneLevel* scene)
@@ -113,4 +114,14 @@ void AutonomousEntity::startExplosion()
 		posEntity.y = posEntity.y + float(diffSize.y / 2);
 	}
 	sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
+}
+
+void AutonomousEntity::reduceLifePoints(int points)
+{
+	lifePoints -= points;
+}
+
+int AutonomousEntity::getLifePoints() const
+{
+	return lifePoints;
 }

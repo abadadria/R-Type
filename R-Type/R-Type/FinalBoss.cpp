@@ -3,7 +3,7 @@
 
 void FinalBoss::init(ShaderProgram& shaderProgram, TileMap* tileMap, glm::ivec2 initialPos, int extra, bool drop)
 {
-	initialLife = 1200;
+	initialLife = 3000;
 	AutonomousEntity::init(shaderProgram, tileMap, initialLife, drop);
 	//entitySize = glm::ivec2(155, 246); // original size
 	//entitySize = glm::ivec2(168, 455); // funciona

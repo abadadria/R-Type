@@ -37,6 +37,9 @@ void Force::update(int deltaTime, SceneLevel* scene)
 {
 	ShootingEntity::update(deltaTime, scene);
 	if (state == ALIVE) {
+		levelDownTimer -= 1;
+		if (levelDownTimer == 0)
+			levelDown();
 		if (!attached) {
 			// Movement
 			posEntity.x += unattachedMovementVec.x;
@@ -100,6 +103,10 @@ void Force::doCollision(Entity* entity, SceneLevel* scene)
 	}
 }
 
+void Force::setLevel1()
+{
+}
+
 void Force::levelUp()
 {
 	if (attached) {
@@ -123,6 +130,7 @@ void Force::levelUp()
 			posEntity.y += (prevSize.y / 2 - entitySize.y / 2);
 			sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 			currentLevel++;
+			levelDownTimer = 60 * 30;
 		}
 		else if (currentLevel == 2) {
 			glm::ivec2 prevSize = entitySize;
@@ -145,8 +153,13 @@ void Force::levelUp()
 			posEntity.y += (prevSize.y / 2 - entitySize.y / 2);
 			sprite->setPosition(glm::vec2(float(posEntity.x), float(posEntity.y)));
 			currentLevel++;
+			levelDownTimer = 60 * 20;
 		}
 	}
+}
+
+void Force::levelDown()
+{
 }
 
 int Force::getLevel() const

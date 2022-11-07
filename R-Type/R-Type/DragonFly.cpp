@@ -59,7 +59,7 @@ void DragonFly::doCollision(Entity* entity, SceneLevel* scene)
 {
 	string type = entity->getType();
 	if (type == "Player" || type == "SpaceshipBullet" || type == "SpaceshipBeam" ||
-		type == "Force" || type == "ForceBullet" || type == "ForceMissile") {
+		type == "Force" || type == "ForceBullet" || type == "ForceMissile" || type == "ForceRay") {
 		int damage = entity->getDamage();
      		reduceLifePoints(damage);
 		if (getLifePoints() <= 0) {

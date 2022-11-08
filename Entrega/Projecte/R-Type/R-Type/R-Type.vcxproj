@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AutonomousEntity.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DragonFly.cpp" />
+    <ClCompile Include="DragonFlyBullet.cpp" />
+    <ClCompile Include="EnemyBullet.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="FinalBoss.cpp" />
+    <ClCompile Include="FinalBossBullet1.cpp" />
+    <ClCompile Include="FinalBossBullet2.cpp" />
+    <ClCompile Include="Force.cpp" />
+    <ClCompile Include="ForceBullet.cpp" />
+    <ClCompile Include="ForceCoin.cpp" />
+    <ClCompile Include="ForceMissile.cpp" />
+    <ClCompile Include="ForceRay.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="PassiveEntity.cpp" />
+    <ClCompile Include="PatternDiagonalBounce.cpp" />
+    <ClCompile Include="PatternDuel.cpp" />
+    <ClCompile Include="PatternSin.cpp" />
+    <ClCompile Include="PatternStatic.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Quad.cpp" />
+    <ClCompile Include="RedPlane.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneCredits.cpp" />
+    <ClCompile Include="SceneInstructions.cpp" />
+    <ClCompile Include="SceneLevel.cpp" />
+    <ClCompile Include="SceneMenu.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="ShootingEntity.cpp" />
+    <ClCompile Include="SilverRobot.cpp" />
+    <ClCompile Include="SpaceshipBeam.cpp" />
+    <ClCompile Include="SpaceshipBullet.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="SpriteSpaceship.cpp" />
+    <ClCompile Include="Text.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TexturedQuad.cpp" />
+    <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="Turret.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AnimKeyframes.h" />
+    <ClInclude Include="AutonomousEntity.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="DragonFly.h" />
+    <ClInclude Include="DragonFlyBullet.h" />
+    <ClInclude Include="EnemyBullet.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="FinalBoss.h" />
+    <ClInclude Include="FinalBossBullet1.h" />
+    <ClInclude Include="FinalBossBullet2.h" />
+    <ClInclude Include="Force.h" />
+    <ClInclude Include="ForceBullet.h" />
+    <ClInclude Include="ForceCoin.h" />
+    <ClInclude Include="ForceMissile.h" />
+    <ClInclude Include="ForceRay.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="PassiveEntity.h" />
+    <ClInclude Include="Pattern.h" />
+    <ClInclude Include="PatternDiagonalBounce.h" />
+    <ClInclude Include="PatternDuel.h" />
+    <ClInclude Include="PatternSin.h" />
+    <ClInclude Include="PatternStatic.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Quad.h" />
+    <ClInclude Include="RedPlane.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneCredits.h" />
+    <ClInclude Include="SceneInstructions.h" />
+    <ClInclude Include="SceneLevel.h" />
+    <ClInclude Include="SceneMenu.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="ShootingEntity.h" />
+    <ClInclude Include="SilverRobot.h" />
+    <ClInclude Include="SpaceshipBeam.h" />
+    <ClInclude Include="SpaceshipBullet.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpriteSpaceship.h" />
+    <ClInclude Include="Text.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="TexturedQuad.h" />
+    <ClInclude Include="TileMap.h" />
+    <ClInclude Include="Turret.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="R-Type.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\sprites\fileIcon.ico" />
+    <Image Include="..\..\sprites\fileIcon.png" />
+    <Image Include="icon1.ico" />
+    <Image Include="images\fileIcon.ico" />
+    <Image Include="images\fileIcon.png" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5BE6CA2A-E5A8-40CC-9015-047CE0C78036}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>My01window</RootNamespace>
+    <ProjectName>R-Type</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\libs\freetype-2.3.5-1-bin\include\freetype2;..\..\libs\freetype-2.3.5-1-bin\include;..\..\libs\Simple OpenGL Image Library\src;..\..\libs\freeglut\include;..\..\libs\glew-1.13.0\include;..\..\libs\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\..\libs\freetype-2.3.5-1-bin\lib;..\..\libs\Simple OpenGL Image Library\projects\VC9\Debug;..\..\libs\freeglut\lib;..\..\libs\glew-1.13.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freetype.lib;SOIL.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\libs\freetype-2.3.5-1-bin\include\freetype2;..\..\libs\freetype-2.3.5-1-bin\include;..\..\libs\Simple OpenGL Image Library\src;..\..\libs\freeglut\include;..\..\libs\glew-1.13.0\include;..\..\libs\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\..\libs\freetype-2.3.5-1-bin\lib;..\..\libs\Simple OpenGL Image Library\projects\VC9\Debug;..\..\libs\freeglut\lib;..\..\libs\glew-1.13.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freetype.lib;SOIL.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

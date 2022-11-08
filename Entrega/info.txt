@@ -1,0 +1,98 @@
+Nom i cognom dels integrants del grup:
+- ADRIÀ ABAD MORENO (adria.abad@estudiantat.upc.edu)
+- RAÜL SAMPIETRO GUTIÉRREZ (raul.sampietro@estudiantat.upc.edu)
+
+
+Funcionalitats implementades:
+- Pantalles:
+  - Pantalla de menú principal
+  - Pantalla d'instruccions
+  - Pantalla de crèdits
+  - Pantalla de jugar
+  - Pantalla de game over
+  - Pantalla de passar-se el joc
+
+- Efectes de so:
+  - Música de menús (principal, instruccions i crèdits)
+  - Efecte de transició navegar entre menús 
+  - Efecte de transició en començar a jugar
+  - Efecte de mort del jugador
+  - Efecte de mort del final boss
+  - Efecte d'obtenció, millora i desmillora de Force
+  - Música durant el progrés del nivell (diferent de la del menú)
+
+- Nivells:
+  - Nivell variat amb boss final
+  - Fons del nivell dinàmic
+
+- Player:
+  - Dispara de forma normal
+  - Dispara un atac carregat més poderós que fa més mal i travesa els enemics (Beam)
+  - Adquireix el dispositiu Force (comportament com al joc original)
+  - Té animació de moviment
+  - Té animació de mort
+
+- Force:
+  - Implementa 3 nivells, el bàsic i dos de millora. Tots s'obtenen recollint objectes
+  - Cada nivell té una animació diferent i un tipus de tret diferent
+  - Es van perdent els nivells cada cert temps si no es recullen els objectes de millora
+
+- Enemics:
+  - Implementa 4 tipus d'enemics a part del boss final:
+    - RedPlane: Nau vermella que es mou de dalt a baix
+    - SilverRobot: Robot platejat que es mou en diagonal rebotant contra el mapa i dispara un tret bàsic
+    - Turret: Torreta que es troba a les parets del mapa i dispara un tret bàsic
+    - DragonFly: Libèl·lula verda que s'enfronta al player i dispara un tret especific més poderós
+  - Tots els enemics tenen animació de moviment i de mort
+
+- Boss final:
+  - Comportament similar al del joc original, implementa dos tipus diferents de trets
+  - Té animació segons la vida que li queda
+
+- Tecles per saltar contingut i per debugar:
+  - Invulnerabilitat amb la tecla G
+  - Afegir dispositiu force i els seus nivells amb la tecla F
+  - Salts a punts en concret del nivell amb les tecles 1,2,3,4
+  - Mostrar els tiles de colisions per sobre del mapa amb la tecla O
+
+- Script de generació de mapa de col·lisions:
+  - Script en Python que passant-li la imatge del mapa, genera un fitxer de nivell amb
+    la informació de les col·lisions.
+  - L'script es troba a Projecte/CollisionGeneration
+  - Veure README.md per més informació sobre com usar-lo
+
+- Arxiu de nivell:
+  - Només n'hem implementat un de nivell, però si es volgués definir un
+    altre simplement caldria generar les col·lisions, definir els enemics
+    i posar-los al mapa.
+  - Arxiu del nivell usat en el joc Projecte\R-Type\R-Type\levels\level01.txt
+  - Si es modifica aquest arxiu, els canvis es veuran reflectits al joc
+  - Sintaxi d'ENEMY_DEFS (definicions de que volen dir les lletres [A, B, C...]):
+    - Primer s'indica el numero de lletres que es defineixen.
+    - Després es defineix una lletra per linia
+    - Per cada lletra: <lletra> <num enemics> [<tipus enemic> <valor inicial> <power up>]
+      Exemple: La lletra A significa dos enemics, un de tipus 2 amb valor inicial 90 que no
+               deixa power up quan mor i un altre de tipus 3 amb valor inicial 0 i que si
+               deixa power up quan mor:
+               A 2 2 90 0 3 0 1
+    - Tipus enemics:
+      2: RedPlane
+      3: SilverRobot
+      4: Turret
+      5: DragonFly
+      6: FinalBoss
+
+
+Instruccions del joc:
+  -[UP_ARROW]: Move player up
+  -[DOWN_ARROW]: Move player down
+  -[LEFT_ARROW]: Move player to the left
+  -[RIGHT_ARROW]: Move playe to the right
+  -[SPACE_BAR]: Shoot normal shot
+  -[SPACE_BAR](HOLD): Shoot special shot
+  -[ESC]: Go back
+  -[ENTER]: Navigate
+  -[G]: Activate invulnerability
+  -[F]: Activate Force (si es prem quan ja es té el force, puja un nivell)
+  -[O]: Activate collission overlay
+  -[1..4]: Skip sections

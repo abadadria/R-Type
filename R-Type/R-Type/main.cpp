@@ -2,7 +2,6 @@
 #include <GL/glut.h>
 #include "Game.h"
 
-
 //Remove console (only works in Visual Studio)
 #pragma comment(linker, "/subsystem:\"windows\" /entry:\"mainCRTStartup\"")
 
@@ -66,17 +65,26 @@ static void drawCallback()
 
 static void idleCallback()
 {
+	// Total time elapsed since the start of the execution
 	int currentTime = glutGet(GLUT_ELAPSED_TIME);
+	// Time used by this frame
+	// prevTime is the elapsed time since the start of the execution until the previous frame
 	int deltaTime = currentTime - prevTime;
 	
 	if(deltaTime > TIME_PER_FRAME)
 	{
 		// Every time we enter here is equivalent to a game loop execution
-		if(!Game::instance().update(deltaTime))
+		// .update(...) returns if the game has to exit
+		if(Game::instance().update(deltaTime))
 			exit(0);
 		prevTime = currentTime;
 		glutPostRedisplay();
 	}
+}
+
+void resize(int width, int height) {
+	// we ignore the params and do:
+	glutReshapeWindow(SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
 
@@ -98,10 +106,15 @@ int main(int argc, char **argv)
 	glutMouseFunc(mouseCallback);
 	glutMotionFunc(motionCallback);
 
+	// disable the window resize
+	glutReshapeFunc(resize);
+
+	
+
 	// GLEW will take care of OpenGL extension functions
 	glewExperimental = GL_TRUE;
 	glewInit();
-	
+
 	// Game instance initialization
 	Game::instance().init();
 	prevTime = glutGet(GLUT_ELAPSED_TIME);
